@@ -1,15 +1,16 @@
 import "./App.css";
+import { BrowserRouter as Router } from "react-router-dom";
 import Footer from "./sections/Footer";
 import Header from "./sections/Header";
 import Routes from "./sections/Routes";
 
 function App() {
   return (
-    <div>
+    <Router>
       <Header />
       <Routes />
       <Footer />
-    </div>
+    </Router>
   );
 }
 

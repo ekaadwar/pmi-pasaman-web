@@ -8,7 +8,7 @@ const Header = () => {
     <header className="fixed w-full bg-white shadow-md shadow-stone-500/40">
       <Container
         content={
-          <div className="flex flex-row justify-between items-center h-16">
+          <div className="flex flex-row justify-between items-center h-20">
             <Link to="#">
               <div className="w-10 h-10">
                 <img src={logoPmi} alt="logo PMI Pasaman" />

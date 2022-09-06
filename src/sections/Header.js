@@ -9,7 +9,7 @@ const Header = () => {
       <Container
         content={
           <div className="flex flex-row justify-between items-center h-20">
-            <Link to="#">
+            <Link to="/">
               <div className="w-10 h-10">
                 <img src={logoPmi} alt="logo PMI Pasaman" />
               </div>
@@ -23,7 +23,7 @@ const Header = () => {
             <div className="flex flex-row justify-center space-x-8">
               <Link to="#">Daftar</Link>
               <p>|</p>
-              <Link to="#">Masuk</Link>
+              <Link to="signin">Masuk</Link>
             </div>
           </div>
         }

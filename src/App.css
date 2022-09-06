@@ -48,3 +48,10 @@
   background-attachment: fixed;
   background-size: cover;
 }
+
+.authPage {
+  background-image: url("./assets/image/background/auth_bg.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 50%;
+}

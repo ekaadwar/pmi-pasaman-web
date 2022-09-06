@@ -4,7 +4,7 @@ import { logoName } from "../assets";
 import { SectionHeader } from "../components/Text";
 import List from "../components/List";
 import { loveCombine1, loveCombine2 } from "../assets";
-import { HomeSection, HomeJumbotron } from "../components/Section";
+import { PageSection, PageJumbotron } from "../components/Section";
 import BloodBox from "../components/BloodBox";
 import { bloodStock } from "../dummy";
 import { PrimaryButton } from "../components/Button";
@@ -12,7 +12,7 @@ import { PrimaryButton } from "../components/Button";
 const Home = () => {
   return (
     <section className="">
-      <HomeJumbotron
+      <PageJumbotron
         content={
           <Container
             content={
@@ -27,7 +27,7 @@ const Home = () => {
           />
         }
       />
-      <HomeSection
+      <PageSection
         content={
           <Container
             content={
@@ -65,7 +65,7 @@ const Home = () => {
           />
         }
       />
-      <HomeSection
+      <PageSection
         content={
           <Container
             content={
@@ -83,7 +83,7 @@ const Home = () => {
           />
         }
       />
-      <HomeSection
+      <PageSection
         content={
           <Container
             content={

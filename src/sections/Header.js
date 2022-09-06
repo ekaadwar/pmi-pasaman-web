@@ -21,7 +21,7 @@ const Header = () => {
               <Link to="#">Pelayanan</Link>
             </div>
             <div className="flex flex-row justify-center space-x-8">
-              <Link to="#">Daftar</Link>
+              <Link to="signup">Daftar</Link>
               <p>|</p>
               <Link to="signin">Masuk</Link>
             </div>

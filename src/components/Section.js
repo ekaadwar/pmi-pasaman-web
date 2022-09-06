@@ -15,5 +15,5 @@ export const PageJumbotron = ({ content = <div /> }) => {
 };
 
 export const AuthSection = ({ content = <div /> }) => {
-  return <section className="pt-40 pb-20 px-10">{content}</section>;
+  return <section className="pt-32 pb-20 px-10">{content}</section>;
 };

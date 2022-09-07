@@ -63,3 +63,7 @@
   background-size: 100%;
   background-color: black;
 }
+
+.text-shadow {
+  text-shadow: 0 0 3px #000;
+}

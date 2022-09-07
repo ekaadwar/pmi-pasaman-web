@@ -3,7 +3,7 @@ import Container from "../components/Container";
 import { Link } from "react-router-dom";
 import { AuthSection } from "../components/Section";
 import { AuthHeader } from "../components/Text";
-import Input from "../components/Input";
+import { InputAuth } from "../components/Input";
 import { PrimaryButton } from "../components/Button";
 
 const SignIn = () => {
@@ -20,11 +20,11 @@ const SignIn = () => {
                       <AuthHeader text="Masuk" />
                     </div>
 
-                    <Input
+                    <InputAuth
                       label="Username :"
                       placeholder="Masukan email/no.HP Anda"
                     />
-                    <Input
+                    <InputAuth
                       label="Password :"
                       placeholder="Masukan password Anda"
                     />

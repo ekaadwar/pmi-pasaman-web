@@ -2,7 +2,7 @@ import React from "react";
 import Container from "../components/Container";
 import { AuthSection } from "../components/Section";
 import { AuthHeader } from "../components/Text";
-import Input from "../components/Input";
+import { InputAuth } from "../components/Input";
 import { PrimaryButton } from "../components/Button";
 
 const SignUp = () => {
@@ -18,20 +18,23 @@ const SignUp = () => {
                     <div className="text-center">
                       <AuthHeader text="Daftar" />
                     </div>
-                    <Input
+                    <InputAuth
                       label="Nama :"
                       placeholder="Masukan nama lengkap Anda"
                     />
-                    <Input
+                    <InputAuth
                       label="HP :"
                       placeholder="Masukan nomor handphone Anda"
                     />
-                    <Input label="Email :" placeholder="Masukan email Anda" />
-                    <Input
+                    <InputAuth
+                      label="Email :"
+                      placeholder="Masukan email Anda"
+                    />
+                    <InputAuth
                       label="Password :"
                       placeholder="Masukan password Anda"
                     />
-                    <Input
+                    <InputAuth
                       label="Ulangi Password :"
                       placeholder="Ulangi password Anda"
                     />

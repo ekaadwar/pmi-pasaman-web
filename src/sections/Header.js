@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <header className="fixed w-full bg-white shadow-md shadow-stone-500/40">
+    <header className="fixed z-50 w-full bg-white shadow-md shadow-stone-500/40">
       <Container
         content={
           <div className="flex flex-row justify-between items-center h-20">

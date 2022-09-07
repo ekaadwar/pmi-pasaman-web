@@ -34,9 +34,11 @@ const SignIn = () => {
                       </Link>
                     </div>
 
-                    <PrimaryButton
-                      content={<p className="text-white font-bold">Kirim</p>}
-                    />
+                    <Link to="/profile" className="block">
+                      <PrimaryButton
+                        content={<p className="text-white font-bold">Kirim</p>}
+                      />
+                    </Link>
                   </div>
                 }
               />

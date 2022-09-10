@@ -1,5 +1,6 @@
 import React from "react";
 import { Routes as Switch, Route } from "react-router-dom";
+import AddData from "../pages/AddData";
 import Data from "../pages/Data";
 import Home from "../pages/Home";
 import Profile from "../pages/Profile";
@@ -13,7 +14,8 @@ const Routes = () => {
       <Route path="/profile" element={<Profile />} />
       <Route path="/signin" element={<SignIn />} />
       <Route path="/signup" element={<SignUp />} />
-      <Route path="/data" element={<Data />} />
+      <Route path="/data" exact element={<Data />} />
+      <Route path="/data/add" exact element={<AddData />} />
     </Switch>
   );
 };

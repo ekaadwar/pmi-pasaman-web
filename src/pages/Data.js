@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { MdDeleteOutline as Delete } from "react-icons/md";
 import {
   BiCaretLeft as Back,
@@ -41,7 +42,7 @@ const Data = () => {
                   placeholder="Cari ..."
                   className="h-full w-full focus:outline-none px-5 border border-red-800 border-r-0 rounded-l-lg placeholder:text-red-400"
                 />
-                <button className="h-full w-20 flex items-center justify-center bg-red-800 active:bg-red-900 rounded-r-lg">
+                <button className="h-full w-20 flex items-center justify-center bg-red-900 active:bg-red-700 rounded-r-lg">
                   <Search color="white" size={24} />
                 </button>
               </div>
@@ -103,7 +104,9 @@ const Data = () => {
             <div className="flex flex-row items-center justify-end space-x-2">
               <ActionButton content={"Unduh Data"} />
               <ActionButton content={"Unggah Data"} />
-              <ActionButton content={"Tambah Data"} />
+              <Link to="/data/add">
+                <ActionButton content={"Tambah Data"} />
+              </Link>
             </div>
           </div>
         }

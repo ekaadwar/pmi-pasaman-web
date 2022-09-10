@@ -33,7 +33,7 @@ export const InputArea = ({ label = "", placeholder = "", value = "" }) => {
       <textarea
         placeholder={placeholder}
         // value={value}
-        rows="3"
+        rows="2"
         className="px-3 py-2 border-b border-gray-700 bg-white focus:outline-none "
       />
     </div>

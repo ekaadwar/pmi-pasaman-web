@@ -20,12 +20,15 @@ import { donorParticipant } from "../dummy";
 
 const Data = () => {
   return (
-    <section className="pt-40 pb-20">
+    <section className="pt-32 pb-20">
       <Container
         content={
-          <div>
-            <SectionHeader text="Data Peserta Donor Darah" />
-            <div className="flex flex-row items-center space-x-2">
+          <div className="space-y-5">
+            <div className="mb-12">
+              <SectionHeader text="Data Peserta Donor Darah" />
+            </div>
+
+            <div className="flex flex-row items-center my-12 space-x-2">
               <div className="flex felx-row items-center space-x-2">
                 <NavButton text="All" />
                 <NavButton text="A" />
@@ -66,14 +69,6 @@ const Data = () => {
                   <tr>
                     <CheckRow />
                     {Object.values(row).map((item, id) => (
-                      // Object.keys(row)[id] === "id" ? (
-                      //   <TableData
-                      //     isEven={idx % 2 === 0 && true}
-                      //     text={idx + 1}
-                      //   />
-                      // ) : (
-                      //   <TableData isEven={idx % 2 === 0 && true} text={item} />
-                      // )
                       <TableData
                         column={Object.keys(row)[id]}
                         isEven={idx % 2 === 0 && true}
@@ -95,16 +90,20 @@ const Data = () => {
               </tbody>
             </table>
 
-            <div className="flex flex-row bg-red-100 items-center justify-center">
+            <div className="flex flex-row items-center justify-center">
               <button className="text-gray-800 cursor-default">
                 <Back size={24} />
               </button>
-
               <p>1</p>
-
               <button className="text-red-800 active:text-red-900">
                 <Forward size={24} />
               </button>
+            </div>
+
+            <div className="flex flex-row items-center justify-end space-x-2">
+              <ActionButton content={"Unduh Data"} />
+              <ActionButton content={"Unggah Data"} />
+              <ActionButton content={"Tambah Data"} />
             </div>
           </div>
         }

@@ -20,3 +20,19 @@ export const CircleButton = ({ content = <div /> }) => {
     />
   );
 };
+
+export const NavButton = ({ active = false, text = "" }) => {
+  return (
+    <button className="bg-red-400 focus:bg-red-800 text-white h-10 w-20 flex flex-row items-center justify-center rounded-lg">
+      {text}
+    </button>
+  );
+};
+
+export const ActionButton = ({ content = <div /> }) => {
+  return (
+    <button className="flex flex-row items-center justify-center bg-red-800 active:bg-red-900 text-white h-8 min-w-xs rounded-md">
+      {content}
+    </button>
+  );
+};

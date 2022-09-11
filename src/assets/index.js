@@ -10,4 +10,5 @@ export const loveCombine2 = require("./image/decorate/love_combine2.png");
 export const night = require("./image/background/night.jpg");
 export const rectangles = require("./image/decorate/rectangles.png");
 export const rotateRectangle = require("./image/decorate/rotate_rectangle.png");
+export const together = require("./image/background/together.jpg");
 export const zulaikha = require("./image/decorate/zulaikha.png");

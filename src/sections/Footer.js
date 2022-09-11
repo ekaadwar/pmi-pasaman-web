@@ -6,7 +6,7 @@ import MediaLane from "../components/MediaLane";
 
 const Footer = () => {
   return (
-    <div className="text-white bg-gray-900">
+    <div className="footer text-white">
       <Container
         content={
           <div className="flex flex-row justify-between py-10">

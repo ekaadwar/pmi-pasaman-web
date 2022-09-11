@@ -1,5 +1,4 @@
 import React from "react";
-import { FiEdit2 as Edit } from "react-icons/fi";
 
 import Container from "../components/Container";
 import { CircleButton } from "../components/Button";

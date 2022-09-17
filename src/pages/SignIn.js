@@ -29,7 +29,7 @@ const SignIn = () => {
                       placeholder="Masukan password Anda"
                     />
                     <div>
-                      <Link to="/forgot-pass">
+                      <Link to="/profile">
                         <p>Anda lupa password?</p>
                       </Link>
                     </div>

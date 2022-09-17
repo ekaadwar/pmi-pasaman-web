@@ -12,7 +12,7 @@ const Routes = () => {
   return (
     <Switch>
       <Route path="/" exact element={<Home />} />
-      <Route path="/profile" element={<Profile />} />
+      <Route path="/profile" element={<SignUp />} />
       <Route path="/signin" element={<SignIn />} />
       <Route path="/signup" element={<SignUp />} />
       <Route path="/forgot-pass" element={<ForgotPass />} />

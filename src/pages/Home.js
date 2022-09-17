@@ -22,6 +22,7 @@ const Home = () => {
                   Pelayanan yang dilaksanakan oleh Palang Merah Indonesia sesuai
                   amanat Undang-Undang No.1 Tahun 2018 tentang Kepalangmerahan
                 </p>
+                <p className="w-1/2 text-white font-bold">oke</p>
               </div>
             }
           />

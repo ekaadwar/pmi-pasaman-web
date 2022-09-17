@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import Container from "../components/Container";
-import { CircleButton } from "../components/Button";
-import { CircleMd } from "../components/Circle";
-import { donorHistory } from "../dummy";
+import Container from "../../components/Container";
+import { CircleButton } from "../../components/Button";
+import { CircleMd } from "../../components/Circle";
+import { donorHistory } from "../../dummy";
 import { FiEdit2 as Edit } from "react-icons/fi";
-import { InputArea, InputProfile } from "../components/Input";
-import { ProfileCard } from "../components/Card";
-import { zulaikha } from "../assets";
-import DonorHistory from "../components/DonorHistory";
+import { InputArea, InputProfile } from "../../components/Input";
+import { ProfileCard } from "../../components/Card";
+import { zulaikha } from "../../assets";
+import DonorHistory from "../../components/DonorHistory";
 
 const Profile = () => {
   const [leftData, setLeftData] = useState([]);

@@ -11,12 +11,12 @@ import SignUp from "../pages/SignUp";
 const Routes = () => {
   return (
     <Switch>
-      <Route path="/" exact element={<Profile />} />
+      <Route path="/" exact element={<Data />} />
       <Route path="/profile" element={<Home />} />
       <Route path="/signin" element={<SignIn />} />
       <Route path="/signup" element={<SignUp />} />
       <Route path="/forgot-pass" element={<ForgotPass />} />
-      <Route path="/data" exact element={<Data />} />
+      <Route path="/data" exact element={<Profile />} />
       <Route path="/data/add" exact element={<AddData />} />
     </Switch>
   );

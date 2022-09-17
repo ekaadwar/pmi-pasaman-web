@@ -4,7 +4,7 @@ import AddData from "../pages/AddData";
 import Data from "../pages/Data";
 import ForgotPass from "../pages/ForgotPass";
 import Home from "../pages/Home";
-import Profile from "../pages/Profile";
+// import Profile from "../pages/Profile";
 import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
 

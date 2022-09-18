@@ -55,7 +55,7 @@ const Profile = () => {
   // };
 
   return (
-    <section className="pt-32 pb-20">
+    <section className="profile pt-32 pb-20">
       <Container
         content={
           <div>

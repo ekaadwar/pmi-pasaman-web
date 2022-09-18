@@ -14,9 +14,9 @@ const AddData = () => {
             <div className="max-w-3xl">
               <ProfileCard
                 content={
-                  <div className="grid grid-cols-2 gap-5">
-                    <div className="col-span-2 flex flex-row justify-between items-center">
-                      <p className="font-bold text-2xl pt-5 text-gray-800">
+                  <div className="grid sm:grid-cols-2 gap-5">
+                    <div className="sm:col-span-2 flex flex-row justify-between items-center">
+                      <p className="font-bold text-2xl pt-5 pr-5 text-gray-800">
                         Tambah Data Pendonor
                       </p>
                       <CircleButton
@@ -27,7 +27,7 @@ const AddData = () => {
                       <InputProfile label="Name" /*value="Zulaikha"*/ />
                     </div>
                     <div>
-                      <InputProfile label="Tempat Lahir" /*value="xxx"*/ />
+                      <InputProfile label="Tanggal Lahir" /*value="xxx"*/ />
                     </div>
                     <div>
                       <InputProfile
@@ -36,7 +36,7 @@ const AddData = () => {
                     </div>
                     <div>
                       <InputProfile
-                        label="Tanggal Lahir"
+                        label="Pekerjaan"
                         /*value="xx xx xxxx"*/
                       />
                     </div>
@@ -46,7 +46,7 @@ const AddData = () => {
                     <div>
                       <InputProfile label="Golongan Darah" /*value="A"*/ />
                     </div>
-                    <div className="col-span-2">
+                    <div className="sm:col-span-2">
                       <InputArea
                         label="Alamat"
                         /*value="Jalan xxx Nomor xxx, Kec. xxx, Kab. xxx, provinsi"*/

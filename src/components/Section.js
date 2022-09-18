@@ -1,7 +1,15 @@
 import React from "react";
 
-export const PageSection = ({ content = <div /> }) => {
-  return <section className="min-height h-screen pt-20">{content}</section>;
+// export const AuthSection = ({ content = <div /> }) => {
+//   return <section className="pt-32 pb-20 px-10">{content}</section>;
+// };
+
+export const AuthSection = ({ content = <div /> }) => {
+  return (
+    <section className="auth-page min-height min-h-screen h-screen pt-20">
+      {content}
+    </section>
+  );
 };
 
 export const PageJumbotron = ({ content = <div /> }) => {
@@ -10,6 +18,6 @@ export const PageJumbotron = ({ content = <div /> }) => {
   );
 };
 
-export const AuthSection = ({ content = <div /> }) => {
-  return <section className="pt-32 pb-20 px-10">{content}</section>;
+export const PageSection = ({ content = <div /> }) => {
+  return <section className="min-height h-screen pt-20">{content}</section>;
 };

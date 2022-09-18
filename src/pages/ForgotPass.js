@@ -3,7 +3,7 @@ import { SectionHeader } from "../components/Text";
 
 const ForgotPass = () => {
   return (
-    <section className="forgotpass-page flex flex-col justify-center items-center h-screen text-white space-y-5 px-5 py-20">
+    <section className="forgotpass-page flex flex-col justify-center items-center h-screen text-white space-y-5 px-5 pt-20">
       <SectionHeader text="Anda lupa password?" />
       <p className="text-center">
         Jangan khawatir, kami akan menemukannya kembali.

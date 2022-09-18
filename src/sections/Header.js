@@ -64,6 +64,9 @@ const Header = () => {
                 <Link to="#" onClick={() => setIsOpen(false)}>
                   Pelayan
                 </Link>
+                <Link to="/data" onClick={() => setIsOpen(false)}>
+                  Data
+                </Link>
 
                 <div className="flex flex-row space-x-3 font-bold">
                   <Link to="/signin" onClick={() => setIsOpen(false)}>

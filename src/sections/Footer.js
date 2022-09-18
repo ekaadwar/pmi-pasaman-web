@@ -9,7 +9,7 @@ const Footer = () => {
     <div className="footer text-white">
       <Container
         content={
-          <div className="flex flex-row justify-between py-10">
+          <div className="flex flex-col sm:flex-row sm:justify-between space-y-10 py-10">
             <div className="max-w-lg space-y-5">
               <div className="w-40">
                 <img
@@ -24,7 +24,7 @@ const Footer = () => {
               <p>Alamat Markas PMI Kabupaten Pasaman</p>
             </div>
 
-            <div className="flex flex-col items-end space-y-2">
+            <div className="flex flex-col items-start sm:items-end space-y-2">
               {socialMedia.map((item, idx) => (
                 <div key={idx}>
                   <MediaLane media={item.media} icon={item.icon} />

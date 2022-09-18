@@ -55,11 +55,11 @@ const Profile = () => {
   // };
 
   return (
-    <section className="profile pt-32 pb-20">
+    <section className="profile min-h-screen pt-32 pb-20">
       <Container
         content={
-          <div>
-            <div className="grid grid-cols-3 gap-10">
+          <div className="flex justify-center">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10 sm:gap-2 md:gap-10 max-w-md w-full sm:max-w-none">
               <div>
                 <ProfileCard
                   content={
@@ -89,44 +89,51 @@ const Profile = () => {
                 />
               </div>
 
-              <div className="col-span-2">
+              <div className="lg:col-span-2">
                 <ProfileCard
                   content={
-                    <div className="grid grid-cols-2 gap-5">
-                      <div className="col-span-2 flex flex-row justify-between items-center">
+                    <div className="grid grid-cols-1 gap-5">
+                      <div className="lg:col-span-2 flex flex-row justify-between items-center">
                         <p className="font-bold text-2xl pt-5 text-gray-600">
                           Detail
                         </p>
                         <CircleButton content={<Edit color="white" />} />
                       </div>
+
                       <div>
                         <InputProfile label="Name" /*value="Zulaikha"*/ />
                       </div>
+
                       <div>
-                        <InputProfile label="Tempat Lahir" /*value="xxx"*/ />
+                        <InputProfile label="Tanggal Lahir" /*value="xxx"*/ />
                       </div>
+
                       <div>
                         <InputProfile
                           label="Email" /*value="zulaikha@mail.com"*/
                         />
                       </div>
+
                       <div>
                         <InputProfile
-                          label="Tanggal Lahir"
+                          label="Pekerjaan"
                           /*value="xx xx xxxx"*/
                         />
                       </div>
+
                       <div>
                         <InputProfile label="No. HP" /*value="08xxxxxxxxxx"*/ />
                       </div>
-                      <div className="row-span-2">
+
+                      <div>
+                        <InputProfile label="Golongan Darah" /*value="A"*/ />
+                      </div>
+
+                      <div className="lg:col-span-2">
                         <InputArea
                           label="Alamat"
                           /*value="Jalan xxx Nomor xxx, Kec. xxx, Kab. xxx, provinsi"*/
                         />
-                      </div>
-                      <div>
-                        <InputProfile label="Golongan Darah" /*value="A"*/ />
                       </div>
                     </div>
                   }

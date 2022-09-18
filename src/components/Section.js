@@ -5,11 +5,7 @@ import React from "react";
 // };
 
 export const AuthSection = ({ content = <div /> }) => {
-  return (
-    <section className="auth-page min-height min-h-screen h-screen pt-20">
-      {content}
-    </section>
-  );
+  return <section className="auth-page min-height pt-20">{content}</section>;
 };
 
 export const PageJumbotron = ({ content = <div /> }) => {

@@ -49,6 +49,10 @@
   min-width: 32px;
 }
 
+.data-table {
+  width: 1100px;
+}
+
 .footer {
   background-color: rgb(0, 0, 10);
 }

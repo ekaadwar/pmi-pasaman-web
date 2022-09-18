@@ -74,6 +74,7 @@
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
+  background-position: center;
 }
 
 .profile {
@@ -86,4 +87,13 @@
 
 .text-shadow {
   text-shadow: 0 0 3px #000;
+}
+
+@media (max-width: 640px) or (max-height: 500px) {
+  .min-height {
+    height: auto !important ;
+    min-height: 100vh;
+    padding-top: 160px !important;
+    padding-bottom: 80px !important;
+  }
 }

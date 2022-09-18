@@ -52,12 +52,7 @@ const Header = () => {
           <Container
             content={
               <div className="container mx-auto px-4 lg:px-10 flex flex-col my-5 space-y-5 items-end pr-3">
-                <Link
-                  to={(location) => {
-                    return { ...location, pathname: "/" };
-                  }}
-                  onClick={() => setIsOpen(false)}
-                >
+                <Link to="/" onClick={() => setIsOpen(false)}>
                   Home
                 </Link>
                 <Link to="#" onClick={() => setIsOpen(false)}>
@@ -72,11 +67,11 @@ const Header = () => {
 
                 <div className="flex flex-row space-x-3 font-bold">
                   <Link to="/signin" onClick={() => setIsOpen(false)}>
-                    Signin
+                    Masuk
                   </Link>
                   <p>|</p>
                   <Link to="/signup" onClick={() => setIsOpen(false)}>
-                    Sign Up
+                    Daftar
                   </Link>
                 </div>
               </div>

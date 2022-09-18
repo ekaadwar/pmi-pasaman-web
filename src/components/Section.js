@@ -1,16 +1,12 @@
 import React from "react";
 
 export const PageSection = ({ content = <div /> }) => {
-  return (
-    <section className="h-screen pt-20 overflow-hidden">{content}</section>
-  );
+  return <section className="min-height h-screen pt-20">{content}</section>;
 };
 
 export const PageJumbotron = ({ content = <div /> }) => {
   return (
-    <section className="jumbotron h-screen pt-20 overflow-hidden">
-      {content}
-    </section>
+    <section className="jumbotron min-height h-screen pt-20">{content}</section>
   );
 };
 

@@ -16,13 +16,15 @@ const Home = () => {
         content={
           <Container
             content={
-              <div className="flex flex-col justify-center w-1/2 h-full space-y-12">
-                <img src={logoName} alt="logo PMI Pasaman" />
-                <p className="w-1/2 text-white font-bold">
+              <div className="flex flex-col justify-center sm:w-1/2 h-full space-y-12">
+                <div className="max-w-xs">
+                  <img src={logoName} alt="logo PMI Pasaman" />
+                </div>
+
+                <p className="xl:w-1/2 text-white font-bold">
                   Pelayanan yang dilaksanakan oleh Palang Merah Indonesia sesuai
                   amanat Undang-Undang No.1 Tahun 2018 tentang Kepalangmerahan
                 </p>
-                <p className="w-1/2 text-white font-bold">oke</p>
               </div>
             }
           />
@@ -32,7 +34,7 @@ const Home = () => {
         content={
           <Container
             content={
-              <div className="grid grid-cols-2 h-full">
+              <div className="grid md:grid-cols-2 h-full">
                 <div className="flex flex-col h-full justify-center space-y-10">
                   <div>
                     <SectionHeader text="Visi dan Misi" />
@@ -56,7 +58,7 @@ const Home = () => {
                   </div>
                 </div>
 
-                <div className="flex items-center justify-center h-full">
+                <div className="hidden md:flex items-center justify-center h-full">
                   <div className="w-3/4">
                     <img src={loveCombine1} alt="love" />
                   </div>
@@ -66,50 +68,46 @@ const Home = () => {
           />
         }
       />
-      <PageSection
-        content={
-          <Container
-            content={
-              <div className="h-full pt-20">
-                <SectionHeader text="Jumlah Darah yang Tersedia" />
-                <div className="flex flex-row justify-center items-center h-full space-x-10">
-                  {bloodStock.map((item, idx) => (
-                    <div key={idx}>
-                      <BloodBox type={item.type} amount={item.amount} />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            }
-          />
-        }
-      />
-      <PageSection
-        content={
-          <Container
-            content={
-              <div className="grid grid-cols-2 h-full">
-                <div className="flex items-center justify-center h-full">
-                  <div className="w-3/4">
-                    <img src={loveCombine2} alt="love" />
-                  </div>
-                </div>
 
-                <div className="flex flex-col h-full justify-center space-y-10">
-                  <div>
-                    <SectionHeader text="Ayo ikut berkontribusi sebagai pendonor" />
+      <div className="bg-gray-200">
+        <Container
+          content={
+            <div className="h-full py-20 text-center">
+              <SectionHeader text="Jumlah Darah yang Tersedia" />
+              <div className="grid grid-cols-2 sm:grid-cols-4 justify-center pt-10 gap-5">
+                {bloodStock.map((item, idx) => (
+                  <div key={idx} className="flex justify-center">
+                    <BloodBox type={item.type} amount={item.amount} />
                   </div>
-                  <div className="w-1/2 self-end">
-                    <PrimaryButton
-                      content={
-                        <p className="text-xl text-white font-bold">Daftar</p>
-                      }
-                    />
-                  </div>
-                </div>
+                ))}
               </div>
-            }
-          />
+            </div>
+          }
+        />
+      </div>
+
+      <Container
+        content={
+          <div className="grid md:grid-cols-2 h-full py-20">
+            <div className="hidden md:flex items-center justify-center h-full">
+              <div className="w-3/4">
+                <img src={loveCombine2} alt="love" />
+              </div>
+            </div>
+
+            <div className="flex flex-col h-full justify-center space-y-10">
+              <div>
+                <SectionHeader text="Ayo ikut berkontribusi sebagai pendonor" />
+              </div>
+              <div className="w-1/2 self-end">
+                <PrimaryButton
+                  content={
+                    <p className="text-xl text-white font-bold">Daftar</p>
+                  }
+                />
+              </div>
+            </div>
+          </div>
         }
       />
     </section>

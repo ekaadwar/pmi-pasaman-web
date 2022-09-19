@@ -1,11 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
+import { connect } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 import Container from "../components/Container";
 import { AuthSection } from "../components/Section";
 import { AuthHeader } from "../components/Text";
+import { authSignUp } from "../redux/actions/auth";
 import { InputAuth } from "../components/Input";
 import { PrimaryButton } from "../components/Button";
 
-const SignUp = () => {
+const SignUp = (props) => {
+  const [name, setName] = useState("");
+  const [noHp, setNoHp] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [repassword, setRePassword] = React.useState("");
+
+  const navigate = useNavigate();
+
+  const submit = () => {
+    const data = {
+      name,
+      noHp,
+      email,
+      password,
+      repassword,
+      navigate,
+    };
+    // console.log(data);
+    props.authSignUp(data);
+  };
+
   return (
     <AuthSection
       content={
@@ -19,22 +44,36 @@ const SignUp = () => {
                 <InputAuth
                   label="Nama :"
                   placeholder="Masukan nama lengkap Anda"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                 />
                 <InputAuth
                   label="HP :"
                   placeholder="Masukan nomor handphone Anda"
+                  type="number"
+                  onChange={(e) => setNoHp(e.target.value)}
                 />
-                <InputAuth label="Email :" placeholder="Masukan email Anda" />
+                <InputAuth
+                  label="Email :"
+                  placeholder="Masukan email Anda"
+                  type="email"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
                 <InputAuth
                   label="Password :"
                   placeholder="Masukan password Anda"
+                  type="password"
+                  onChange={(e) => setPassword(e.target.value)}
                 />
                 <InputAuth
                   label="Ulangi Password :"
                   placeholder="Ulangi password Anda"
+                  type="password"
+                  onChange={(e) => setRePassword(e.target.value)}
                 />
                 <PrimaryButton
                   content={<p className="text-white font-bold">Kirim</p>}
+                  onClick={submit}
                 />
               </div>
             </div>
@@ -42,24 +81,9 @@ const SignUp = () => {
         />
       }
     />
-    // <section className="authPage">
-    //   <Container
-    //     content={
-    //       <div className="flex flex-row justify-end h-full">
-    //         <div className="w-1/2">
-    //           <AuthSection
-    //             content={
-    //               <div className="space-y-8">
-
-    //               </div>
-    //             }
-    //           />
-    //         </div>
-    //       </div>
-    //     }
-    //   />
-    // </section>
   );
 };
 
-export default SignUp;
+const mapDispatchToProps = { authSignUp };
+
+export default connect(null, mapDispatchToProps)(SignUp);

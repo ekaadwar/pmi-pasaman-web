@@ -1,12 +1,32 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Container from "../components/Container";
 import { Link } from "react-router-dom";
 import { AuthSection } from "../components/Section";
 import { AuthHeader } from "../components/Text";
 import { InputAuth } from "../components/Input";
 import { PrimaryButton } from "../components/Button";
+import { connect } from "react-redux";
+import { authSignin, authOn } from "../redux/actions/auth";
+import { useNavigate } from "react-router-dom";
 
-const SignIn = () => {
+const SignIn = (props) => {
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    props.authOn();
+  });
+
+  const submit = () => {
+    const data = {
+      email,
+      password,
+      navigate,
+    };
+    props.authSignin(data);
+  };
+
   return (
     <AuthSection
       content={
@@ -20,11 +40,15 @@ const SignIn = () => {
 
                 <InputAuth
                   label="Username :"
-                  placeholder="Masukan email/no.HP Anda"
+                  placeholder="Masukan email Anda"
+                  type="email"
+                  onChange={(e) => setEmail(e.target.value)}
                 />
                 <InputAuth
                   label="Password :"
                   placeholder="Masukan password Anda"
+                  type="password"
+                  onChange={(e) => setPassword(e.target.value)}
                 />
                 <div>
                   <Link to="/forgot-pass">
@@ -35,6 +59,7 @@ const SignIn = () => {
                 <Link to="/profile" className="block">
                   <PrimaryButton
                     content={<p className="text-white font-bold">Kirim</p>}
+                    onClick={submit}
                   />
                 </Link>
               </div>
@@ -46,4 +71,9 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+const mapDispatchToProps = {
+  authSignin,
+  authOn,
+};
+
+export default connect(null, mapDispatchToProps)(SignIn);

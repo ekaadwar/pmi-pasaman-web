@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Container from "../components/Container";
 import { logoName } from "../assets";
 import { SectionHeader } from "../components/Text";
@@ -8,8 +8,13 @@ import { PageSection, PageJumbotron } from "../components/Section";
 import BloodBox from "../components/BloodBox";
 import { bloodStock } from "../dummy";
 import { PrimaryButton } from "../components/Button";
+import { authOff } from "../redux/actions/auth";
+import { connect } from "react-redux";
 
-const Home = () => {
+const Home = (props) => {
+  useEffect(() => {
+    props.authOff();
+  });
   return (
     <section className="">
       <PageJumbotron
@@ -114,4 +119,8 @@ const Home = () => {
   );
 };
 
-export default Home;
+const mapDispatchToProps = {
+  authOff,
+};
+
+export default connect(null, mapDispatchToProps)(Home);

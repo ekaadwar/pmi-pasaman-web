@@ -3,6 +3,7 @@ import Container from "../components/Container";
 import { logoName } from "../assets";
 import { socialMedia } from "../dummy";
 import MediaLane from "../components/MediaLane";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -11,12 +12,14 @@ const Footer = () => {
         content={
           <div className="flex flex-col sm:flex-row sm:justify-between space-y-10 py-10">
             <div className="max-w-lg space-y-5">
-              <div className="w-40">
-                <img
-                  src={logoName}
-                  alt="Palang Merah Indonesia Kabupaten Pasaman"
-                />
-              </div>
+              <Link to="/">
+                <div className="w-40">
+                  <img
+                    src={logoName}
+                    alt="Palang Merah Indonesia Kabupaten Pasaman"
+                  />
+                </div>
+              </Link>
               <p className="max-w-xs">
                 Meningkatkan ketersediaan darah yang aman, mudah dijangkau,
                 berkualitas dan berkesinambungan di seluruh Indonesia

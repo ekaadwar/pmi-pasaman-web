@@ -1,6 +1,7 @@
 // import React, { useEffect, useState } from "react";
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { authOff } from "../../redux/actions/auth";
 
 import Container from "../../components/Container";
 import { CircleButton } from "../../components/Button";
@@ -10,15 +11,17 @@ import { FiEdit2 as Edit } from "react-icons/fi";
 import { InputArea, InputProfile } from "../../components/Input";
 import { ProfileCard } from "../../components/Card";
 import { zulaikha } from "../../assets";
+import { connect } from "react-redux";
 // import DonorHistory from "../../components/DonorHistory";
 
-const Profile = () => {
+const Profile = (props) => {
   // const [leftData, setLeftData] = useState([]);
   // const [rightData, setRightData] = useState([]);
 
-  // useEffect(() => {
-  //   getData(donorHistory);
-  // }, []);
+  useEffect(() => {
+    // getData(donorHistory);
+    props.authOff();
+  });
 
   // const getData = (array) => {
   //   const length = array.length;
@@ -185,4 +188,6 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+const mapDispatchToProps = { authOff };
+
+export default connect(null, mapDispatchToProps)(Profile);

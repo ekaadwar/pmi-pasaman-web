@@ -1,6 +1,7 @@
 const initialState = {
   onAuth: false,
   token: null,
+  userId: "",
   msg: "",
 };
 
@@ -16,7 +17,7 @@ const auth = (state = initialState, action) => {
       return {
         ...state,
         token: action.payload.token,
-        role: action.payload.role,
+        userId: action.payload.userId,
         msg: action.payload.message,
       };
     }

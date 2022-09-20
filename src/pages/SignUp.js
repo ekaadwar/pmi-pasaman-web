@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import Container from "../components/Container";
 import { AuthSection } from "../components/Section";
 import { AuthHeader } from "../components/Text";
-import { authSignUp } from "../redux/actions/auth";
+import { authOn, authSignUp } from "../redux/actions/auth";
 import { InputAuth } from "../components/Input";
 import { PrimaryButton } from "../components/Button";
 
@@ -17,6 +17,10 @@ const SignUp = (props) => {
   const [repassword, setRePassword] = React.useState("");
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    props.authOn();
+  });
 
   const submit = () => {
     const data = {
@@ -84,6 +88,6 @@ const SignUp = (props) => {
   );
 };
 
-const mapDispatchToProps = { authSignUp };
+const mapDispatchToProps = { authSignUp, authOn };
 
 export default connect(null, mapDispatchToProps)(SignUp);

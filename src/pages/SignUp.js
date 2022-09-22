@@ -20,7 +20,7 @@ const SignUp = (props) => {
 
   useEffect(() => {
     props.authOn();
-  });
+  }, []);
 
   const submit = () => {
     const data = {
@@ -31,7 +31,6 @@ const SignUp = (props) => {
       repassword,
       navigate,
     };
-    // console.log(data);
     props.authSignUp(data);
   };
 

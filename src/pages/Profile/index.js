@@ -1,9 +1,10 @@
 // import React, { useEffect, useState } from "react";
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { authOff } from "../../redux/actions/auth";
+import { connect } from "react-redux";
 
 import Container from "../../components/Container";
+import { authOff } from "../../redux/actions/auth";
 import { CircleButton } from "../../components/Button";
 import { CircleMd } from "../../components/Circle";
 // import { donorHistory } from "../../dummy";
@@ -11,17 +12,12 @@ import { FiEdit2 as Edit } from "react-icons/fi";
 import { InputArea, InputProfile } from "../../components/Input";
 import { ProfileCard } from "../../components/Card";
 import { zulaikha } from "../../assets";
-import { connect } from "react-redux";
 // import DonorHistory from "../../components/DonorHistory";
 
-const Profile = (props) => {
-  // const [leftData, setLeftData] = useState([]);
-  // const [rightData, setRightData] = useState([]);
-
-  useEffect(() => {
-    // getData(donorHistory);
-    props.authOff();
-  });
+class Profile extends React.Component {
+  componentDidMount() {
+    this.props.authOff();
+  }
 
   // const getData = (array) => {
   //   const length = array.length;
@@ -57,115 +53,107 @@ const Profile = (props) => {
   //   setRightData(data2);
   // };
 
-  return (
-    <section className="profile min-h-screen pt-32 pb-20">
-      <Container
-        content={
-          <div className="flex justify-center">
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10 sm:gap-2 md:gap-10 max-w-md w-full sm:max-w-none">
-              <div>
-                <ProfileCard
-                  content={
-                    <div className="flex flex-col items-center space-y-2">
-                      <div className="relative">
-                        <CircleMd
-                          content={
-                            <img
-                              src={zulaikha}
-                              alt="Smile Woman"
-                              className="w-full"
-                            />
-                          }
-                        />
-                        <div className="absolute -bottom-2 -right-2">
-                          <Link to="#">
-                            <CircleButton content={<Edit color="white" />} />
-                          </Link>
+  render() {
+    return (
+      <section className="profile min-h-screen pt-32 pb-20">
+        <Container
+          content={
+            <div className="flex justify-center">
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10 sm:gap-2 md:gap-10 max-w-md w-full sm:max-w-none">
+                <div>
+                  <ProfileCard
+                    content={
+                      <div className="flex flex-col items-center space-y-2">
+                        <div className="relative">
+                          <CircleMd
+                            content={
+                              <img
+                                src={zulaikha}
+                                alt="Smile Woman"
+                                className="w-full"
+                              />
+                            }
+                          />
+                          <div className="absolute -bottom-2 -right-2">
+                            <Link to="#">
+                              <CircleButton content={<Edit color="white" />} />
+                            </Link>
+                          </div>
                         </div>
-                      </div>
-                      <p className="font-bold text-xl pt-5">Zulaikha</p>
-                      <p className="text-sm text-gray-500">zulaikha@mail.com</p>
-                      <p>25 Tahun</p>
-                      <p className="font-bold text-xl">A</p>
-                    </div>
-                  }
-                />
-              </div>
-
-              <div className="lg:col-span-2">
-                <ProfileCard
-                  content={
-                    <div className="grid grid-cols-1 gap-5">
-                      <div className="lg:col-span-2 flex flex-row justify-between items-center">
-                        <p className="font-bold text-2xl pt-5 text-gray-600">
-                          Detail
+                        <p className="font-bold text-xl pt-5">Zulaikha</p>
+                        <p className="text-sm text-gray-500">
+                          zulaikha@mail.com
                         </p>
-                        <CircleButton content={<Edit color="white" />} />
+                        <p>25 Tahun</p>
+                        <p className="font-bold text-xl">A</p>
                       </div>
-
-                      <div>
-                        <InputProfile label="Name" /*value="Zulaikha"*/ />
-                      </div>
-
-                      <div>
-                        <InputProfile label="Tanggal Lahir" /*value="xxx"*/ />
-                      </div>
-
-                      <div>
-                        <InputProfile
-                          label="Email" /*value="zulaikha@mail.com"*/
-                        />
-                      </div>
-
-                      <div>
-                        <InputProfile
-                          label="Pekerjaan"
-                          /*value="xx xx xxxx"*/
-                        />
-                      </div>
-
-                      <div>
-                        <InputProfile label="No. HP" /*value="08xxxxxxxxxx"*/ />
-                      </div>
-
-                      <div>
-                        <InputProfile label="Golongan Darah" /*value="A"*/ />
-                      </div>
-
-                      <div className="lg:col-span-2">
-                        <InputArea
-                          label="Alamat"
-                          /*value="Jalan xxx Nomor xxx, Kec. xxx, Kab. xxx, provinsi"*/
-                        />
-                      </div>
-                    </div>
-                  }
-                />
-              </div>
-            </div>
-
-            {/* <div className="flex flex-col items-center mt-20 space-y-5">
-              <div className="flex flex-row justify-center items-start w-full max-w-2xl">
-                <div
-                  className={`flex-1 space-y-4 px-6 ${
-                    rightData.length > 0 && "border-r-2 border-white"
-                  }`}
-                >
-                  {leftData.map((item, idx) => (
-                    <div key={idx} className={``}>
-                      <DonorHistory
-                        id={item.id}
-                        date={item.date}
-                        status={item.status}
-                      />
-                    </div>
-                  ))}
+                    }
+                  />
                 </div>
 
-                {rightData.length > 0 && (
-                  <div className="flex-1 space-y-4 px-6">
-                    {rightData.map((item, idx) => (
-                      <div key={idx}>
+                <div className="lg:col-span-2">
+                  <ProfileCard
+                    content={
+                      <div className="grid grid-cols-1 gap-5">
+                        <div className="lg:col-span-2 flex flex-row justify-between items-center">
+                          <p className="font-bold text-2xl pt-5 text-gray-600">
+                            Detail
+                          </p>
+                          <CircleButton content={<Edit color="white" />} />
+                        </div>
+
+                        <div>
+                          <InputProfile label="Name" /*value="Zulaikha"*/ />
+                        </div>
+
+                        <div>
+                          <InputProfile label="Tanggal Lahir" /*value="xxx"*/ />
+                        </div>
+
+                        <div>
+                          <InputProfile
+                            label="Email" /*value="zulaikha@mail.com"*/
+                          />
+                        </div>
+
+                        <div>
+                          <InputProfile
+                            label="Pekerjaan"
+                            /*value="xx xx xxxx"*/
+                          />
+                        </div>
+
+                        <div>
+                          <InputProfile
+                            label="No. HP" /*value="08xxxxxxxxxx"*/
+                          />
+                        </div>
+
+                        <div>
+                          <InputProfile label="Golongan Darah" /*value="A"*/ />
+                        </div>
+
+                        <div className="lg:col-span-2">
+                          <InputArea
+                            label="Alamat"
+                            /*value="Jalan xxx Nomor xxx, Kec. xxx, Kab. xxx, provinsi"*/
+                          />
+                        </div>
+                      </div>
+                    }
+                  />
+                </div>
+              </div>
+
+              {/* <div className="flex flex-col items-center mt-20 space-y-5">
+                <div className="flex flex-row justify-center items-start w-full max-w-2xl">
+                  <div
+                    className={`flex-1 space-y-4 px-6 ${
+                      rightData.length > 0 && "border-r-2 border-white"
+                    }`}
+                  >
+                    {leftData.map((item, idx) => (
+                      <div key={idx} className={``}>
                         <DonorHistory
                           id={item.id}
                           date={item.date}
@@ -174,19 +162,33 @@ const Profile = (props) => {
                       </div>
                     ))}
                   </div>
-                )}
-              </div>
-
-              <div className="py-2 px-3 bg-gray-200 cursor-pointer active:bg-gray-400 rounded-md shadow-md shadow-black">
-                <p className="text-sm">Lihat semua riwayat donor</p>
-              </div>
-            </div> */}
-          </div>
-        }
-      />
-    </section>
-  );
-};
+  
+                  {rightData.length > 0 && (
+                    <div className="flex-1 space-y-4 px-6">
+                      {rightData.map((item, idx) => (
+                        <div key={idx}>
+                          <DonorHistory
+                            id={item.id}
+                            date={item.date}
+                            status={item.status}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+  
+                <div className="py-2 px-3 bg-gray-200 cursor-pointer active:bg-gray-400 rounded-md shadow-md shadow-black">
+                  <p className="text-sm">Lihat semua riwayat donor</p>
+                </div>
+              </div> */}
+            </div>
+          }
+        />
+      </section>
+    );
+  }
+}
 
 const mapDispatchToProps = { authOff };
 

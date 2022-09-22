@@ -57,3 +57,7 @@ export const authOn = () => ({
 export const authOff = () => ({
   type: "AUTH_OFF",
 });
+
+export const authLogout = () => ({
+  type: "AUTH_LOGOUT",
+});

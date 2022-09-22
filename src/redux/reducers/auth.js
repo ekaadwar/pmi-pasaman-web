@@ -37,6 +37,8 @@ const auth = (state = initialState, action) => {
       return {
         ...state,
         token: null,
+        userId: "",
+        msg: "",
       };
     }
     case "AUTH_ON": {

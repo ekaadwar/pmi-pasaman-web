@@ -1,11 +1,25 @@
 import React, { useState } from "react";
-import Container from "../components/Container";
-import { Link } from "react-router-dom";
 import { Sling as Hamburger } from "hamburger-react";
-import { logoPmi } from "../assets";
+import { Link } from "react-router-dom";
+import { RiShutDownLine as SignOut } from "react-icons/ri";
 
-const Header = () => {
+import Container from "../components/Container";
+import { authLogout } from "../redux/actions/auth";
+import { logoPmi } from "../assets";
+import { connect } from "react-redux";
+import { CircleSm } from "../components/Circle";
+import { zulaikha } from "../assets";
+
+import { useNavigate } from "react-router-dom";
+
+const Header = (props) => {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+  const logout = () => {
+    props.authLogout();
+    navigate("/");
+  };
+
   return (
     <header className="fixed z-50 w-full bg-white shadow-md shadow-stone-500/40">
       <Container
@@ -17,10 +31,7 @@ const Header = () => {
               </div>
             </Link>
 
-            <div
-              className="lg:hidden"
-              // onClick={() => setIsOpen(!isOpen)}
-            >
+            <div className="lg:hidden">
               <Hamburger
                 toggled={isOpen}
                 toggle={() => setIsOpen(!isOpen)}
@@ -33,13 +44,29 @@ const Header = () => {
               <Link to="#">Tentang Kami</Link>
               <Link to="#">Stok Darah</Link>
               <Link to="#">Pelayanan</Link>
+              {props.auth.userId === 1 && (
+                <Link to="/data" onClick={() => setIsOpen(false)}>
+                  Data
+                </Link>
+              )}
             </div>
 
-            <div className="hidden lg:flex flex-row justify-center space-x-8">
-              <Link to="signup">Daftar</Link>
-              <p>|</p>
-              <Link to="signin">Masuk</Link>
-            </div>
+            {props.auth.token === null ? (
+              <div className="hidden lg:flex flex-row justify-center space-x-8">
+                <Link to="signup">Daftar</Link>
+                <p>|</p>
+                <Link to="signin">Masuk</Link>
+              </div>
+            ) : (
+              <div className="flex flex-row items-center space-x-4">
+                <button onClick={logout}>
+                  <SignOut size={20} />
+                </button>
+                <Link to="/profile">
+                  <CircleSm content={<img src={zulaikha} alt="my profile" />} />
+                </Link>
+              </div>
+            )}
           </div>
         }
       />
@@ -86,4 +113,10 @@ const Header = () => {
   );
 };
 
-export default Header;
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+const mapDispatchToProps = { authLogout };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

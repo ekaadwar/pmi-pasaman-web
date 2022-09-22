@@ -16,7 +16,7 @@ const SignIn = (props) => {
 
   useEffect(() => {
     props.authOn();
-  });
+  }, []);
 
   const submit = () => {
     const data = {

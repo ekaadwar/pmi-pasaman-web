@@ -10,7 +10,7 @@ function App(props) {
     <Router>
       {props.auth.onAuth === false && <Header />}
       <Routes />
-      <Footer />
+      {props.auth.onAuth === false && <Footer />}
     </Router>
   );
 }

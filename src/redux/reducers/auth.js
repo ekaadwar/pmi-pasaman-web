@@ -3,6 +3,7 @@ const initialState = {
   token: null,
   userId: "",
   msg: "",
+  photo: null,
 };
 
 const auth = (state = initialState, action) => {
@@ -19,6 +20,7 @@ const auth = (state = initialState, action) => {
         token: action.payload.token,
         userId: action.payload.userId,
         msg: action.payload.message,
+        photo: action.payload.photo,
       };
     }
     case "AUTH_LOGIN_FAILED": {

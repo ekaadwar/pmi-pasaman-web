@@ -41,6 +41,7 @@ export const authSignin = (dataForm) => {
           token: data.results.token,
           userId: data.results.userId,
           msg: data.message,
+          photo: data.results.photo,
         },
       });
       dataForm.navigate("/");

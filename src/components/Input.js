@@ -23,31 +23,38 @@ export const InputProfile = ({
   label = "",
   placeholder = "",
   type = "text",
-  // value = "",
+  value = "",
   onChange = () => {},
 }) => {
   return (
     <div className="flex flex-col space-y-0">
       <p className="text-gray-700">{label}</p>
       <input
-        className="px-3 py-2 border-b border-gray-700 bg-white focus:outline-none "
+        className="py-2 border-b border-gray-700 bg-white focus:outline-none "
         placeholder={placeholder}
         type={type}
-        // value={value}
+        value={value}
         onChange={onChange}
       />
     </div>
   );
 };
 
-export const InputArea = ({ label = "", placeholder = "" }) => {
+export const InputArea = ({
+  label = "",
+  placeholder = "",
+  value = "",
+  onChange = () => {},
+}) => {
   return (
     <div className="flex flex-col space-y-0">
       <p className="text-gray-700">{label}</p>
       <textarea
+        className="py-2 border-b border-gray-700 bg-white focus:outline-none"
         placeholder={placeholder}
         rows="2"
-        className="px-3 py-2 border-b border-gray-700 bg-white focus:outline-none "
+        value={value}
+        onChange={onChange}
       />
     </div>
   );

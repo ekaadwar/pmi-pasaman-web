@@ -9,14 +9,27 @@ import { CircleButton } from "../../components/Button";
 import { CircleMd } from "../../components/Circle";
 // import { donorHistory } from "../../dummy";
 import { FiEdit2 as Edit } from "react-icons/fi";
+import { getProfile } from "../../redux/actions/profile";
 import { InputArea, InputProfile } from "../../components/Input";
 import { ProfileCard } from "../../components/Card";
 import { zulaikha } from "../../assets";
 // import DonorHistory from "../../components/DonorHistory";
 
 class Profile extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: {},
+      currentPhoto: null,
+    };
+  }
+
   componentDidMount() {
     this.props.authOff();
+    this.props.getProfile(this.props.auth.token).then((res) => {
+      this.setState({ data: this.props.profile.data });
+      // console.log(this.props.profile.data);
+    });
   }
 
   // const getData = (array) => {
@@ -54,6 +67,9 @@ class Profile extends React.Component {
   // };
 
   render() {
+    // const profile = this.props.profile.data;
+    const profile = this.state.data;
+    console.log(profile);
     return (
       <section className="profile min-h-screen pt-32 pb-20">
         <Container
@@ -80,12 +96,12 @@ class Profile extends React.Component {
                             </Link>
                           </div>
                         </div>
-                        <p className="font-bold text-xl pt-5">Zulaikha</p>
-                        <p className="text-sm text-gray-500">
-                          zulaikha@mail.com
+                        <p className="font-bold text-xl pt-5">{profile.nama}</p>
+                        <p className="text-sm text-gray-500">{profile.email}</p>
+                        <p>{profile.umur} Tahun</p>
+                        <p className="font-bold text-xl uppercase">
+                          {profile.gol_darah}
                         </p>
-                        <p>25 Tahun</p>
-                        <p className="font-bold text-xl">A</p>
                       </div>
                     }
                   />
@@ -103,40 +119,110 @@ class Profile extends React.Component {
                         </div>
 
                         <div>
-                          <InputProfile label="Name" /*value="Zulaikha"*/ />
-                        </div>
-
-                        <div>
-                          <InputProfile label="Tanggal Lahir" /*value="xxx"*/ />
+                          <InputProfile
+                            label="Name"
+                            value={profile.nama}
+                            placeholder="Masukan nama Anda"
+                            onChange={(event) =>
+                              this.setState((prevState) => ({
+                                data: {
+                                  ...prevState.data,
+                                  nama: event.target.value,
+                                },
+                              }))
+                            }
+                          />
                         </div>
 
                         <div>
                           <InputProfile
-                            label="Email" /*value="zulaikha@mail.com"*/
+                            label="Tanggal Lahir"
+                            value={
+                              profile.tanggal_lahir ? profile.tanggal_lahir : ""
+                            }
+                            onChange={(event) =>
+                              this.setState((prevState) => ({
+                                data: {
+                                  ...prevState.data,
+                                  tanggal_lahir: event.target.value,
+                                },
+                              }))
+                            }
+                          />
+                        </div>
+
+                        <div>
+                          <InputProfile
+                            label="Email"
+                            value={profile.email ? profile.email : ""}
+                            onChange={(event) =>
+                              this.setState((prevState) => ({
+                                data: {
+                                  ...prevState.data,
+                                  email: event.target.value,
+                                },
+                              }))
+                            }
                           />
                         </div>
 
                         <div>
                           <InputProfile
                             label="Pekerjaan"
-                            /*value="xx xx xxxx"*/
+                            value={profile.pekerjaan}
+                            onChange={(event) =>
+                              this.setState((prevState) => ({
+                                data: {
+                                  ...prevState.data,
+                                  pekerjaan: event.target.value,
+                                },
+                              }))
+                            }
                           />
                         </div>
 
                         <div>
                           <InputProfile
-                            label="No. HP" /*value="08xxxxxxxxxx"*/
+                            label="No. HP"
+                            value={profile.no_hp}
+                            onChange={(event) =>
+                              this.setState((prevState) => ({
+                                data: {
+                                  ...prevState.data,
+                                  no_hp: event.target.value,
+                                },
+                              }))
+                            }
                           />
                         </div>
 
                         <div>
-                          <InputProfile label="Golongan Darah" /*value="A"*/ />
+                          <InputProfile
+                            label="Golongan Darah"
+                            value={profile.gol_darah}
+                            onChange={(event) =>
+                              this.setState((prevState) => ({
+                                data: {
+                                  ...prevState.data,
+                                  gol_darah: event.target.value,
+                                },
+                              }))
+                            }
+                          />
                         </div>
 
                         <div className="lg:col-span-2">
                           <InputArea
                             label="Alamat"
-                            /*value="Jalan xxx Nomor xxx, Kec. xxx, Kab. xxx, provinsi"*/
+                            value={profile.alamat}
+                            onChange={(event) =>
+                              this.setState((prevState) => ({
+                                data: {
+                                  ...prevState.data,
+                                  alamat: event.target.value,
+                                },
+                              }))
+                            }
                           />
                         </div>
                       </div>
@@ -190,6 +276,11 @@ class Profile extends React.Component {
   }
 }
 
-const mapDispatchToProps = { authOff };
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  profile: state.profile,
+});
 
-export default connect(null, mapDispatchToProps)(Profile);
+const mapDispatchToProps = { authOff, getProfile };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

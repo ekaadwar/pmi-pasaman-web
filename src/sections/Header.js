@@ -1,23 +1,31 @@
 import React, { useState } from "react";
 import { Sling as Hamburger } from "hamburger-react";
 import { Link } from "react-router-dom";
-import { RiShutDownLine as SignOut } from "react-icons/ri";
+import {
+  RiUser3Fill as Profile,
+  RiShutDownLine as SignOut,
+} from "react-icons/ri";
 
 import Container from "../components/Container";
 import { authLogout } from "../redux/actions/auth";
 import { logoPmi } from "../assets";
 import { connect } from "react-redux";
 import { CircleSm } from "../components/Circle";
-import { zulaikha } from "../assets";
 
 import { useNavigate } from "react-router-dom";
 
 const Header = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
+
   const logout = () => {
     props.authLogout();
     navigate("/");
+  };
+
+  const resLogout = () => {
+    logout();
+    setIsOpen(false);
   };
 
   return (
@@ -58,12 +66,22 @@ const Header = (props) => {
                 <Link to="signin">Masuk</Link>
               </div>
             ) : (
-              <div className="flex flex-row items-center space-x-4">
+              <div className="hidden lg:flex flex-row items-center space-x-4">
                 <button onClick={logout}>
                   <SignOut size={20} />
                 </button>
                 <Link to="/profile">
-                  <CircleSm content={<img src={zulaikha} alt="my profile" />} />
+                  <CircleSm
+                    content={
+                      props.auth.photo ? (
+                        <img src={props.auth.photo} alt="my profile" />
+                      ) : (
+                        <div className="flex items-center justify-center h-full w-full bg-red-800">
+                          <Profile color="white" size={20} />
+                        </div>
+                      )
+                    }
+                  />
                 </Link>
               </div>
             )}
@@ -95,15 +113,25 @@ const Header = (props) => {
                   Data
                 </Link>
 
-                <div className="flex flex-row space-x-3 font-bold">
-                  <Link to="/signin" onClick={() => setIsOpen(false)}>
-                    Masuk
-                  </Link>
-                  <p>|</p>
-                  <Link to="/signup" onClick={() => setIsOpen(false)}>
-                    Daftar
-                  </Link>
-                </div>
+                {!props.auth.token ? (
+                  <div className="flex flex-row space-x-3 font-bold">
+                    <Link to="/signin" onClick={() => setIsOpen(false)}>
+                      Masuk
+                    </Link>
+                    <p>|</p>
+                    <Link to="/signup" onClick={() => setIsOpen(false)}>
+                      Daftar
+                    </Link>
+                  </div>
+                ) : (
+                  <div className="flex flex-row space-x-3 font-bold">
+                    <button onClick={resLogout}>Keluar</button>
+                    <p>|</p>
+                    <Link to="/profile" onClick={() => setIsOpen(false)}>
+                      My Profile
+                    </Link>
+                  </div>
+                )}
               </div>
             }
           />

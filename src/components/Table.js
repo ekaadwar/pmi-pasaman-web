@@ -43,5 +43,5 @@ export const CheckTableRow = ({ checked = false }) => {
 };
 
 export const Footer = ({ colspan = 0 }) => {
-  return <td colspan={colspan} className="h-4 bg-red-900 rounded-b-md" />;
+  return <td colSpan={colspan} className="h-4 bg-red-900 rounded-b-md" />;
 };

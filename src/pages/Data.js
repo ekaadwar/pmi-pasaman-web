@@ -20,23 +20,38 @@ import { SectionHeader } from "../components/Text";
 import { donorParticipant } from "../dummy";
 import { connect } from "react-redux";
 import { authOff } from "../redux/actions/auth";
+import { getData } from "../redux/actions/data";
 
 class Data extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: [],
+      pageInfo: {},
+      nextPage: `${URL}/items?page=2`,
+      prevPage: null,
+    };
+  }
+
   componentDidMount() {
     this.props.authOff();
+    const { token } = this.props.auth;
+    this.props.getData(token).then(() => {
+      // console.log(this.props.data);
+      this.setState({
+        data: this.props.data.data,
+        pageInfo: this.props.data.pageInfo,
+      });
+    });
   }
+
+  changePage = (event) => {
+    console.log(event.target.value);
+  };
+
   render() {
     return (
       <section className="pt-32 pb-20">
-        {/* <Container
-          content={
-            <div className="overflow-x-auto ">
-              <div className="data-table space-y-5">
-                
-              </div>
-            </div>
-          }
-        /> */}
         <Container
           content={
             <div className="mb-12">
@@ -86,12 +101,13 @@ class Data extends React.Component {
                 <th></th>
               </tr>
             </thead>
-            {donorParticipant.map((row, idx) => (
+            {this.props.data.data.map((row, idx) => (
               <tbody key={idx}>
                 <tr>
                   <CheckRow />
                   {Object.values(row).map((item, id) => (
                     <TableData
+                      key={id}
                       column={Object.keys(row)[id]}
                       isEven={idx % 2 === 0 && true}
                       text={Object.keys(row)[id] === "id" ? idx + 1 : item}
@@ -107,8 +123,10 @@ class Data extends React.Component {
               </tbody>
             ))}
             <tbody>
-              <td />
-              <Footer colspan={8} />
+              <tr>
+                <td />
+                <Footer colspan={8} />
+              </tr>
             </tbody>
           </table>
         </div>
@@ -116,10 +134,14 @@ class Data extends React.Component {
         <Container
           content={
             <div className="flex flex-row items-center justify-center py-4">
-              <button className="text-gray-800 cursor-default">
+              <button
+                className="text-gray-800 cursor-default"
+                value={this.state.pageInfo.nextPage}
+                onClick={this.changePage}
+              >
                 <Back size={24} />
               </button>
-              <p>1</p>
+              <p>{this.props.data.pageInfo.currentPage}</p>
               <button className="text-red-800 active:text-red-900">
                 <Forward size={24} />
               </button>
@@ -132,10 +154,7 @@ class Data extends React.Component {
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-end sm:space-x-2 space-y-1 sm:space-y-0">
               <ActionButton content={"Unduh Data"} />
               <ActionButton content={"Unggah Data"} />
-              <Link
-                to="/data/add"
-                // className="flex flex-row justify-center w-full bg-yellow-300"
-              >
+              <Link to="/data/add">
                 <ActionButton content={"Tambah Data"} />
               </Link>
             </div>
@@ -148,6 +167,12 @@ class Data extends React.Component {
 
 const mapDispatchToProps = {
   authOff,
+  getData,
 };
 
-export default connect(null, mapDispatchToProps)(Data);
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  data: state.data,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Data);

@@ -15,6 +15,7 @@ const Routes = () => {
     <Switch>
       <Route path="/" exact element={<Home />} />
       <Route path="/profile" element={<PrivateRoute element={<Profile />} />} />
+      {/* <Route path="/profile" element={<Profile />} /> */}
       <Route path="/signin" element={<AuthRoute element={<SignIn />} />} />
       <Route path="/signup" element={<AuthRoute element={<SignUp />} />} />
       <Route path="/forgot-pass" element={<ForgotPass />} />

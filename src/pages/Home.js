@@ -15,6 +15,7 @@ import { SectionHeader } from "../components/Text";
 class Home extends React.Component {
   componentDidMount() {
     this.props.authOff();
+    console.log(this.props);
   }
 
   render() {

@@ -1,4 +1,5 @@
 import React from "react";
+// import qs from "querystring";
 import { Link } from "react-router-dom";
 import { MdDeleteOutline as Delete } from "react-icons/md";
 import {
@@ -17,7 +18,6 @@ import {
   TableData,
 } from "../components/Table";
 import { SectionHeader } from "../components/Text";
-import { donorParticipant } from "../dummy";
 import { connect } from "react-redux";
 import { authOff } from "../redux/actions/auth";
 import { getData } from "../redux/actions/data";
@@ -36,8 +36,13 @@ class Data extends React.Component {
   componentDidMount() {
     this.props.authOff();
     const { token } = this.props.auth;
+    // let params = {};
+    // if (this.props.location.search) {
+    //   params = this.parseQuery(this.props.location.search);
+    // }
+    // console.log(params);
+    // console.log(Location);
     this.props.getData(token).then(() => {
-      // console.log(this.props.data);
       this.setState({
         data: this.props.data.data,
         pageInfo: this.props.data.pageInfo,
@@ -45,8 +50,17 @@ class Data extends React.Component {
     });
   }
 
+  // parseQuery = (str) => {
+  //   return qs.parse(str.slice("1"));
+  // };
+
   changePage = (event) => {
-    console.log(event.target.value);
+    // console.log(window.location);
+    this.props
+      .getData(this.props.auth.token, event.currentTarget.value)
+      .then(() => {
+        console.log("oke");
+      });
   };
 
   render() {
@@ -136,13 +150,17 @@ class Data extends React.Component {
             <div className="flex flex-row items-center justify-center py-4">
               <button
                 className="text-gray-800 cursor-default"
-                value={this.state.pageInfo.nextPage}
+                value={this.state.pageInfo.prevPage}
                 onClick={this.changePage}
               >
                 <Back size={24} />
               </button>
               <p>{this.props.data.pageInfo.currentPage}</p>
-              <button className="text-red-800 active:text-red-900">
+              <button
+                className="text-red-800 active:text-red-900"
+                value={this.state.pageInfo.nextPage}
+                onClick={this.changePage}
+              >
                 <Forward size={24} />
               </button>
             </div>

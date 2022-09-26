@@ -15,7 +15,7 @@ export const LastHeader = ({ text = "" }) => {
 export const TableData = ({ isEven = false, column = "", text = "" }) => {
   return isEven ? (
     <td className="h-12 text-center bg-red-100 border-y border-red-300">
-      {column === "name" ? (
+      {column === "nama" || column === "alamat" ? (
         <p className="text-left">{text}</p>
       ) : (
         <p className="text-center">{text}</p>
@@ -23,7 +23,7 @@ export const TableData = ({ isEven = false, column = "", text = "" }) => {
     </td>
   ) : (
     <td className="h-12">
-      {column === "name" ? (
+      {column === "nama" || column === "alamat" ? (
         <p className="text-left">{text}</p>
       ) : (
         <p className="text-center">{text}</p>

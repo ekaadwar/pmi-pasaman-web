@@ -7,13 +7,15 @@ import { InputAuth } from "../components/Input";
 import { PrimaryButton } from "../components/Button";
 import { connect } from "react-redux";
 import { authSignin, authOn } from "../redux/actions/auth";
-import { useNavigate } from "react-router-dom";
+
+import { useHistory } from "react-router-dom";
+
 import Footer from "../sections/Footer";
 
 const SignIn = (props) => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const navigate = useNavigate();
+  const navigate = useHistory();
 
   useEffect(() => {
     props.authOn();

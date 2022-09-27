@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import Container from "../components/Container";
 import { AuthSection } from "../components/Section";
@@ -17,7 +17,7 @@ const SignUp = (props) => {
   const [password, setPassword] = React.useState("");
   const [repassword, setRePassword] = React.useState("");
 
-  const navigate = useNavigate();
+  const navigate = useHistory();
 
   useEffect(() => {
     props.authOn();

@@ -12,11 +12,11 @@ import { logoPmi } from "../assets";
 import { connect } from "react-redux";
 import { CircleSm } from "../components/Circle";
 
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const Header = (props) => {
   const [isOpen, setIsOpen] = useState(false);
-  const navigate = useNavigate();
+  const navigate = useHistory();
 
   const logout = () => {
     props.authLogout();

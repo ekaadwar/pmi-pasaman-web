@@ -44,7 +44,8 @@ export const authSignin = (dataForm) => {
           photo: data.results.photo,
         },
       });
-      dataForm.navigate("/");
+      dataForm.navigate.push("/signin");
+      window.alert(data.message);
     } catch (error) {
       window.alert(error.message);
     }

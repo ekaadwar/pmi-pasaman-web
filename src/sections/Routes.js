@@ -1,5 +1,6 @@
 import React from "react";
-import { Routes as Switch, Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
+
 import AuthRoute from "../components/AuthRoute";
 import PrivateRoute from "../components/PrivateRoute";
 import AddData from "../pages/AddData";
@@ -15,19 +16,27 @@ import UserDetail from "../pages/UserDetail";
 const Routes = () => {
   return (
     <Switch>
-      <Route path="/" exact element={<Home />} />
-      <Route path="/profile" element={<PrivateRoute element={<Profile />} />} />
-      {/* <Route path="/profile" element={<Profile />} /> */}
-      <Route path="/signin" element={<AuthRoute element={<SignIn />} />} />
-      <Route path="/signup" element={<AuthRoute element={<SignUp />} />} />
-      <Route path="/forgot-pass" element={<ForgotPass />} />
-      <Route path="/data" exact element={<PrivateRoute element={<Data />} />} />
-      <Route
-        path="/data/add"
-        exact
-        element={<PrivateRoute element={<AddData />} />}
-      />
-      <Route path="/data/:id" exact element={<UserDetail />} />
+      <Route path="/" exact component={Home} />
+
+      <PrivateRoute path="/profile">
+        <Profile />
+      </PrivateRoute>
+
+      <Route path="/signin" component={SignIn} />
+      <Route path="/signup" component={SignUp} />
+      <Route path="/forgot-pass" component={ForgotPass} />
+
+      <PrivateRoute>
+        <Route path="/data" exact component={Data} />
+      </PrivateRoute>
+
+      <PrivateRoute>
+        <Route path="/data/add" exact component={AddData} />
+      </PrivateRoute>
+
+      <PrivateRoute>
+        <Route path="/data/:id" exact component={UserDetail} />
+      </PrivateRoute>
     </Switch>
   );
 };

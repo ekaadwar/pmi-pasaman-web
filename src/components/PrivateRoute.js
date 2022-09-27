@@ -1,13 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Navigate } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 const PrivateRoute = ({ element, auth, priv = true }) => {
   if (priv !== false) {
     if (auth.token !== null) {
       return element;
     } else {
-      return <Navigate to="/signin" />;
+      return <Redirect to="/signin" />;
     }
   } else {
     return element;

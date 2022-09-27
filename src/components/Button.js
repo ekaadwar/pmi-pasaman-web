@@ -32,9 +32,17 @@ export const NavButton = ({ active = false, text = "" }) => {
   );
 };
 
-export const ActionButton = ({ content = <div /> }) => {
+export const ActionButton = ({
+  content = <div />,
+  value = "",
+  onClick = () => {},
+}) => {
   return (
-    <button className="button-action flex flex-row items-center justify-center bg-red-900 active:bg-red-700 text-white h-8 px-1 w-full sm:w-auto rounded-md">
+    <button
+      className="button-action flex flex-row items-center justify-center bg-red-900 active:bg-red-700 text-white h-8 px-1 w-full sm:w-auto rounded-md"
+      value={value}
+      onClick={onClick}
+    >
       {content}
     </button>
   );

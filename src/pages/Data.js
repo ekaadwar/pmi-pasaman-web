@@ -1,6 +1,6 @@
 import React from "react";
 // import qs from "querystring";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MdDeleteOutline as Delete } from "react-icons/md";
 import {
   BiCaretLeft as Back,
@@ -22,6 +22,11 @@ import { connect } from "react-redux";
 import { authOff } from "../redux/actions/auth";
 import { getData } from "../redux/actions/data";
 
+// export const Navigation = (endpoint = "") => {
+//   const navigate = useNavigate();
+//   return navigate(endpoint);
+// };
+
 class Data extends React.Component {
   constructor(props) {
     super(props);
@@ -35,13 +40,8 @@ class Data extends React.Component {
 
   componentDidMount() {
     this.props.authOff();
+    console.log(this.props);
     const { token } = this.props.auth;
-    // let params = {};
-    // if (this.props.location.search) {
-    //   params = this.parseQuery(this.props.location.search);
-    // }
-    // console.log(params);
-    // console.log(Location);
     this.props.getData(token).then(() => {
       this.setState({
         data: this.props.data.data,
@@ -50,8 +50,8 @@ class Data extends React.Component {
     });
   }
 
-  // parseQuery = (str) => {
-  //   return qs.parse(str.slice("1"));
+  // getDetail = (event) => {
+  //   const { REACT_APP_FRONTEND_URL: URL } = process.env;
   // };
 
   changePage = (event) => {
@@ -129,7 +129,13 @@ class Data extends React.Component {
                   ))}
                   <td>
                     <div className="flex flex-row w-full space-x-2 items-center justify-center">
-                      <ActionButton content={<Search size={20} />} />
+                      <Link to={`/data/${row.id}`}>
+                        <ActionButton
+                          value={row.id}
+                          content={<Search size={20} />}
+                          // onClick={this.getDetail}
+                        />
+                      </Link>
                       <ActionButton content={<Delete size={20} />} />
                     </div>
                   </td>

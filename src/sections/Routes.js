@@ -4,11 +4,13 @@ import AuthRoute from "../components/AuthRoute";
 import PrivateRoute from "../components/PrivateRoute";
 import AddData from "../pages/AddData";
 import Data from "../pages/Data";
+// import Data from "../pages/DataFunc";
 import ForgotPass from "../pages/ForgotPass";
 import Home from "../pages/Home";
 import Profile from "../pages/Profile";
 import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
+import UserDetail from "../pages/UserDetail";
 
 const Routes = () => {
   return (
@@ -25,6 +27,7 @@ const Routes = () => {
         exact
         element={<PrivateRoute element={<AddData />} />}
       />
+      <Route path="/data/:id" exact element={<UserDetail />} />
     </Switch>
   );
 };

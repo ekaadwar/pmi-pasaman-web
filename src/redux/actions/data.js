@@ -4,11 +4,7 @@ import http from "../../helpers/http";
 const { REACT_APP_BACKEND_URL: URL } = process.env;
 
 export const getData =
-  (
-    token = null,
-    // params = {},
-    targetPage = ""
-  ) =>
+  (token = null, targetPage = "") =>
   async (dispatch) => {
     let initialUrl;
 
@@ -19,28 +15,6 @@ export const getData =
     }
 
     let url = initialUrl;
-
-    // const paramKeys = Object.keys(params);
-    // const paramValues = Object.values(params);
-    // const paramLength = paramKeys.length;
-
-    // if (paramLength > 0) {
-    //   if (targetPage === "") {
-    //     url += "?";
-    //   }
-
-    //   for (let i = 0; i < paramLength; i++) {
-    //     if (i > 0) {
-    //       url += "&";
-    //     }
-    //     if (paramKeys[i] === "sort") {
-    //       const sortArray = paramValues[i].split("-");
-    //       paramKeys[i] = `sort[${sortArray[0]}]`;
-    //       paramValues[i] = sortArray[1];
-    //     }
-    //     url += `${paramKeys[i]}=${paramValues[i]}`;
-    //   }
-    // }
 
     try {
       const { data } = await http(token).get(url);

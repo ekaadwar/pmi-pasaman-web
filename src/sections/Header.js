@@ -16,11 +16,11 @@ import { useHistory } from "react-router-dom";
 
 const Header = (props) => {
   const [isOpen, setIsOpen] = useState(false);
-  const navigate = useHistory();
+  const history = useHistory();
 
   const logout = () => {
     props.authLogout();
-    navigate("/");
+    history.push("/");
   };
 
   const resLogout = () => {

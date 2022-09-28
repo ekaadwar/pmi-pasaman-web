@@ -17,21 +17,16 @@ class UserDetail extends React.Component {
     super(props);
     this.state = {
       data: {},
-      currentPhoto: null,
     };
   }
 
   componentDidMount() {
     this.props.authOff();
-    this.props.getProfile(this.props.auth.token).then((res) => {
-      this.setState({ data: this.props.profile.data });
-    });
-    console.log(this.props.match.params.id);
+    this.setState({ data: this.props.data.detailData });
   }
 
   render() {
     const profile = this.state.data;
-    console.log(profile);
     return (
       <section className="profile min-h-screen pt-32 pb-20">
         <Container
@@ -202,7 +197,7 @@ class UserDetail extends React.Component {
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  profile: state.profile,
+  data: state.data,
 });
 
 const mapDispatchToProps = { authOff, getProfile };

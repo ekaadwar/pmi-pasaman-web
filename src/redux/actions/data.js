@@ -26,3 +26,24 @@ export const getData =
       window.alert(err.response.data.message);
     }
   };
+
+export const getDetails = (id, token) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await http(token).get(`${URL}/users/${id}`);
+      dispatch({
+        type: "DETAIL_DATA_GET",
+        payload: {
+          detail: data.results,
+          msg: data.message,
+        },
+      });
+    } catch (err) {
+      window.alert(err.response.data.message);
+      dispatch({
+        type: "ERR_DETAIL_DATA_GET",
+        payload: err.response.data.message,
+      });
+    }
+  };
+};

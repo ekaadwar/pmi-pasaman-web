@@ -1,4 +1,3 @@
-// import React, { useEffect, useState } from "react";
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
@@ -26,6 +25,8 @@ class Profile extends React.Component {
 
   componentDidMount() {
     this.props.authOff();
+    console.log("prop");
+    console.log(this.props);
     this.props.getProfile(this.props.auth.token).then((res) => {
       this.setState({ data: this.props.profile.data });
       // console.log(this.props.profile.data);
@@ -67,7 +68,6 @@ class Profile extends React.Component {
   // };
 
   render() {
-    // const profile = this.props.profile.data;
     const profile = this.state.data;
     console.log(profile);
     return (
@@ -121,7 +121,7 @@ class Profile extends React.Component {
                         <div>
                           <InputProfile
                             label="Name"
-                            value={profile.nama}
+                            value={profile.nama ? profile.nama : ""}
                             placeholder="Masukan nama Anda"
                             onChange={(event) =>
                               this.setState((prevState) => ({
@@ -169,7 +169,7 @@ class Profile extends React.Component {
                         <div>
                           <InputProfile
                             label="Pekerjaan"
-                            value={profile.pekerjaan}
+                            value={profile.pekerjaan ? profile.pekerjaan : ""}
                             onChange={(event) =>
                               this.setState((prevState) => ({
                                 data: {
@@ -184,7 +184,7 @@ class Profile extends React.Component {
                         <div>
                           <InputProfile
                             label="No. HP"
-                            value={profile.no_hp}
+                            value={profile.no_hp ? profile.no_hp : ""}
                             onChange={(event) =>
                               this.setState((prevState) => ({
                                 data: {
@@ -199,7 +199,7 @@ class Profile extends React.Component {
                         <div>
                           <InputProfile
                             label="Golongan Darah"
-                            value={profile.gol_darah}
+                            value={profile.gol_darah ? profile.gol_darah : ""}
                             onChange={(event) =>
                               this.setState((prevState) => ({
                                 data: {
@@ -214,7 +214,7 @@ class Profile extends React.Component {
                         <div className="lg:col-span-2">
                           <InputArea
                             label="Alamat"
-                            value={profile.alamat}
+                            value={profile.alamat ? profile.alamat : ""}
                             onChange={(event) =>
                               this.setState((prevState) => ({
                                 data: {

@@ -18,7 +18,7 @@ export const authSignUp = (formData) => {
         payload: data.message,
       });
 
-      formData.navigate("/signin");
+      formData.navigate.push("/signin");
       window.alert(data.message);
     } catch (error) {
       window.alert(error.response.data.message);
@@ -44,7 +44,7 @@ export const authSignin = (dataForm) => {
           photo: data.results.photo,
         },
       });
-      dataForm.navigate.push("/signin");
+      dataForm.navigate.push("/profile");
       window.alert(data.message);
     } catch (error) {
       window.alert(error.message);

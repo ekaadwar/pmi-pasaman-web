@@ -1,6 +1,8 @@
 const initialState = {
   data: [],
   pageInfo: {},
+  detailData: {},
+  msg: "",
 };
 
 const data = (state = initialState, action) => {
@@ -17,6 +19,19 @@ const data = (state = initialState, action) => {
         ...state,
         data: [...state.data, ...action.payload.data],
         pageInfo: action.payload.pageInfo,
+      };
+    }
+    case "DETAIL_DATA_GET": {
+      return {
+        ...state,
+        detailData: action.payload.detail,
+        msg: action.payload.msg,
+      };
+    }
+    case "ERR_DETAIL_DATA_GET": {
+      return {
+        ...state,
+        msg: action.payload,
       };
     }
     default: {

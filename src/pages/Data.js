@@ -1,6 +1,6 @@
 import React from "react";
 // import qs from "querystring";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { MdDeleteOutline as Delete } from "react-icons/md";
 import {
   BiCaretLeft as Back,
@@ -17,15 +17,12 @@ import {
   LastHeader,
   TableData,
 } from "../components/Table";
+
+import qs from "querystring";
 import { SectionHeader } from "../components/Text";
 import { connect } from "react-redux";
 import { authOff } from "../redux/actions/auth";
-import { getData } from "../redux/actions/data";
-
-// export const Navigation = (endpoint = "") => {
-//   const navigate = useNavigate();
-//   return navigate(endpoint);
-// };
+import { getData, getDetails } from "../redux/actions/data";
 
 class Data extends React.Component {
   constructor(props) {
@@ -35,32 +32,41 @@ class Data extends React.Component {
       pageInfo: {},
       nextPage: `${URL}/items?page=2`,
       prevPage: null,
+      token: "",
     };
   }
 
   componentDidMount() {
     this.props.authOff();
-    console.log(this.props);
     const { token } = this.props.auth;
+    let params = {};
+    if (this.props.location.search) {
+      params = this.parseQuery(this.props.location.search);
+      console.log(this.props);
+      console.log(params);
+    }
     this.props.getData(token).then(() => {
       this.setState({
         data: this.props.data.data,
         pageInfo: this.props.data.pageInfo,
+        token: this.props.auth.token,
       });
     });
   }
 
-  // getDetail = (event) => {
-  //   const { REACT_APP_FRONTEND_URL: URL } = process.env;
-  // };
+  parseQuery = (str) => {
+    return qs.parse(str.slice("1"));
+  };
+
+  getDetail = (event) => {
+    const id = event.currentTarget.value;
+    this.props.getDetails(id, this.state.token).then(() => {
+      this.props.history.push(`/data/${id}`);
+    });
+  };
 
   changePage = (event) => {
-    // console.log(window.location);
-    this.props
-      .getData(this.props.auth.token, event.currentTarget.value)
-      .then(() => {
-        console.log("oke");
-      });
+    this.props.getData(this.props.auth.token, event.currentTarget.value);
   };
 
   render() {
@@ -129,13 +135,11 @@ class Data extends React.Component {
                   ))}
                   <td>
                     <div className="flex flex-row w-full space-x-2 items-center justify-center">
-                      <Link to={`/data/${row.id}`}>
-                        <ActionButton
-                          value={row.id}
-                          content={<Search size={20} />}
-                          // onClick={this.getDetail}
-                        />
-                      </Link>
+                      <ActionButton
+                        value={row.id}
+                        content={<Search size={20} />}
+                        onClick={this.getDetail}
+                      />
                       <ActionButton content={<Delete size={20} />} />
                     </div>
                   </td>
@@ -192,6 +196,7 @@ class Data extends React.Component {
 const mapDispatchToProps = {
   authOff,
   getData,
+  getDetails,
 };
 
 const mapStateToProps = (state) => ({

@@ -34,6 +34,12 @@ const data = (state = initialState, action) => {
         msg: action.payload,
       };
     }
+    case "USER_UPDATE": {
+      return {
+        ...state,
+        msg: action.payload,
+      };
+    }
     default: {
       return {
         ...state,

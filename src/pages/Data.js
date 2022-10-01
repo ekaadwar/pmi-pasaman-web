@@ -18,11 +18,12 @@ import {
   TableData,
 } from "../components/Table";
 
-import qs from "querystring";
+import qs from "query-string";
 import { SectionHeader } from "../components/Text";
 import { connect } from "react-redux";
 import { authOff } from "../redux/actions/auth";
 import { getData, getDetails } from "../redux/actions/data";
+import { RiContactsBookLine } from "react-icons/ri";
 
 class Data extends React.Component {
   constructor(props) {
@@ -33,6 +34,7 @@ class Data extends React.Component {
       nextPage: `${URL}/items?page=2`,
       prevPage: null,
       token: "",
+      params: {},
     };
   }
 
@@ -40,12 +42,12 @@ class Data extends React.Component {
     this.props.authOff();
     const { token } = this.props.auth;
     let params = {};
+    console.log("mounting");
     if (this.props.location.search) {
       params = this.parseQuery(this.props.location.search);
-      console.log(this.props);
       console.log(params);
     }
-    this.props.getData(token).then(() => {
+    this.props.getData(token, "", params).then(() => {
       this.setState({
         data: this.props.data.data,
         pageInfo: this.props.data.pageInfo,
@@ -54,19 +56,73 @@ class Data extends React.Component {
     });
   }
 
+  componentDidUpdate(prevProps) {
+    const { token } = this.props.auth;
+    const { params } = this.state;
+
+    if (prevProps.location.search !== this.props.location.search) {
+      console.log(`prevProps.location.search : ${prevProps.location.search}`);
+      console.log(`this.props.location.search : ${this.props.location.search}`);
+      this.props.getData(token, "", params).then(() => {
+        this.setState({
+          items: this.props.data.data,
+          pageInfo: this.props.data.pageInfo,
+          params,
+        });
+        console.log(this.props.data.data);
+      });
+    }
+  }
+
   parseQuery = (str) => {
     return qs.parse(str.slice("1"));
   };
 
   getDetail = (event) => {
     const id = event.currentTarget.value;
-    this.props.getDetails(id, this.state.token).then(() => {
-      this.props.history.push(`/data/${id}`);
-    });
+    console.log(`token : ${this.props.auth.token}`);
+    this.props.getDetails(id, this.props.auth.token, this.props.history);
   };
 
   changePage = (event) => {
     this.props.getData(this.props.auth.token, event.currentTarget.value);
+  };
+
+  onSearch = (event) => {
+    if (event.keyCode === 13) {
+      this.search();
+    }
+  };
+
+  search = () => {
+    const { params } = this.state;
+    let url = this.getUrl(params);
+    this.props.history.push(url);
+  };
+
+  getUrl = (params = {}) => {
+    let url = "/data";
+
+    let paramKeys = Object.keys(params);
+    const paramLength = paramKeys.length;
+
+    if (paramLength > 0) {
+      url += "?";
+      let paramValues = Object.values(params);
+      for (let i = 0; i < paramLength; i++) {
+        if (i > 0) {
+          url += "&";
+        }
+        if (paramKeys[i] === "sort") {
+          const splitSort = paramValues[i].split("-");
+          paramKeys[i] = `sort[${splitSort[0]}]`;
+          paramValues[i] = splitSort[1];
+        }
+        url += `${paramKeys[i]}=${paramValues[i]}`;
+      }
+    }
+
+    return url;
   };
 
   render() {
@@ -92,10 +148,25 @@ class Data extends React.Component {
               </div>
               <div className="flex-1 flex h-10 items-center">
                 <input
-                  placeholder="Cari ..."
                   className="h-10 w-full focus:outline-none px-5 border border-red-800 border-r-0 rounded-l-lg placeholder:text-red-400"
+                  placeholder="Cari ..."
+                  value={
+                    this.state.params.search ? this.state.params.search : ""
+                  }
+                  onChange={(event) =>
+                    this.setState((prevState) => ({
+                      params: {
+                        ...prevState.params,
+                        search: event.target.value,
+                      },
+                    }))
+                  }
+                  onKeyDown={this.onSearch}
                 />
-                <button className="h-10 w-20 flex items-center justify-center bg-red-900 active:bg-red-700 rounded-r-lg">
+                <button
+                  className="h-10 w-20 flex items-center justify-center bg-red-900 active:bg-red-700 rounded-r-lg"
+                  onClick={() => this.search()}
+                >
                   <Search color="white" size={24} />
                 </button>
               </div>
@@ -130,7 +201,12 @@ class Data extends React.Component {
                       key={id}
                       column={Object.keys(row)[id]}
                       isEven={idx % 2 === 0 && true}
-                      text={Object.keys(row)[id] === "id" ? idx + 1 : item}
+                      text={
+                        Object.keys(row)[id] === "id"
+                          ? (this.props.data.pageInfo.currentPage - 1) * 20 +
+                            (idx + 1)
+                          : item
+                      }
                     />
                   ))}
                   <td>

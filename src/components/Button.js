@@ -12,13 +12,16 @@ export const PrimaryButton = ({ content = <div />, onClick = () => {} }) => {
   );
 };
 
-export const CircleButton = ({ content = <div /> }) => {
+export const CircleButton = ({ content = <div />, onClick = () => {} }) => {
   return (
     <CircleSm
       content={
-        <div className="flex h-full w-full items-center justify-center bg-red-900 active:bg-red-600 cursor-pointer">
+        <button
+          className="flex h-full w-full items-center justify-center bg-red-900 active:bg-red-600"
+          onClick={onClick}
+        >
           {content}
-        </div>
+        </button>
       }
     />
   );
@@ -40,6 +43,22 @@ export const ActionButton = ({
   return (
     <button
       className="button-action flex flex-row items-center justify-center bg-red-900 active:bg-red-700 text-white h-8 px-1 w-full sm:w-auto rounded-md"
+      value={value}
+      onClick={onClick}
+    >
+      {content}
+    </button>
+  );
+};
+
+export const ActionButtonGray = ({
+  content = <div />,
+  value = "",
+  onClick = () => {},
+}) => {
+  return (
+    <button
+      className="button-action flex flex-row items-center justify-center bg-gray-300 active:bg-gray-500 h-8 px-3 w-full sm:w-auto rounded-md text-sm"
       value={value}
       onClick={onClick}
     >

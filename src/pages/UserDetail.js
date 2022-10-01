@@ -1,15 +1,19 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 import Container from "../components/Container";
 import { authOff } from "../redux/actions/auth";
+import { ActionButtonGray as Button } from "../components/Button";
 import { CircleButton } from "../components/Button";
 import { CircleMd } from "../components/Circle";
 import { FiEdit2 as Edit } from "react-icons/fi";
+import { getDetails, updateUser } from "../redux/actions/data";
 import { getProfile } from "../redux/actions/profile";
 import { InputArea, InputProfile } from "../components/Input";
-import { ProfileCard } from "../components/Card";
+import {
+  ProfileCardFullHeight as MainCard,
+  ProfileCard,
+} from "../components/Card";
 import { zulaikha } from "../assets";
 
 class UserDetail extends React.Component {
@@ -17,48 +21,165 @@ class UserDetail extends React.Component {
     super(props);
     this.state = {
       data: {},
+      token: "",
     };
   }
 
   componentDidMount() {
     this.props.authOff();
-    this.setState({ data: this.props.data.detailData });
+    this.setState({
+      data: this.props.data.detailData,
+      token: this.props.auth.token,
+    });
   }
+
+  submit = () => {
+    const { token } = this.state;
+    const id = this.props.match.params.id;
+    const prevKeys = Object.keys(this.props.data.detailData);
+    const prevValues = Object.values(this.props.data.detailData);
+    const realKeys = Object.keys(this.state.data);
+    const realValues = Object.values(this.state.data);
+    const length = prevKeys.length;
+
+    console.log(id);
+
+    let keys = "";
+
+    for (let i = 0; i < length; i++) {
+      if (prevValues[i] !== realValues[i]) {
+        if (keys !== "") {
+          keys += ", ";
+        }
+        keys += `${prevKeys[i]}`;
+        this.props
+          .updateUser(id, token, realKeys[i], realValues[i])
+          .then(() => {
+            this.props.getDetails(id, token).then(() => {
+              console.log("getDetail");
+            });
+          });
+      }
+    }
+
+    if (keys !== "") {
+      window.alert(`${keys} have been updated`);
+    }
+  };
+
+  getDate = (strDate) => {
+    const type = typeof strDate;
+    if (type === "string") {
+      const date = strDate.slice(0, 10).split("-");
+      let month;
+
+      switch (Number(date[1])) {
+        case 1:
+          month = "Januari";
+          break;
+        case 2:
+          month = "Februari";
+          break;
+        case 3:
+          month = "Maret";
+          break;
+        case 4:
+          month = "April";
+          break;
+        case 5:
+          month = "Mey";
+          break;
+        case 6:
+          month = "Juni";
+          break;
+        case 7:
+          month = "Juli";
+          break;
+        case 8:
+          month = "Agustus";
+          break;
+        case 9:
+          month = "September";
+          break;
+        case 10:
+          month = "Oktober";
+          break;
+        case 11:
+          month = "November";
+          break;
+        case 12:
+          month = "Desember";
+          break;
+        default:
+          console.log("default");
+      }
+
+      const schedule = `${date[2]} ${month} ${date[0]}`;
+
+      return schedule;
+    }
+  };
 
   render() {
     const profile = this.state.data;
+    const date = this.getDate(profile.jadwal_donor);
     return (
       <section className="profile min-h-screen pt-32 pb-20">
         <Container
           content={
             <div className="flex justify-center">
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10 sm:gap-2 md:gap-10 max-w-md w-full sm:max-w-none">
-                <div>
-                  <ProfileCard
+                <div className="h-full">
+                  <MainCard
                     content={
-                      <div className="flex flex-col items-center space-y-2">
-                        <div className="relative">
-                          <CircleMd
-                            content={
-                              <img
-                                src={zulaikha}
-                                alt="Smile Woman"
-                                className="w-full"
-                              />
-                            }
-                          />
-                          <div className="absolute -bottom-2 -right-2">
-                            <Link to="#">
+                      <div className="h-full flex flex-col">
+                        <div className="flex-1 flex flex-col items-center space-y-2">
+                          <div className="relative">
+                            <CircleMd
+                              content={
+                                <img
+                                  src={zulaikha}
+                                  alt="Smile Woman"
+                                  className="w-full"
+                                />
+                              }
+                            />
+                            <div className="absolute -bottom-2 -right-2">
                               <CircleButton content={<Edit color="white" />} />
-                            </Link>
+                            </div>
+                          </div>
+                          <p className="font-bold text-xl pt-5">
+                            {profile.nama}
+                          </p>
+                          <p className="text-sm text-gray-500">
+                            {profile.email}
+                          </p>
+                          {profile.umur && <p>{profile.umur} Tahun</p>}
+                        </div>
+
+                        <div className="w-full text-sm">
+                          <div className="flex flex-row justify-between">
+                            <p>Golongan Darah :</p>
+                            <p className="font-bold uppercase">
+                              {profile.gol_darah}
+                            </p>
+                          </div>
+                          <div className="flex flex-row justify-between">
+                            <p>Total Donor :</p>
+                            <p className="font-bold uppercase">
+                              {profile.jumlah_donor}
+                            </p>
+                          </div>
+                          <div className="flex flex-row justify-between">
+                            <p>Jadwal Donor :</p>
+                            <p className="font-bold Capitalize">{date}</p>
                           </div>
                         </div>
-                        <p className="font-bold text-xl pt-5">{profile.nama}</p>
-                        <p className="text-sm text-gray-500">{profile.email}</p>
-                        <p>{profile.umur} Tahun</p>
-                        <p className="font-bold text-xl uppercase">
-                          {profile.gol_darah}
-                        </p>
+
+                        <div className="flex flex-col items-end space-y-1 pt-4">
+                          <Button content={<p>Donor</p>} />
+                          <Button content={<p>Riwayat Donor</p>} />
+                        </div>
                       </div>
                     }
                   />
@@ -72,7 +193,10 @@ class UserDetail extends React.Component {
                           <p className="font-bold text-2xl pt-5 text-gray-600">
                             Detail
                           </p>
-                          <CircleButton content={<Edit color="white" />} />
+                          <CircleButton
+                            onClick={this.submit}
+                            content={<Edit color="white" />}
+                          />
                         </div>
 
                         <div>
@@ -200,6 +324,6 @@ const mapStateToProps = (state) => ({
   data: state.data,
 });
 
-const mapDispatchToProps = { authOff, getProfile };
+const mapDispatchToProps = { authOff, getDetails, getProfile, updateUser };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserDetail);

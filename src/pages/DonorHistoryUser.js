@@ -26,8 +26,7 @@ class DonorHistoryUser extends React.Component {
 
   componentDidMount() {
     const token = this.props.auth.token;
-    const { id } = this.props.match.params;
-    console.log(id);
+    let { id } = this.props.match.params;
     this.props.getHistory(token, id).then(() => {
       this.setState({ history: this.props.donor.history, token: token });
     });

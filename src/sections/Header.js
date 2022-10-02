@@ -50,7 +50,7 @@ const Header = (props) => {
 
             <div className="hidden lg:flex flex-row justify-center space-x-8">
               <Link to="#">Tentang Kami</Link>
-              <Link to="#">Stok Darah</Link>
+              <Link to="/history">Stok Darah</Link>
               <Link to="#">Pelayanan</Link>
               {props.auth.userId === 1 && (
                 <Link to="/data" onClick={() => setIsOpen(false)}>
@@ -103,7 +103,7 @@ const Header = (props) => {
                 <Link to="#" onClick={() => setIsOpen(false)}>
                   Tentang Kami
                 </Link>
-                <Link to="#" onClick={() => setIsOpen(false)}>
+                <Link to="/history" onClick={() => setIsOpen(false)}>
                   Stok Darah
                 </Link>
                 <Link to="#" onClick={() => setIsOpen(false)}>

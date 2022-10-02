@@ -7,7 +7,9 @@ export const getHistory =
   (token = null, id = null) =>
   async (dispatch) => {
     try {
-      const { data } = await http(token).get(`${URL}/donor/${id}`);
+      const { data } = await http(token).get(
+        id ? `${URL}/donor/${id}` : `${URL}/donor`
+      );
       dispatch({
         type: "HISTORY_GET",
         payload: data,

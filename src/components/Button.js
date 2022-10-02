@@ -4,7 +4,18 @@ import { CircleSm } from "./Circle";
 export const PrimaryButton = ({ content = <div />, onClick = () => {} }) => {
   return (
     <div
-      className="flex flex-col py-2 px-4 w-full rounded-md items-center justify-center bg-red-900 active:bg-red-600 cursor-pointer shadow-lg shadow-stone-500/50 hover:shadow-red-500/50"
+      className="flex flex-col py-2 px-4 w-full rounded-md items-center justify-center bg-red-900 active:bg-red-600 cursor-pointer shadow-lg shadow-stone-500/50 hover:shadow-red-500/50 text-white"
+      onClick={onClick}
+    >
+      {content}
+    </div>
+  );
+};
+
+export const SecondaryButton = ({ content = <div />, onClick = () => {} }) => {
+  return (
+    <div
+      className="flex flex-col py-2 px-4 w-full rounded-md items-center justify-center bg-red-300 active:bg-red-600 cursor-pointer shadow-lg shadow-stone-500/50 hover:shadow-red-500/50 text-red-900"
       onClick={onClick}
     >
       {content}

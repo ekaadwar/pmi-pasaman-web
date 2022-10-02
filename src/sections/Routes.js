@@ -4,6 +4,7 @@ import { Switch, Route } from "react-router-dom";
 import PrivateRoute from "../components/PrivateRoute";
 import AddData from "../pages/AddData";
 import Data from "../pages/Data";
+import DonorHistoryUser from "../pages/DonorHistoryUser";
 import ForgotPass from "../pages/ForgotPass";
 import Home from "../pages/Home";
 import Profile from "../pages/Profile";
@@ -36,6 +37,13 @@ const Routes = () => {
         path="/data/:id"
         exact
         render={(props) => <PrivateRoute element={<UserDetail {...props} />} />}
+      />
+      <Route
+        path="/history/:id"
+        exact
+        render={(props) => (
+          <PrivateRoute element={<DonorHistoryUser {...props} />} />
+        )}
       />
     </Switch>
   );

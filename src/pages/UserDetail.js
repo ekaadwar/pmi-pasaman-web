@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 import Container from "../components/Container";
 import { authOff } from "../redux/actions/auth";
@@ -176,9 +177,17 @@ class UserDetail extends React.Component {
                           </div>
                         </div>
 
-                        <div className="flex flex-col items-end space-y-1 pt-4">
-                          <Button content={<p>Donor</p>} />
-                          <Button content={<p>Riwayat Donor</p>} />
+                        <div className="flex flex-col items-stretch space-y-1 pt-4">
+                          <Link to="" className="w-full">
+                            <Button content={<p>Donor</p>} />
+                          </Link>
+
+                          <Link
+                            to={`/history/${this.state.data.id}`}
+                            className="w-full"
+                          >
+                            <Button content={<p>Riwayat Donor</p>} />
+                          </Link>
                         </div>
                       </div>
                     }

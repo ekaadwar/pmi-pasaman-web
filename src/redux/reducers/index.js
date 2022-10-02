@@ -4,6 +4,7 @@ import { persistReducer } from "redux-persist";
 
 import auth from "./auth";
 import data from "./data";
+import donor from "./donor";
 import profile from "./profile";
 
 const persistAuth = {
@@ -15,6 +16,7 @@ const reducer = combineReducers({
   auth: persistReducer(persistAuth, auth),
   profile,
   data,
+  donor,
 });
 
 export default reducer;

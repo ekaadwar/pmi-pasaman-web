@@ -23,7 +23,6 @@ import { SectionHeader } from "../components/Text";
 import { connect } from "react-redux";
 import { authOff } from "../redux/actions/auth";
 import { getData, getDetails } from "../redux/actions/data";
-import { RiContactsBookLine } from "react-icons/ri";
 
 class Data extends React.Component {
   constructor(props) {

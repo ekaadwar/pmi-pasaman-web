@@ -211,7 +211,7 @@ class UserDetail extends React.Component {
                         <div>
                           <InputProfile
                             label="Name"
-                            value={profile.nama}
+                            value={profile.nama ? profile.nama : ""}
                             placeholder="Masukan nama Anda"
                             onChange={(event) =>
                               this.setState((prevState) => ({
@@ -259,7 +259,7 @@ class UserDetail extends React.Component {
                         <div>
                           <InputProfile
                             label="Pekerjaan"
-                            value={profile.pekerjaan}
+                            value={profile.pekerjaan ? profile.pekerjaan : ""}
                             onChange={(event) =>
                               this.setState((prevState) => ({
                                 data: {
@@ -289,7 +289,7 @@ class UserDetail extends React.Component {
                         <div>
                           <InputProfile
                             label="Golongan Darah"
-                            value={profile.gol_darah}
+                            value={profile.gol_darah ? profile.gol_darah : ""}
                             onChange={(event) =>
                               this.setState((prevState) => ({
                                 data: {
@@ -304,7 +304,7 @@ class UserDetail extends React.Component {
                         <div className="lg:col-span-2">
                           <InputArea
                             label="Alamat"
-                            value={profile.alamat}
+                            value={profile.alamat ? profile.alamat : ""}
                             onChange={(event) =>
                               this.setState((prevState) => ({
                                 data: {

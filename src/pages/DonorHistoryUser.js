@@ -4,22 +4,16 @@ import Container from "../components/Container";
 import { SectionHeader } from "../components/Text";
 import { ActionButton } from "../components/Button";
 import { MdDeleteOutline as Delete } from "react-icons/md";
-import { Link } from "react-router-dom";
 import { GiEmptyHourglass as Empty } from "react-icons/gi";
 import { getHistory } from "../redux/actions/donor";
 import {
-  CheckTableRow as CheckRow,
   FirstHeader,
   Footer,
   Header,
   LastHeader,
   TableData,
 } from "../components/Table";
-import {
-  BiCaretLeft as Back,
-  BiCaretRight as Forward,
-  BiSearchAlt as Search,
-} from "react-icons/bi";
+import { BiCaretLeft as Back, BiCaretRight as Forward } from "react-icons/bi";
 
 class DonorHistoryUser extends React.Component {
   constructor(props) {

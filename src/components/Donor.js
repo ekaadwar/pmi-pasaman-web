@@ -1,14 +1,8 @@
 import React from "react";
-import { connect } from "react-redux";
 import Container from "../components/Container";
-import {
-  ActionButton,
-  PrimaryButton,
-  SecondaryButton,
-} from "../components/Button";
+import { ActionButton } from "../components/Button";
 import { MdDeleteOutline as Delete } from "react-icons/md";
 import { GiEmptyHourglass as Empty } from "react-icons/gi";
-import { getHistory } from "../redux/actions/donor";
 import {
   FirstHeader,
   Footer,
@@ -32,8 +26,7 @@ const Donor = ({ history = [] }) => {
                   <Header text="Nama" />
                   <Header text="Gol. Darah" />
                   <Header text="Lokasi" />
-                  {/* <LastHeader text="Tanggal" /> */}
-                  <LastHeader text={history[0].nama} />
+                  <LastHeader text="Tanggal" />
                   <th></th>
                 </tr>
               </thead>

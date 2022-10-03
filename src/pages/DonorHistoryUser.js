@@ -1,29 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
-import Container from "../components/Container";
-import {
-  ActionButton,
-  PrimaryButton,
-  SecondaryButton,
-} from "../components/Button";
-import { MdDeleteOutline as Delete } from "react-icons/md";
-import { GiEmptyHourglass as Empty } from "react-icons/gi";
+import { PrimaryButton, SecondaryButton } from "../components/Button";
 import { getHistory } from "../redux/actions/donor";
-import {
-  FirstHeader,
-  Footer,
-  Header,
-  LastHeader,
-  TableData,
-} from "../components/Table";
-import { BiCaretLeft as Back, BiCaretRight as Forward } from "react-icons/bi";
+import { getStock } from "../redux/actions/stock";
 import Donor from "../components/Donor";
+import Stock from "../components/Stock";
 
 class DonorHistoryUser extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       history: [],
+      stock: [],
       isDonor: false,
       isExpenditure: false,
       isStock: true,
@@ -50,6 +38,9 @@ class DonorHistoryUser extends React.Component {
       }
       default: {
         this.setState({ isDonor: false, isExpenditure: false, isStock: true });
+        this.props.getStock(token).then(() => {
+          this.setState({ stock: this.props.stock.data, token: token });
+        });
       }
     }
   }
@@ -60,7 +51,12 @@ class DonorHistoryUser extends React.Component {
   };
 
   toDonor = () => {
+    const token = this.props.auth.token;
     this.setState({ isDonor: true, isExpenditure: false, isStock: false });
+    let { id } = this.props.match.params;
+    this.props.getHistory(token, id).then(() => {
+      this.setState({ history: this.props.donor.history, token: token });
+    });
   };
 
   toStock = () => {
@@ -108,6 +104,7 @@ class DonorHistoryUser extends React.Component {
         </div>
 
         {this.state.isDonor && <Donor history={this.state.history} />}
+        {this.state.isStock && <Stock stock={this.state.stock} />}
       </section>
     );
   }
@@ -116,10 +113,12 @@ class DonorHistoryUser extends React.Component {
 const mapStateToProps = (state) => ({
   auth: state.auth,
   donor: state.donor,
+  stock: state.stock,
 });
 
 const mapDispatchToProps = {
   getHistory,
+  getStock,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DonorHistoryUser);

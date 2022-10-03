@@ -6,6 +6,7 @@ import auth from "./auth";
 import data from "./data";
 import donor from "./donor";
 import profile from "./profile";
+import stock from "./stock";
 
 const persistAuth = {
   storage,
@@ -17,6 +18,7 @@ const reducer = combineReducers({
   profile,
   data,
   donor,
+  stock,
 });
 
 export default reducer;

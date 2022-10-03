@@ -60,15 +60,12 @@ class Data extends React.Component {
     const { params } = this.state;
 
     if (prevProps.location.search !== this.props.location.search) {
-      console.log(`prevProps.location.search : ${prevProps.location.search}`);
-      console.log(`this.props.location.search : ${this.props.location.search}`);
       this.props.getData(token, "", params).then(() => {
         this.setState({
           items: this.props.data.data,
           pageInfo: this.props.data.pageInfo,
           params,
         });
-        console.log(this.props.data.data);
       });
     }
   }
@@ -79,7 +76,6 @@ class Data extends React.Component {
 
   getDetail = (event) => {
     const id = event.currentTarget.value;
-    console.log(`token : ${this.props.auth.token}`);
     this.props.getDetails(id, this.props.auth.token, this.props.history);
   };
 

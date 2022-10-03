@@ -9,7 +9,7 @@ import { CircleButton } from "../components/Button";
 import { CircleMd } from "../components/Circle";
 import { FiEdit2 as Edit } from "react-icons/fi";
 import { getDetails, updateUser } from "../redux/actions/data";
-import { getProfile } from "../redux/actions/profile";
+import { getProfile, updateProfile } from "../redux/actions/profile";
 import { InputArea, InputProfile } from "../components/Input";
 import {
   ProfileCardFullHeight as MainCard,
@@ -28,6 +28,8 @@ class UserDetail extends React.Component {
 
   componentDidMount() {
     this.props.authOff();
+    const { path } = this.props.match;
+    console.log(path);
     this.setState({
       data: this.props.data.detailData,
       token: this.props.auth.token,
@@ -37,13 +39,13 @@ class UserDetail extends React.Component {
   submit = () => {
     const { token } = this.state;
     const id = this.props.match.params.id;
-    const prevKeys = Object.keys(this.props.data.detailData);
-    const prevValues = Object.values(this.props.data.detailData);
+    const { path } = this.props.match;
+    const prevData = this.props.data.detailData;
+    const prevKeys = Object.keys(prevData);
+    const prevValues = Object.values(prevData);
     const realKeys = Object.keys(this.state.data);
     const realValues = Object.values(this.state.data);
     const length = prevKeys.length;
-
-    console.log(id);
 
     let keys = "";
 
@@ -53,13 +55,24 @@ class UserDetail extends React.Component {
           keys += ", ";
         }
         keys += `${prevKeys[i]}`;
-        this.props
-          .updateUser(id, token, realKeys[i], realValues[i])
-          .then(() => {
-            this.props.getDetails(id, token).then(() => {
-              console.log("getDetail");
+
+        if (path === "/profile") {
+          this.props
+            .updateProfile(token, realKeys[i], realValues[i])
+            .then(() => {
+              this.props.getProfile(token).then(() => {
+                console.log("getProfile");
+              });
             });
-          });
+        } else {
+          this.props
+            .updateUser(id, token, realKeys[i], realValues[i])
+            .then(() => {
+              this.props.getDetails(id, token).then(() => {
+                console.log("getDetail");
+              });
+            });
+        }
       }
     }
 
@@ -178,10 +191,6 @@ class UserDetail extends React.Component {
                         </div>
 
                         <div className="flex flex-col items-stretch space-y-1 pt-4">
-                          <Link to="" className="w-full">
-                            <Button content={<p>Donor</p>} />
-                          </Link>
-
                           <Link
                             to={`/history/${this.state.data.id}`}
                             className="w-full"
@@ -331,8 +340,15 @@ class UserDetail extends React.Component {
 const mapStateToProps = (state) => ({
   auth: state.auth,
   data: state.data,
+  profile: state.profile,
 });
 
-const mapDispatchToProps = { authOff, getDetails, getProfile, updateUser };
+const mapDispatchToProps = {
+  authOff,
+  getDetails,
+  getProfile,
+  updateProfile,
+  updateUser,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserDetail);

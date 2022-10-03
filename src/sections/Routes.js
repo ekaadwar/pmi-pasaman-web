@@ -8,6 +8,7 @@ import DonorHistoryUser from "../pages/DonorHistoryUser";
 import ForgotPass from "../pages/ForgotPass";
 import Home from "../pages/Home";
 import Profile from "../pages/Profile";
+import MyProfile from "../pages/MyProfile";
 import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
 import UserDetail from "../pages/UserDetail";
@@ -18,7 +19,7 @@ const Routes = () => {
       <Route path="/" exact component={Home} />
       <Route
         path="/profile"
-        render={(props) => <PrivateRoute element={<Profile {...props} />} />}
+        render={(props) => <PrivateRoute element={<MyProfile {...props} />} />}
       />
       <Route path="/signin" component={SignIn} />
       <Route path="/signup" component={SignUp} />

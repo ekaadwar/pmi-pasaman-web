@@ -3,6 +3,35 @@ import http from "../../helpers/http";
 
 const { REACT_APP_BACKEND_URL: URL } = process.env;
 
+export const addUser = (formData, token, history) => {
+  return async (dispatch) => {
+    const form = new URLSearchParams();
+
+    form.append("nama", formData.nama);
+    form.append("email", formData.email);
+    form.append("no_hp", formData.no_hp);
+    form.append("password", formData.password);
+    form.append("alamat", formData.alamat);
+    form.append("umur", formData.umur);
+    form.append("pekerjaan", formData.pekerjaan);
+    form.append("jenis_kelamin", formData.gender);
+    form.append("golDarah", formData.gol_darah);
+
+    try {
+      const { data } = await http(token).post(`${URL}/users`, form.toString());
+      dispatch({
+        type: "DATA_ADD",
+        payload: data.message,
+      });
+
+      history.push("/data");
+      window.alert(data.message);
+    } catch (error) {
+      window.alert(error.response.data.message);
+    }
+  };
+};
+
 export const getData =
   (token = null, targetPage = "", params = {}) =>
   async (dispatch) => {

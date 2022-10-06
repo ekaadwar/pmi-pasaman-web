@@ -14,6 +14,12 @@ const data = (state = initialState, action) => {
         pageInfo: action.payload.pageInfo,
       };
     }
+    case "DATA_ADD": {
+      return {
+        ...state,
+        msg: action.payload,
+      };
+    }
     case "DATA_GET_NEXT": {
       return {
         ...state,

@@ -1,3 +1,7 @@
+export const PureCard = ({ content = <div /> }) => {
+  return <div className="bg-white rounded-xl p-5">{content}</div>;
+};
+
 export const ProfileCard = ({ content = <div /> }) => {
   return (
     <div className="bg-white rounded-xl py-8 px-5 border-b-8 border-red-800">

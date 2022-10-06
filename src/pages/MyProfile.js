@@ -179,14 +179,7 @@ class MyProfile extends React.Component {
                         </div>
 
                         <div className="flex flex-col items-stretch space-y-1 pt-4">
-                          <Link to="" className="w-full">
-                            <Button content={<p>Donor</p>} />
-                          </Link>
-
-                          <Link
-                            to={`/history/${this.state.data.id}`}
-                            className="w-full"
-                          >
+                          <Link to={`/myhistory`} className="w-full">
                             <Button content={<p>Riwayat Donor</p>} />
                           </Link>
                         </div>

@@ -25,6 +25,7 @@ export const InputProfile = ({
   type = "text",
   value = "",
   onChange = () => {},
+  onKeyDown = () => {},
 }) => {
   return (
     <div className="flex flex-col space-y-0">
@@ -35,6 +36,7 @@ export const InputProfile = ({
         type={type}
         value={value}
         onChange={onChange}
+        onKeyDown={onKeyDown}
       />
     </div>
   );

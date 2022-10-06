@@ -1,25 +1,31 @@
 const initialState = {
-  history: [],
+  data: [],
   msg: "",
 };
 
-const donor = (state = initialState, action) => {
+const expenditure = (state = initialState, action) => {
   switch (action.type) {
-    case "HISTORY_GET": {
+    case "EXPENDITURE_GET": {
       return {
         ...state,
-        history: action.payload.results,
+        data: action.payload.results,
         msg: action.payload.message,
       };
     }
-    case "ERR_HISTORY_GET": {
+    case "ERR_EXPENDITURE_GET": {
       return {
         ...state,
-        history: [],
+        data: [],
         msg: action.payload,
       };
     }
-    case "ERR_DONOR": {
+    case "EXPENDITURE_ADD": {
+      return {
+        ...state,
+        msg: action.payload,
+      };
+    }
+    case "ERR_EXPENDITURE_ADD": {
       return {
         ...state,
         msg: action.payload,
@@ -33,4 +39,4 @@ const donor = (state = initialState, action) => {
   }
 };
 
-export default donor;
+export default expenditure;

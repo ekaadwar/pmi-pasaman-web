@@ -99,6 +99,22 @@
   text-shadow: 0 0 3px #000;
 }
 
+.transparent-black-80 {
+  background-color: rgba(0, 0, 10, 0.8);
+}
+
+.transparent-black-60 {
+  background-color: rgba(0, 0, 10, 0.6);
+}
+
+.transparent-black-40 {
+  background-color: rgba(0, 0, 10, 0.4);
+}
+
+.transparent-black-20 {
+  background-color: rgba(0, 0, 10, 0.2);
+}
+
 @media (max-width: 640px) or (max-height: 500px) {
   .min-height {
     height: auto !important ;

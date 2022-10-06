@@ -22,3 +22,43 @@ export const getHistory =
       });
     }
   };
+
+export const getMyHistory =
+  (token = null) =>
+  async (dispatch) => {
+    try {
+      const { data } = await http(token).get(`${URL}/donor/my_history`);
+      dispatch({
+        type: "HISTORY_GET",
+        payload: data,
+      });
+    } catch (err) {
+      window.alert(err.response.data.message);
+      dispatch({
+        type: "ERR_HISTORY_GET",
+        payload: err.response.data.message,
+      });
+    }
+  };
+
+export const addDonor = (formData, token) => async (dispatch) => {
+  try {
+    const form = new URLSearchParams();
+
+    form.append("id", formData.id);
+    form.append("location", formData.location);
+
+    const { data } = await http(token).post(`${URL}/donor`, form.toString());
+    dispatch({
+      type: "DONOR_ADD",
+      payload: data.message,
+    });
+    window.alert(data.message);
+  } catch (err) {
+    window.alert(err.response.data.message);
+    dispatch({
+      type: "ERR_DONOR",
+      payload: err.response.data.message,
+    });
+  }
+};

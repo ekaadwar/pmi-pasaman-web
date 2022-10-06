@@ -1,9 +1,9 @@
 import React from "react";
 
-const Modal = ({ setOpenModal }) => {
+const Modal = ({ setOpenModal, content = <div /> }) => {
   return (
-    <div className="absolute top flex flex-row justify-center h-screen w-screen pt-20">
-      <div className="z-20 bg-white p-10 max-w-4xl w-full max-h-40">OK</div>
+    <div className="absolute z-50 top-0 flex flex-row items-center justify-center h-screen w-screen py-40">
+      <div className="z-20 bg-white p-10 rounded-lg">{content}</div>
       <div
         onClick={() => setOpenModal(false)}
         className="z-10 absolute inset-0 modal-close h-full w-full"

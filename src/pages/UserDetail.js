@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 
 import Container from "../components/Container";
 import { authOff } from "../redux/actions/auth";
@@ -14,8 +13,10 @@ import { InputArea, InputProfile } from "../components/Input";
 import {
   ProfileCardFullHeight as MainCard,
   ProfileCard,
+  PureCard,
 } from "../components/Card";
 import { zulaikha } from "../assets";
+import { addDonor } from "../redux/actions/donor";
 
 class UserDetail extends React.Component {
   constructor(props) {
@@ -23,6 +24,8 @@ class UserDetail extends React.Component {
     this.state = {
       data: {},
       token: "",
+      location: "",
+      isDonor: false,
     };
   }
 
@@ -134,6 +137,29 @@ class UserDetail extends React.Component {
     }
   };
 
+  visibilityOn = () => {
+    this.setState({ isDonor: true });
+  };
+
+  visibilityOff = () => {
+    this.setState({ isDonor: false });
+  };
+
+  donor = (event) => {
+    if (event.keyCode === 13) {
+      const donorData = {
+        id: this.state.data.id,
+        location: this.state.location,
+      };
+      if (this.state.location === "") {
+        window.alert("Anda belum mengisi lokasi kegiatan donor darah.");
+      } else {
+        this.props.addDonor(donorData, this.state.token);
+        this.visibilityOff();
+      }
+    }
+  };
+
   render() {
     const profile = this.state.data;
     const date = this.getDate(profile.jadwal_donor);
@@ -191,12 +217,18 @@ class UserDetail extends React.Component {
                         </div>
 
                         <div className="flex flex-col items-stretch space-y-1 pt-4">
-                          <Link
-                            to={`/history/${this.state.data.id}`}
-                            className="w-full"
-                          >
-                            <Button content={<p>Riwayat Donor</p>} />
-                          </Link>
+                          <Button
+                            onClick={this.visibilityOn}
+                            content={<p>Donor</p>}
+                          />
+                          <Button
+                            onClick={() =>
+                              this.props.history.push(
+                                `/history/${this.state.data.id}`
+                              )
+                            }
+                            content={<p>Riwayat Donor</p>}
+                          />
                         </div>
                       </div>
                     }
@@ -332,6 +364,33 @@ class UserDetail extends React.Component {
             </div>
           }
         />
+
+        {this.state.isDonor && (
+          <div className="fixed z-50 top-0 w-full h-full flex items-center justify-center">
+            <div
+              onClick={this.visibilityOff}
+              className="absolute transparent-black-80 h-screen w-full"
+            />
+            <div className="z-50">
+              <PureCard
+                content={
+                  <div>
+                    <p className="text-gray-700 text-sm">Lokasi Kegiatan:</p>
+                    <input
+                      className="py-2 focus:outline-none border-b border-gray-500"
+                      placeholder="silakan ketik disini"
+                      onKeyDown={this.donor}
+                      value={this.state.location}
+                      onChange={(event) =>
+                        this.setState({ location: event.target.value })
+                      }
+                    />
+                  </div>
+                }
+              />
+            </div>
+          </div>
+        )}
       </section>
     );
   }
@@ -344,6 +403,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
+  addDonor,
   authOff,
   getDetails,
   getProfile,

@@ -5,6 +5,7 @@ import { persistReducer } from "redux-persist";
 import auth from "./auth";
 import data from "./data";
 import donor from "./donor";
+import expenditure from "./expenditure";
 import profile from "./profile";
 import stock from "./stock";
 
@@ -18,6 +19,7 @@ const reducer = combineReducers({
   profile,
   data,
   donor,
+  expenditure,
   stock,
 });
 

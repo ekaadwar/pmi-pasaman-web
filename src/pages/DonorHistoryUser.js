@@ -1,10 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
+import { addExpenditure, getExpenditure } from "../redux/actions/expenditure";
 import { PrimaryButton, SecondaryButton } from "../components/Button";
-import { getHistory } from "../redux/actions/donor";
+import { getHistory, getMyHistory } from "../redux/actions/donor";
 import { getStock } from "../redux/actions/stock";
 import Donor from "../components/Donor";
 import Stock from "../components/Stock";
+import Expenditure from "../components/Expenditure";
+import { GiConsoleController } from "react-icons/gi";
 
 class DonorHistoryUser extends React.Component {
   constructor(props) {
@@ -12,6 +15,7 @@ class DonorHistoryUser extends React.Component {
     this.state = {
       history: [],
       stock: [],
+      expenditure: [],
       isDonor: false,
       isExpenditure: false,
       isStock: true,
@@ -32,8 +36,17 @@ class DonorHistoryUser extends React.Component {
         });
         break;
       }
+      case "myhistory": {
+        this.setState({ isDonor: true, isExpenditure: false, isStock: false });
+        this.props.getMyHistory(token).then(() => {
+          this.setState({ history: this.props.donor.history, token: token });
+        });
+        break;
+      }
       case "expenditure": {
-        this.setState({ isDonor: false, isExpenditure: true, isStock: false });
+        console.log(token);
+        this.toExpenditure(token);
+        this.setState({ token });
         break;
       }
       default: {
@@ -63,8 +76,18 @@ class DonorHistoryUser extends React.Component {
     this.setState({ isDonor: false, isExpenditure: false, isStock: true });
   };
 
-  toExpenditure = () => {
+  toExpenditure = (token) => {
     this.setState({ isDonor: false, isExpenditure: true, isStock: false });
+    this.props.getExpenditure(token).then(() => {
+      this.setState({ expenditure: this.props.expenditure.data });
+    });
+  };
+
+  submitExpenditure = (data) => {
+    // this.props.addExpenditure(data, this.state.token).then(() => {
+    //   console.log("submit Expenditure");
+    // });
+    console.log("submit Expenditure");
   };
 
   render() {
@@ -90,13 +113,10 @@ class DonorHistoryUser extends React.Component {
           </div>
           <div className="max-w-xs w-full">
             {this.state.isExpenditure ? (
-              <PrimaryButton
-                onClick={this.toExpenditure}
-                content="Pengeluaran Darah"
-              />
+              <PrimaryButton content="Pengeluaran Darah" />
             ) : (
               <SecondaryButton
-                onClick={this.toExpenditure}
+                onClick={() => this.toExpenditure(this.state.token)}
                 content="Pengeluaran Darah"
               />
             )}
@@ -105,6 +125,12 @@ class DonorHistoryUser extends React.Component {
 
         {this.state.isDonor && <Donor history={this.state.history} />}
         {this.state.isStock && <Stock stock={this.state.stock} />}
+        {this.state.isExpenditure && (
+          <Expenditure
+            expenditure={this.props.expenditure.data}
+            callback={this.submitExpenditure}
+          />
+        )}
       </section>
     );
   }
@@ -113,12 +139,16 @@ class DonorHistoryUser extends React.Component {
 const mapStateToProps = (state) => ({
   auth: state.auth,
   donor: state.donor,
+  expenditure: state.expenditure,
   stock: state.stock,
 });
 
 const mapDispatchToProps = {
+  addExpenditure,
+  getExpenditure,
   getHistory,
   getStock,
+  getMyHistory,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DonorHistoryUser);

@@ -7,7 +7,6 @@ import { getStock } from "../redux/actions/stock";
 import Donor from "../components/Donor";
 import Stock from "../components/Stock";
 import Expenditure from "../components/Expenditure";
-import { GiConsoleController } from "react-icons/gi";
 
 class DonorHistoryUser extends React.Component {
   constructor(props) {
@@ -50,10 +49,7 @@ class DonorHistoryUser extends React.Component {
         break;
       }
       default: {
-        this.setState({ isDonor: false, isExpenditure: false, isStock: true });
-        this.props.getStock(token).then(() => {
-          this.setState({ stock: this.props.stock.data, token: token });
-        });
+        this.toStock(this.props.auth.token);
       }
     }
   }
@@ -72,8 +68,12 @@ class DonorHistoryUser extends React.Component {
     });
   };
 
-  toStock = () => {
+  toStock = (token) => {
+    console.log(token);
     this.setState({ isDonor: false, isExpenditure: false, isStock: true });
+    this.props.getStock(token).then(() => {
+      this.setState({ stock: this.props.stock.data, token: token });
+    });
   };
 
   toExpenditure = (token) => {
@@ -84,9 +84,6 @@ class DonorHistoryUser extends React.Component {
   };
 
   submitExpenditure = (data) => {
-    // this.props.addExpenditure(data, this.state.token).then(() => {
-    //   console.log("submit Expenditure");
-    // });
     console.log("submit Expenditure");
   };
 
@@ -106,9 +103,12 @@ class DonorHistoryUser extends React.Component {
           </div>
           <div className="max-w-xs w-full">
             {this.state.isStock ? (
-              <PrimaryButton onClick={this.toStock} content="Stok Darah" />
+              <PrimaryButton content="Stok Darah" />
             ) : (
-              <SecondaryButton onClick={this.toStock} content="Stok Darah" />
+              <SecondaryButton
+                onClick={() => this.toStock(this.props.auth.token)}
+                content="Stok Darah"
+              />
             )}
           </div>
           <div className="max-w-xs w-full">

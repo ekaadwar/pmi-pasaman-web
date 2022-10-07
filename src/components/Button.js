@@ -38,9 +38,26 @@ export const CircleButton = ({ content = <div />, onClick = () => {} }) => {
   );
 };
 
-export const NavButton = ({ active = false, text = "" }) => {
+export const NavButton = ({
+  active = false,
+  text = "",
+  onClick = () => {},
+}) => {
   return (
-    <button className="bg-red-400 focus:bg-red-900 text-white h-10 w-20 flex flex-row items-center justify-center rounded-lg">
+    <button
+      className={`${
+        active ? "bg-red-900" : "bg-red-400"
+      } text-white h-10 w-20 flex flex-row items-center justify-center rounded-lg`}
+      onClick={onClick}
+    >
+      {text}
+    </button>
+  );
+};
+
+export const NavButtonFocus = ({ active = false, text = "" }) => {
+  return (
+    <button className="bg-red-900 text-white h-10 w-20 flex flex-row items-center justify-center rounded-lg">
       {text}
     </button>
   );

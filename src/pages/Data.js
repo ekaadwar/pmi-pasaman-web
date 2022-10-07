@@ -33,7 +33,9 @@ class Data extends React.Component {
       nextPage: `${URL}/items?page=2`,
       prevPage: null,
       token: "",
-      params: {},
+      params: {
+        blood: "all",
+      },
     };
   }
 
@@ -46,14 +48,18 @@ class Data extends React.Component {
       params = this.parseQuery(this.props.location.search);
       console.log(params);
     }
-    this.props.getData(token, "", params).then(() => {
+    this.getData(token, "", params);
+  }
+
+  getData = (token, page, params) => {
+    this.props.getData(token, page, params).then(() => {
       this.setState({
         data: this.props.data.data,
         pageInfo: this.props.data.pageInfo,
         token: this.props.auth.token,
       });
     });
-  }
+  };
 
   componentDidUpdate(prevProps) {
     const { token } = this.props.auth;
@@ -120,6 +126,32 @@ class Data extends React.Component {
     return url;
   };
 
+  getCategory = (category) => {
+    this.setState((prevState) => ({
+      ...prevState,
+      params: {
+        ...prevState.params,
+        blood: category,
+      },
+    }));
+
+    if (category) {
+      let params = this.state.params;
+      if (category === "all") {
+        delete params.blood;
+        this.props.history.push("/data");
+        this.getData(this.state.token, "", params);
+      } else {
+        params = {
+          ...params,
+          blood: category,
+        };
+        const url = this.getUrl(params);
+        this.props.history.push(url);
+      }
+    }
+  };
+
   render() {
     return (
       <section className="pt-32 pb-20">
@@ -135,11 +167,31 @@ class Data extends React.Component {
           content={
             <div className="flex flex-col space-y-3 md:space-y-0 md:flex-row md:items-center my-12 space-x-2">
               <div className="flex flex-row justify-center items-center space-x-2">
-                <NavButton text="All" />
-                <NavButton text="A" />
-                <NavButton text="B" />
-                <NavButton text="AB" />
-                <NavButton text="O" />
+                <NavButton
+                  active={this.state.params.blood === "all" ? true : false}
+                  onClick={() => this.getCategory("all")}
+                  text="All"
+                />
+                <NavButton
+                  active={this.state.params.blood === "a" ? true : false}
+                  onClick={() => this.getCategory("a")}
+                  text="A"
+                />
+                <NavButton
+                  active={this.state.params.blood === "b" ? true : false}
+                  onClick={() => this.getCategory("b")}
+                  text="B"
+                />
+                <NavButton
+                  active={this.state.params.blood === "ab" ? true : false}
+                  onClick={() => this.getCategory("ab")}
+                  text="AB"
+                />
+                <NavButton
+                  active={this.state.params.blood === "o" ? true : false}
+                  onClick={() => this.getCategory("o")}
+                  text="O"
+                />
               </div>
               <div className="flex-1 flex h-10 items-center">
                 <input

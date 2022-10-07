@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
+import { useHistory } from "react-router-dom";
 import Container from "../components/Container";
 import { ActionButton } from "../components/Button";
 import { MdDeleteOutline as Delete } from "react-icons/md";
@@ -14,13 +15,26 @@ import {
 import { BiCaretLeft as Back, BiCaretRight as Forward } from "react-icons/bi";
 import Modal from "./Modal";
 import { InputProfile } from "./Input";
-import { addExpenditure } from "../redux/actions/expenditure";
+import { addExpenditure, getExpenditure } from "../redux/actions/expenditure";
 
-const Expenditure = ({ expenditure = [], callback, addExpenditure, auth }) => {
+const Expenditure = ({ auth, expenditure, addExpenditure, getExpenditure }) => {
   const [visibility, setVisibility] = useState(false);
+  const [data, setData] = useState([]);
   const [bloodGroup, setBloodGroup] = useState("");
   const [amount, setAmount] = useState(0);
   const [receiver, setReceiver] = useState("");
+
+  let history = useHistory();
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = () => {
+    getExpenditure(auth.token).then(() => {
+      setData(expenditure.data);
+    });
+  };
 
   const onSubmit = (event) => {
     if (event.keyCode === 13) {
@@ -31,17 +45,18 @@ const Expenditure = ({ expenditure = [], callback, addExpenditure, auth }) => {
   const submit = () => {
     const submitData = { bloodGroup, amount, receiver };
     console.log(submitData);
-    addExpenditure(submitData, auth.token).then(() => {
+    addExpenditure(submitData, auth.token, history).then(() => {
       setVisibility(false);
       setBloodGroup("");
       setAmount(0);
       setReceiver("");
+      getData();
     });
   };
 
   return (
     <div>
-      {expenditure.length > 0 ? (
+      {expenditure.data.length > 0 ? (
         <div>
           <div className="overflow-x-auto">
             <table className="data-table mx-auto">
@@ -50,13 +65,13 @@ const Expenditure = ({ expenditure = [], callback, addExpenditure, auth }) => {
                   <FirstHeader text="No" />
                   <Header text="Nama" />
                   <Header text="Gol. Darah" />
-                  <Header text="Lokasi" />
+                  <Header text="Penerima" />
                   <LastHeader text="Tanggal" />
                   <th></th>
                 </tr>
               </thead>
 
-              {expenditure.map((row, idx) => (
+              {expenditure.data.map((row, idx) => (
                 <tbody key={idx}>
                   <tr>
                     {Object.values(row).map((item, id) => (
@@ -147,7 +162,7 @@ const Expenditure = ({ expenditure = [], callback, addExpenditure, auth }) => {
               </div>
 
               <InputProfile
-                label="Jumlah (kantong) : "
+                label="Jumlah (kantong) :"
                 type="number"
                 value={amount}
                 onChange={(event) => setAmount(event.target.value)}
@@ -155,7 +170,7 @@ const Expenditure = ({ expenditure = [], callback, addExpenditure, auth }) => {
               />
 
               <InputProfile
-                label="Lokasi : "
+                label="Penerima :"
                 value={receiver}
                 onChange={(event) => setReceiver(event.target.value)}
                 onKeyDown={onSubmit}
@@ -174,10 +189,12 @@ const Expenditure = ({ expenditure = [], callback, addExpenditure, auth }) => {
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  expenditure: state.expenditure,
 });
 
 const mapDispatchToProps = {
   addExpenditure,
+  getExpenditure,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Expenditure);

@@ -125,12 +125,7 @@ class DonorHistoryUser extends React.Component {
 
         {this.state.isDonor && <Donor history={this.state.history} />}
         {this.state.isStock && <Stock stock={this.state.stock} />}
-        {this.state.isExpenditure && (
-          <Expenditure
-            expenditure={this.props.expenditure.data}
-            callback={this.submitExpenditure}
-          />
-        )}
+        {this.state.isExpenditure && <Expenditure />}
       </section>
     );
   }

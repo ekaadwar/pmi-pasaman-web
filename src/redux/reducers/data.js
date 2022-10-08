@@ -34,13 +34,19 @@ const data = (state = initialState, action) => {
         msg: action.payload.msg,
       };
     }
-    case "ERR_DETAIL_DATA_GET": {
+    case "USER_ERROR": {
       return {
         ...state,
         msg: action.payload,
       };
     }
     case "USER_UPDATE": {
+      return {
+        ...state,
+        msg: action.payload,
+      };
+    }
+    case "USER_DELETE": {
       return {
         ...state,
         msg: action.payload,

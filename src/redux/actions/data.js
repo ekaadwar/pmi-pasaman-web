@@ -85,7 +85,7 @@ export const getDetails = (id, token, history = null) => {
     } catch (err) {
       window.alert(err.response.data.message);
       dispatch({
-        type: "ERR_DETAIL_DATA_GET",
+        type: "USER_ERROR",
         payload: err.response.data.message,
       });
       console.log(err);
@@ -119,6 +119,25 @@ export const updateUser = (id, token, key, value, file = null) => {
       });
     } catch (error) {
       console.log(error);
+    }
+  };
+};
+
+export const deleteUser = (id, token) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await http(token).patch(`${URL}/users/delete/${id}`);
+      dispatch({
+        type: "USER_DELETE",
+        payload: data.message,
+      });
+      window.alert(data.message);
+    } catch (error) {
+      dispatch({
+        type: "USER_ERROR",
+        payload: err.response.data.message,
+      });
+      window.alert(err.response.data.message);
     }
   };
 };

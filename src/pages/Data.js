@@ -1,13 +1,17 @@
 import React from "react";
 // import qs from "querystring";
 import { Link } from "react-router-dom";
-import { MdDeleteOutline as Delete } from "react-icons/md";
+import { MdDeleteOutline as Delete, MdOutlineDelete } from "react-icons/md";
 import {
   BiCaretLeft as Back,
   BiCaretRight as Forward,
   BiSearchAlt as Search,
 } from "react-icons/bi";
-import { ActionButton, NavButton } from "../components/Button";
+import {
+  ActionButton,
+  ActionButtonGray,
+  NavButton,
+} from "../components/Button";
 import Container from "../components/Container";
 import {
   CheckTableRow as CheckRow,
@@ -22,7 +26,8 @@ import qs from "query-string";
 import { SectionHeader } from "../components/Text";
 import { connect } from "react-redux";
 import { authOff } from "../redux/actions/auth";
-import { getData, getDetails } from "../redux/actions/data";
+import { deleteUser, getData, getDetails } from "../redux/actions/data";
+import Modal from "../components/Modal";
 
 class Data extends React.Component {
   constructor(props) {
@@ -36,6 +41,8 @@ class Data extends React.Component {
       params: {
         blood: "all",
       },
+      deleteModal: false,
+      deleteData: {},
     };
   }
 
@@ -152,6 +159,29 @@ class Data extends React.Component {
     }
   };
 
+  onDelete = (id, name) => {
+    console.log(id);
+    console.log(name);
+    this.setState((prevState) => ({
+      ...prevState,
+      deleteData: {
+        ...prevState.deleteData,
+        id,
+        name,
+      },
+      deleteModal: true,
+    }));
+  };
+
+  deleteUser = () => {
+    this.setState({ deleteModal: false });
+    this.props
+      .deleteUser(this.state.deleteData.id, this.state.token)
+      .then(() => {
+        this.props.getData(this.state.token);
+      });
+  };
+
   render() {
     return (
       <section className="pt-32 pb-20">
@@ -263,7 +293,10 @@ class Data extends React.Component {
                         content={<Search size={20} />}
                         onClick={this.getDetail}
                       />
-                      <ActionButton content={<Delete size={20} />} />
+                      <ActionButton
+                        onClick={() => this.onDelete(row.id, row.nama)}
+                        content={<Delete size={20} />}
+                      />
                     </div>
                   </td>
                 </tr>
@@ -311,6 +344,26 @@ class Data extends React.Component {
             </div>
           }
         />
+        {this.state.deleteModal === true && (
+          <Modal
+            setOpenModal={() => this.setState({ deleteModal: false })}
+            content={
+              <div>
+                <p className="align-center pb-5">
+                  Apakah Anda yakin ingin menghapus data{" "}
+                  {this.state.deleteData.name} ?
+                </p>
+                <div className="flex justify-between">
+                  <ActionButtonGray
+                    onClick={() => this.setState({ deleteModal: false })}
+                    content={"Batal"}
+                  />
+                  <ActionButton onClick={this.deleteUser} content={"Ya"} />
+                </div>
+              </div>
+            }
+          />
+        )}
       </section>
     );
   }
@@ -320,6 +373,7 @@ const mapDispatchToProps = {
   authOff,
   getData,
   getDetails,
+  deleteUser,
 };
 
 const mapStateToProps = (state) => ({

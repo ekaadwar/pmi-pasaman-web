@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
 import Container from "../components/Container";
-import { ActionButton } from "../components/Button";
+import { ActionButton, ActionButtonGray } from "../components/Button";
+import Modal from "./Modal";
 import { MdDeleteOutline as Delete } from "react-icons/md";
 import { GiEmptyHourglass as Empty } from "react-icons/gi";
 import {
@@ -11,12 +13,31 @@ import {
   TableData,
 } from "../components/Table";
 import { BiCaretLeft as Back, BiCaretRight as Forward } from "react-icons/bi";
+import { deleteHistDonor, getHistory } from "../redux/actions/donor";
 
-const Donor = ({ history = [] }) => {
-  console.log(history);
+const Donor = ({ auth, donor, deleteHistDonor, getHistory }) => {
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [idDelete, setIdDelete] = useState("");
+  const [userDelete, setUserDelete] = useState("");
+
+  const onDelete = (id, name) => {
+    console.log(id);
+    console.log(name);
+    setDeleteModal(true);
+    setIdDelete(id);
+    setUserDelete(name);
+  };
+
+  const delHistDonor = () => {
+    setDeleteModal(false);
+    deleteHistDonor(idDelete, auth.token).then(() => {
+      getHistory(auth.token);
+    });
+  };
+
   return (
     <div>
-      {history.length > 0 ? (
+      {donor.history.length > 0 ? (
         <div>
           <div className="overflow-x-auto">
             <table className="data-table mx-auto">
@@ -31,7 +52,7 @@ const Donor = ({ history = [] }) => {
                 </tr>
               </thead>
 
-              {history.map((row, idx) => (
+              {donor.history.map((row, idx) => (
                 <tbody key={idx}>
                   <tr>
                     {Object.values(row).map((item, id) => (
@@ -44,7 +65,10 @@ const Donor = ({ history = [] }) => {
                     ))}
                     <td>
                       <div className="flex flex-row w-full space-x-2 items-center justify-center">
-                        <ActionButton content={<Delete size={20} />} />
+                        <ActionButton
+                          onClick={() => onDelete(row.id, row.nama)}
+                          content={<Delete size={20} />}
+                        />
                       </div>
                     </td>
                   </tr>
@@ -66,7 +90,7 @@ const Donor = ({ history = [] }) => {
                   <Back size={24} />
                 </button>
                 <p>1</p>
-                <button className="text-red-800 active:text-red-900">
+                <button className="text-gray-800 active:text-red-900">
                   <Forward size={24} />
                 </button>
               </div>
@@ -79,8 +103,35 @@ const Donor = ({ history = [] }) => {
           <p>Data belum tersedia.</p>
         </div>
       )}
+
+      {deleteModal === true && (
+        <Modal
+          setOpenModal={() => setDeleteModal(false)}
+          content={
+            <div>
+              <p className="align-center pb-5">
+                Apakah Anda yakin ingin menghapus data {userDelete} ?
+              </p>
+              <div className="flex justify-between">
+                <ActionButtonGray
+                  onClick={() => setDeleteModal(false)}
+                  content={"Batal"}
+                />
+                <ActionButton onClick={delHistDonor} content={"Ya"} />
+              </div>
+            </div>
+          }
+        />
+      )}
     </div>
   );
 };
 
-export default Donor;
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  donor: state.donor,
+});
+
+const mapDispatchToProps = { deleteHistDonor, getHistory };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Donor);

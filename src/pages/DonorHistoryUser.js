@@ -123,7 +123,7 @@ class DonorHistoryUser extends React.Component {
           </div>
         </div>
 
-        {this.state.isDonor && <Donor history={this.state.history} />}
+        {this.state.isDonor && <Donor />}
         {this.state.isStock && <Stock stock={this.state.stock} />}
         {this.state.isExpenditure && <Expenditure />}
       </section>

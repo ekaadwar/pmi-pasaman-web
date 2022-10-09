@@ -1,7 +1,7 @@
 import React from "react";
 // import qs from "querystring";
 import { Link } from "react-router-dom";
-import { MdDeleteOutline as Delete, MdOutlineDelete } from "react-icons/md";
+import { MdDeleteOutline as Delete } from "react-icons/md";
 import {
   BiCaretLeft as Back,
   BiCaretRight as Forward,

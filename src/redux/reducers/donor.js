@@ -19,6 +19,12 @@ const donor = (state = initialState, action) => {
         msg: action.payload,
       };
     }
+    case "HIST_DONOR_DELETE": {
+      return {
+        ...state,
+        msg: action.payload,
+      };
+    }
     case "ERR_DONOR": {
       return {
         ...state,

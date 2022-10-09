@@ -62,3 +62,22 @@ export const addDonor = (formData, token) => async (dispatch) => {
     });
   }
 };
+
+export const deleteHistDonor = (id, token) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await http(token).patch(`${URL}/donor/delete/${id}`);
+      dispatch({
+        type: "HIST_DONOR_DELETE",
+        payload: data.message,
+      });
+      window.alert(data.message);
+    } catch (error) {
+      dispatch({
+        type: "ERR_DONOR",
+        payload: err.response.data.message,
+      });
+      window.alert(err.response.data.message);
+    }
+  };
+};

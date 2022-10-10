@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Container from "../components/Container";
-import { ActionButton } from "../components/Button";
+import { ActionButton, ActionButtonGray } from "../components/Button";
 import { MdDeleteOutline as Delete } from "react-icons/md";
 import { GiEmptyHourglass as Empty } from "react-icons/gi";
 import {
@@ -15,26 +15,27 @@ import {
 import { BiCaretLeft as Back, BiCaretRight as Forward } from "react-icons/bi";
 import Modal from "./Modal";
 import { InputProfile } from "./Input";
-import { addExpenditure, getExpenditure } from "../redux/actions/expenditure";
+import {
+  addExpenditure,
+  getExpenditure,
+  deleteExpenditure,
+} from "../redux/actions/expenditure";
 
-const Expenditure = ({ auth, expenditure, addExpenditure, getExpenditure }) => {
+const Expenditure = ({
+  auth,
+  expenditure,
+  addExpenditure,
+  getExpenditure,
+  deleteExpenditure,
+}) => {
   const [visibility, setVisibility] = useState(false);
-  const [data, setData] = useState([]);
   const [bloodGroup, setBloodGroup] = useState("");
   const [amount, setAmount] = useState(0);
   const [receiver, setReceiver] = useState("");
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [idDelete, setIdDelete] = useState("");
 
   let history = useHistory();
-
-  useEffect(() => {
-    getData();
-  }, []);
-
-  const getData = () => {
-    getExpenditure(auth.token).then(() => {
-      setData(expenditure.data);
-    });
-  };
 
   const onSubmit = (event) => {
     if (event.keyCode === 13) {
@@ -50,7 +51,20 @@ const Expenditure = ({ auth, expenditure, addExpenditure, getExpenditure }) => {
       setBloodGroup("");
       setAmount(0);
       setReceiver("");
-      getData();
+      getExpenditure(auth.token);
+    });
+  };
+
+  const onDelete = (id, name) => {
+    console.log(id);
+    setDeleteModal(true);
+    setIdDelete(id);
+  };
+
+  const delExpenditure = () => {
+    setDeleteModal(false);
+    deleteExpenditure(idDelete, auth.token).then(() => {
+      getExpenditure(auth.token);
     });
   };
 
@@ -84,7 +98,10 @@ const Expenditure = ({ auth, expenditure, addExpenditure, getExpenditure }) => {
                     ))}
                     <td>
                       <div className="flex flex-row w-full space-x-2 items-center justify-center">
-                        <ActionButton content={<Delete size={20} />} />
+                        <ActionButton
+                          onClick={() => onDelete(row.id, row.nama)}
+                          content={<Delete size={20} />}
+                        />
                       </div>
                     </td>
                   </tr>
@@ -130,6 +147,7 @@ const Expenditure = ({ auth, expenditure, addExpenditure, getExpenditure }) => {
           <p>Data belum tersedia.</p>
         </div>
       )}
+
       {visibility && (
         <Modal
           setOpenModal={setVisibility}
@@ -183,6 +201,26 @@ const Expenditure = ({ auth, expenditure, addExpenditure, getExpenditure }) => {
           }
         />
       )}
+
+      {deleteModal === true && (
+        <Modal
+          setOpenModal={() => setDeleteModal(false)}
+          content={
+            <div>
+              <p className="align-center pb-5">
+                Apakah Anda yakin ingin menghapus data ?
+              </p>
+              <div className="flex justify-between">
+                <ActionButtonGray
+                  onClick={() => setDeleteModal(false)}
+                  content={"Batal"}
+                />
+                <ActionButton onClick={delExpenditure} content={"Ya"} />
+              </div>
+            </div>
+          }
+        />
+      )}
     </div>
   );
 };
@@ -195,6 +233,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   addExpenditure,
   getExpenditure,
+  deleteExpenditure,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Expenditure);

@@ -16,7 +16,7 @@ export const addExpenditure =
         form.toString()
       );
       dispatch({
-        type: "EXPENDITURE_ADD",
+        type: "EXPENDITURE_MSG",
         payload: data.message,
       });
       window.alert(data.message);
@@ -24,7 +24,7 @@ export const addExpenditure =
     } catch (err) {
       window.alert(err.response.data.message);
       dispatch({
-        type: "ERR_EXPENDITURE_ADD",
+        type: "EXPENDITURE_MSG",
         payload: err.response.data.message,
       });
     }
@@ -47,3 +47,24 @@ export const getExpenditure =
       });
     }
   };
+
+export const deleteExpenditure = (id, token) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await http(token).patch(
+        `${URL}/expenditure/delete/${id}`
+      );
+      dispatch({
+        type: "EXPENDITURE_MSG",
+        payload: data.message,
+      });
+      window.alert(data.message);
+    } catch (err) {
+      dispatch({
+        type: "EXPENDITURE_MSG",
+        payload: err.response.data.message,
+      });
+      window.alert(err.response.data.message);
+    }
+  };
+};

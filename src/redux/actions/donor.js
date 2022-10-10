@@ -72,7 +72,7 @@ export const deleteHistDonor = (id, token) => {
         payload: data.message,
       });
       window.alert(data.message);
-    } catch (error) {
+    } catch (err) {
       dispatch({
         type: "ERR_DONOR",
         payload: err.response.data.message,

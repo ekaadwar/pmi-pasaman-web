@@ -19,13 +19,7 @@ const expenditure = (state = initialState, action) => {
         msg: action.payload,
       };
     }
-    case "EXPENDITURE_ADD": {
-      return {
-        ...state,
-        msg: action.payload,
-      };
-    }
-    case "ERR_EXPENDITURE_ADD": {
+    case "EXPENDITURE_MSG": {
       return {
         ...state,
         msg: action.payload,

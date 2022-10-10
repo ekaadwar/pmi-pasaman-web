@@ -115,6 +115,10 @@
   background-color: rgba(0, 0, 10, 0.2);
 }
 
+.transparent-full {
+  background-color: rgba(0, 0, 10, 0);
+}
+
 @media (max-width: 640px) or (max-height: 500px) {
   .min-height {
     height: auto !important ;

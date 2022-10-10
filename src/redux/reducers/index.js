@@ -6,6 +6,7 @@ import auth from "./auth";
 import data from "./data";
 import donor from "./donor";
 import expenditure from "./expenditure";
+import { globalReducer } from "./global";
 import profile from "./profile";
 import stock from "./stock";
 
@@ -20,6 +21,7 @@ const reducer = combineReducers({
   data,
   donor,
   expenditure,
+  globalReducer,
   stock,
 });
 

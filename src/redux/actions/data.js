@@ -17,6 +17,7 @@ export const addUser = (formData, token, history) => {
     form.append("jenis_kelamin", formData.gender);
     form.append("golDarah", formData.gol_darah);
 
+    dispatch({ type: "SET_LOADING", payload: true });
     try {
       const { data } = await http(token).post(`${URL}/users`, form.toString());
       dispatch({
@@ -25,8 +26,10 @@ export const addUser = (formData, token, history) => {
       });
 
       history.push("/data");
+      dispatch({ type: "SET_LOADING", payload: false });
       window.alert(data.message);
     } catch (error) {
+      dispatch({ type: "SET_LOADING", payload: false });
       window.alert(error.response.data.message);
     }
   };
@@ -54,22 +57,27 @@ export const getData =
         url += `&${paramKeys[i]}=${paramValues[i]}`;
       }
     }
-
+    dispatch({ type: "SET_LOADING", payload: true });
     try {
+      console.log(url);
       const { data } = await http(token).get(url);
       dispatch({
         type: "DATA_GET",
         payload: data,
       });
+      dispatch({ type: "SET_LOADING", payload: false });
     } catch (err) {
-      window.alert(err.response.data.message);
-      console.log("action");
-      console.log(paramKeys);
+      // window.alert(err.response.data.message);
+      // console.log("action");
+      // console.log(paramKeys);
+      console.log(err);
+      dispatch({ type: "SET_LOADING", payload: false });
     }
   };
 
 export const getDetails = (id, token, history = null) => {
   return async (dispatch) => {
+    dispatch({ type: "SET_LOADING", payload: true });
     try {
       const { data } = await http(token).get(`${URL}/users/${id}`);
       dispatch({
@@ -79,6 +87,7 @@ export const getDetails = (id, token, history = null) => {
           msg: data.message,
         },
       });
+      dispatch({ type: "SET_LOADING", payload: false });
       if (history) {
         history.push(`/data/${id}`);
       }
@@ -88,19 +97,13 @@ export const getDetails = (id, token, history = null) => {
         type: "USER_ERROR",
         payload: err.response.data.message,
       });
-      console.log(err);
+      dispatch({ type: "SET_LOADING", payload: false });
     }
   };
 };
 
 export const updateUser = (id, token, key, value, file = null) => {
   return async (dispatch) => {
-    console.log(`id : ${id}, token : ${token}`);
-    console.log("key :");
-    console.log(key);
-    console.log("value :");
-    console.log(value);
-
     const formData = new FormData();
     if (key !== null) {
       formData.append(key, value);
@@ -108,36 +111,40 @@ export const updateUser = (id, token, key, value, file = null) => {
 
     if (file !== null) {
       formData.append("photo", file);
-      console.log(formData);
     }
 
+    dispatch({ type: "SET_LOADING", payload: true });
     try {
       const { data } = await http(token).patch(`${URL}/users/${id}`, formData);
       dispatch({
         type: "USER_UPDATE",
         payload: data.message,
       });
+      dispatch({ type: "SET_LOADING", payload: false });
     } catch (error) {
-      console.log(error);
+      window.alert(error.response.data.message);
+      dispatch({ type: "SET_LOADING", payload: false });
     }
   };
 };
 
 export const deleteUser = (id, token) => {
   return async (dispatch) => {
+    dispatch({ type: "SET_LOADING", payload: true });
     try {
       const { data } = await http(token).patch(`${URL}/users/delete/${id}`);
       dispatch({
         type: "USER_DELETE",
         payload: data.message,
       });
-      window.alert(data.message);
+      dispatch({ type: "SET_LOADING", payload: false });
     } catch (error) {
       dispatch({
         type: "USER_ERROR",
         payload: err.response.data.message,
       });
       window.alert(err.response.data.message);
+      dispatch({ type: "SET_LOADING", payload: false });
     }
   };
 };

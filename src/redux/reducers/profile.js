@@ -31,6 +31,13 @@ const profile = (state = initialState, action) => {
         msg: action.payload,
       };
     }
+    case "PROFILE_CLEAR": {
+      return {
+        data: {},
+        msg: null,
+        errMessage: null,
+      };
+    }
     default: {
       return state;
     }

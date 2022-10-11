@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import Container from "../components/Container";
-import { ActionButton, ActionButtonGray } from "../components/Button";
-import Modal from "./Modal";
 import { MdDeleteOutline as Delete } from "react-icons/md";
 import { GiEmptyHourglass as Empty } from "react-icons/gi";
+import { BiCaretLeft as Back, BiCaretRight as Forward } from "react-icons/bi";
+
+import Modal from "./Modal";
+import { ActionButton, ActionButtonGray } from "../components/Button";
+import Container from "../components/Container";
+import { deleteHistDonor, getHistory } from "../redux/actions/donor";
 import {
   FirstHeader,
   Footer,
@@ -12,8 +15,6 @@ import {
   LastHeader,
   TableData,
 } from "../components/Table";
-import { BiCaretLeft as Back, BiCaretRight as Forward } from "react-icons/bi";
-import { deleteHistDonor, getHistory } from "../redux/actions/donor";
 
 const Donor = ({ auth, donor, deleteHistDonor, getHistory }) => {
   const [deleteModal, setDeleteModal] = useState(false);

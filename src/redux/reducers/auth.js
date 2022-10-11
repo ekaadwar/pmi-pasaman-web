@@ -55,6 +55,15 @@ const auth = (state = initialState, action) => {
         onAuth: false,
       };
     }
+    case "AUTH_CLEAR": {
+      return {
+        ...state,
+        token: null,
+        userId: "",
+        msg: "",
+        photo: null,
+      };
+    }
     default: {
       return {
         ...state,

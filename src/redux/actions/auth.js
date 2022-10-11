@@ -66,6 +66,16 @@ export const authOff = () => ({
   type: "AUTH_OFF",
 });
 
-export const authLogout = () => ({
-  type: "AUTH_LOGOUT",
-});
+// export const authLogout = () => ({
+//   type: "AUTH_LOGOUT",
+// });
+
+export const authLogout = () => {
+  return (dispatch) => {
+    dispatch({ type: "AUTH_CLEAR" });
+    dispatch({ type: "DATA_CLEAR" });
+    dispatch({ type: "DONOR_CLEAR" });
+    dispatch({ type: "EXPENDITURE_CLEAR" });
+    dispatch({ type: "PROFILE_CLEAR" });
+  };
+};

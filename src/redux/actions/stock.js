@@ -8,7 +8,7 @@ export const getStock =
   async (dispatch) => {
     dispatch({ type: "SET_LOADING", payload: true });
     try {
-      const { data } = await http(token).get(`${URL}/stock`);
+      const { data } = await http().get(`${URL}/stock`);
       dispatch({
         type: "STOCK_GET",
         payload: data,

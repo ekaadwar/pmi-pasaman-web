@@ -11,11 +11,26 @@ import { loveCombine1, loveCombine2 } from "../assets";
 import { PageSection, PageJumbotron } from "../components/Section";
 import { PrimaryButton } from "../components/Button";
 import { SectionHeader } from "../components/Text";
+import { getStock } from "../redux/actions/stock";
 
 class Home extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      stock: [],
+    };
+  }
+
   componentDidMount() {
     this.props.authOff();
+    this.getStockData();
   }
+
+  getStockData = () => {
+    this.props.getStock().then(() => {
+      this.setState({ stock: this.props.stock.data });
+    });
+  };
 
   render() {
     return (
@@ -85,13 +100,13 @@ class Home extends React.Component {
               <div className="h-full py-20 text-center">
                 <SectionHeader text="Jumlah Darah yang Tersedia" />
                 <div className="grid grid-cols-2 sm:grid-cols-4 justify-center pt-10 gap-5">
-                  {bloodStock.map((item, idx) => (
+                  {this.state.stock.map((item, idx) => (
                     <div
                       key={idx}
                       className="flex justify-center"
                       onClick={() => this.props.history.push("/stock")}
                     >
-                      <BloodBox type={item.type} amount={item.amount} />
+                      <BloodBox type={item.gol_darah} amount={item.total} />
                     </div>
                   ))}
                 </div>
@@ -130,8 +145,13 @@ class Home extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  stock: state.stock,
+});
+
 const mapDispatchToProps = {
   authOff,
+  getStock,
 };
 
-export default connect(null, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

@@ -52,6 +52,14 @@ const data = (state = initialState, action) => {
         msg: action.payload,
       };
     }
+    case "DATA_CLEAR": {
+      return {
+        data: [],
+        pageInfo: {},
+        detailData: {},
+        msg: "",
+      };
+    }
     default: {
       return {
         ...state,

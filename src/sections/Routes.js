@@ -7,6 +7,7 @@ import Data from "../pages/Data";
 import DonorHistoryUser from "../pages/DonorHistoryUser";
 import ForgotPass from "../pages/ForgotPass";
 import Home from "../pages/Home";
+import MyDonor from "../pages/MyDonor";
 import MyProfile from "../pages/MyProfile";
 import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
@@ -56,9 +57,7 @@ const Routes = () => {
       <Route
         path="/myhistory"
         exact
-        render={(props) => (
-          <PrivateRoute element={<DonorHistoryUser {...props} />} />
-        )}
+        render={(props) => <PrivateRoute element={<MyDonor {...props} />} />}
       />
 
       <Route

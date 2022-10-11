@@ -25,6 +25,12 @@ const expenditure = (state = initialState, action) => {
         msg: action.payload,
       };
     }
+    case "EXPENDITURE_CLEAR": {
+      return {
+        data: [],
+        msg: "",
+      };
+    }
     default: {
       return {
         ...state,

@@ -19,6 +19,13 @@ const donor = (state = initialState, action) => {
         msg: action.payload,
       };
     }
+    case "MY_HISTORY_GET": {
+      return {
+        ...state,
+        history: action.payload.results,
+        msg: action.payload.message,
+      };
+    }
     case "HIST_DONOR_DELETE": {
       return {
         ...state,
@@ -29,6 +36,12 @@ const donor = (state = initialState, action) => {
       return {
         ...state,
         msg: action.payload,
+      };
+    }
+    case "DONOR_CLEAR": {
+      return {
+        history: [],
+        msg: "",
       };
     }
     default: {

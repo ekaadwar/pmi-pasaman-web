@@ -38,13 +38,7 @@ const Routes = () => {
         exact
         render={(props) => <PrivateRoute element={<UserDetail {...props} />} />}
       />
-      <Route
-        path="/stock"
-        exact
-        render={(props) => (
-          <PrivateRoute element={<DonorHistoryUser {...props} />} />
-        )}
-      />
+      <Route path="/stock" exact component={DonorHistoryUser} />
       <Route
         path="/history"
         exact

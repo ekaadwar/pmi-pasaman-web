@@ -52,7 +52,7 @@ const Header = (props) => {
               <Link to="#">Tentang Kami</Link>
               <Link to="/stock">Stok Darah</Link>
               <Link to="#">Pelayanan</Link>
-              {props.auth.userId === 1 && (
+              {(props.auth.userId === 1 || props.auth.userId === 2) && (
                 <Link to="/data" onClick={() => setIsOpen(false)}>
                   Data
                 </Link>

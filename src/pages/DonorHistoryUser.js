@@ -91,16 +91,22 @@ class DonorHistoryUser extends React.Component {
     return (
       <section className="min-h-screen py-20">
         <div className="flex flex-row justify-center space-x-5 my-20">
-          <div className="max-w-xs w-full">
-            {this.state.isDonor ? (
-              <PrimaryButton onClick={this.toDonor} content="Pemasukan Darah" />
-            ) : (
-              <SecondaryButton
-                onClick={this.toDonor}
-                content="Pemasukan Darah"
-              />
+          {this.state.token &&
+            (this.props.auth.userId === 1 || this.props.auth.userId === 2) && (
+              <div className="max-w-xs w-full">
+                {this.state.isDonor ? (
+                  <PrimaryButton
+                    onClick={this.toDonor}
+                    content="Pemasukan Darah"
+                  />
+                ) : (
+                  <SecondaryButton
+                    onClick={this.toDonor}
+                    content="Pemasukan Darah"
+                  />
+                )}
+              </div>
             )}
-          </div>
           <div className="max-w-xs w-full">
             {this.state.isStock ? (
               <PrimaryButton content="Stok Darah" />
@@ -111,16 +117,20 @@ class DonorHistoryUser extends React.Component {
               />
             )}
           </div>
-          <div className="max-w-xs w-full">
-            {this.state.isExpenditure ? (
-              <PrimaryButton content="Pengeluaran Darah" />
-            ) : (
-              <SecondaryButton
-                onClick={() => this.toExpenditure(this.state.token)}
-                content="Pengeluaran Darah"
-              />
+
+          {this.state.token &&
+            (this.props.auth.userId === 1 || this.props.auth.userId === 2) && (
+              <div className="max-w-xs w-full">
+                {this.state.isExpenditure ? (
+                  <PrimaryButton content="Pengeluaran Darah" />
+                ) : (
+                  <SecondaryButton
+                    onClick={() => this.toExpenditure(this.state.token)}
+                    content="Pengeluaran Darah"
+                  />
+                )}
+              </div>
             )}
-          </div>
         </div>
 
         {this.state.isDonor && <Donor />}

@@ -15,7 +15,6 @@ import { SectionHeader } from "../components/Text";
 class Home extends React.Component {
   componentDidMount() {
     this.props.authOff();
-    console.log(this.props);
   }
 
   render() {
@@ -40,6 +39,7 @@ class Home extends React.Component {
             />
           }
         />
+
         <PageSection
           content={
             <Container
@@ -86,7 +86,11 @@ class Home extends React.Component {
                 <SectionHeader text="Jumlah Darah yang Tersedia" />
                 <div className="grid grid-cols-2 sm:grid-cols-4 justify-center pt-10 gap-5">
                   {bloodStock.map((item, idx) => (
-                    <div key={idx} className="flex justify-center">
+                    <div
+                      key={idx}
+                      className="flex justify-center"
+                      onClick={() => this.props.history.push("/stock")}
+                    >
                       <BloodBox type={item.type} amount={item.amount} />
                     </div>
                   ))}
@@ -111,6 +115,7 @@ class Home extends React.Component {
                 </div>
                 <div className="w-1/2 self-end">
                   <PrimaryButton
+                    onClick={() => this.props.history.push("/signin")}
                     content={
                       <p className="text-xl text-white font-bold">Daftar</p>
                     }

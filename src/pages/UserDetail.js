@@ -31,13 +31,21 @@ class UserDetail extends React.Component {
 
   componentDidMount() {
     this.props.authOff();
-    const { path } = this.props.match;
-    console.log(path);
+    const id = this.props.match.params.id;
+    console.log(id);
     this.setState({
       data: this.props.data.detailData,
       token: this.props.auth.token,
     });
   }
+
+  getData = (id) => {
+    this.props.getDetails(id, this.state.token).then(() => {
+      this.setState({
+        data: this.props.data.detailData,
+      });
+    });
+  };
 
   submit = () => {
     const { token } = this.state;
@@ -71,9 +79,7 @@ class UserDetail extends React.Component {
           this.props
             .updateUser(id, token, realKeys[i], realValues[i])
             .then(() => {
-              this.props.getDetails(id, token).then(() => {
-                console.log("getDetail");
-              });
+              this.getData(id);
             });
         }
       }
@@ -268,9 +274,11 @@ class UserDetail extends React.Component {
                         <div>
                           <InputProfile
                             label="Tanggal Lahir"
+                            type="date"
                             value={
                               profile.tanggal_lahir ? profile.tanggal_lahir : ""
                             }
+                            // value={"2018-07-22"}
                             onChange={(event) =>
                               this.setState((prevState) => ({
                                 data: {

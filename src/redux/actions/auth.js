@@ -4,8 +4,8 @@ const { REACT_APP_BACKEND_URL: URL } = process.env;
 
 export const authSignUp = (formData) => {
   return async (dispatch) => {
+    dispatch({ type: "SET_LOADING", payload: true });
     const form = new URLSearchParams();
-
     form.append("nama", formData.name);
     form.append("noHp", formData.noHp);
     form.append("email", formData.email);
@@ -19,8 +19,10 @@ export const authSignUp = (formData) => {
       });
 
       formData.navigate.push("/signin");
+      dispatch({ type: "SET_LOADING", payload: false });
       window.alert(data.message);
     } catch (error) {
+      dispatch({ type: "SET_LOADING", payload: false });
       window.alert(error.response.data.message);
     }
   };
@@ -28,6 +30,7 @@ export const authSignUp = (formData) => {
 
 export const authSignin = (dataForm) => {
   return async (dispatch) => {
+    dispatch({ type: "SET_LOADING", payload: true });
     const form = new URLSearchParams();
 
     form.append("email", dataForm.email);
@@ -45,8 +48,11 @@ export const authSignin = (dataForm) => {
         },
       });
       dataForm.navigate.push("/profile");
+
+      dispatch({ type: "SET_LOADING", payload: false });
       window.alert(data.message);
     } catch (error) {
+      dispatch({ type: "SET_LOADING", payload: false });
       window.alert(error.message);
     }
   };

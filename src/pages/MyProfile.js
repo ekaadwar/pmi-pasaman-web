@@ -30,13 +30,17 @@ class MyProfile extends React.Component {
     this.props.authOff();
     const { path } = this.props.match;
     console.log(path);
+    this.getData();
+  }
+
+  getData = () => {
     this.props.getProfile(this.props.auth.token).then((res) => {
       this.setState({
         data: this.props.profile.data,
         token: this.props.auth.token,
       });
     });
-  }
+  };
 
   submit = () => {
     const { token } = this.state;
@@ -57,9 +61,7 @@ class MyProfile extends React.Component {
         keys += `${prevKeys[i]}`;
 
         this.props.updateProfile(token, realKeys[i], realValues[i]).then(() => {
-          this.props.getProfile(token).then(() => {
-            console.log("getProfile");
-          });
+          this.getData();
         });
       }
     }
@@ -221,9 +223,11 @@ class MyProfile extends React.Component {
                         <div>
                           <InputProfile
                             label="Tanggal Lahir"
+                            type="date"
                             value={
                               profile.tanggal_lahir ? profile.tanggal_lahir : ""
                             }
+                            // value={"2018-07-22"}
                             onChange={(event) =>
                               this.setState((prevState) => ({
                                 data: {

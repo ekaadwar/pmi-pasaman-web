@@ -1,86 +1,86 @@
-import React, { useEffect, useState } from "react";
-import Container from "./Container";
-import BloodBox from "../components/BloodBox";
+import React, { useEffect, useState } from 'react'
+import Container from './Container'
+import BloodBox from '../components/BloodBox'
 import {
   FirstHeader,
   Footer,
   Header,
   LastHeader,
   TableData,
-} from "../components/Table";
-import { ActionButton, ActionButtonGray } from "../components/Button";
-import { connect } from "react-redux";
-import Modal from "./Modal";
-import { getStock, updateStock } from "../redux/actions/stock";
+} from '../components/Table'
+import { ActionButton, ActionButtonGray } from '../components/Button'
+import { connect } from 'react-redux'
+import Modal from './Modal'
+import { getStock, updateStock } from '../redux/actions/stock'
 
 const Stock = ({ stock, auth, getStock, updateStock }) => {
-  const [input, setInput] = useState(false);
-  const [data, setData] = useState([]);
+  const [input, setInput] = useState(false)
+  const [data, setData] = useState([])
 
   useEffect(() => {
     if (stock.data.length > 0) {
-      setData(stock.data);
+      setData(stock.data)
     } else {
-      getStockData();
+      getStockData()
     }
-  }, []);
+  }, [])
 
   const getStockData = () => {
     getStock().then(() => {
-      setData(stock.data);
-    });
-  };
+      setData(stock.data)
+    })
+  }
 
   const changeInput = (event, id, input) => {
     if (event.target.value >= 0) {
-      let newArray = [...data];
-      if (input === "income") {
-        newArray[id].masuk = Number(event.target.value);
+      let newArray = [...data]
+      if (input === 'income') {
+        newArray[id].masuk = Number(event.target.value)
       }
-      if (input === "expenditure") {
-        newArray[id].keluar = Number(event.target.value);
+      if (input === 'expenditure') {
+        newArray[id].keluar = Number(event.target.value)
       }
-      setData(newArray);
+      setData(newArray)
     } else {
-      window.alert("Data yang dimasukan tidak boleh bernilai negatif.");
+      window.alert('Data yang dimasukan tidak boleh bernilai negatif.')
     }
-  };
+  }
 
   const onSubmit = (event) => {
     if (event.keyCode === 13) {
-      submit();
+      submit()
     }
-  };
+  }
 
   const submit = () => {
-    let alert = false;
-    let bloodGroup = [];
-    let income = [];
-    let expenditure = [];
+    let alert = false
+    let bloodGroup = []
+    let income = []
+    let expenditure = []
 
-    let dataCollabs;
+    let dataCollabs
 
     data.map((items) => {
-      const range = items.masuk - items.keluar;
+      const range = items.masuk - items.keluar
       if (range < 0) {
-        alert = true;
+        alert = true
       }
-      bloodGroup = [...bloodGroup, items.gol_darah];
-      income = [...income, items.masuk];
-      expenditure = [...expenditure, items.keluar];
-      dataCollabs = { alert, bloodGroup, income, expenditure };
-      return dataCollabs;
-    });
+      bloodGroup = [...bloodGroup, items.gol_darah]
+      income = [...income, items.masuk]
+      expenditure = [...expenditure, items.keluar]
+      dataCollabs = { alert, bloodGroup, income, expenditure }
+      return dataCollabs
+    })
     updateStock(dataCollabs, auth.token).then(() => {
-      getStockData();
-    });
-    setInput(false);
-  };
+      getStockData()
+    })
+    setInput(false)
+  }
 
   const cancel = () => {
-    setData(stock.data);
-    setInput(false);
-  };
+    setData(stock.data)
+    setInput(false)
+  }
 
   return (
     <div className="mb-20 space-y-20">
@@ -120,7 +120,7 @@ const Stock = ({ stock, auth, getStock, updateStock }) => {
                         key={id}
                         column={Object.keys(row)[id]}
                         isEven={idx % 2 === 0 && true}
-                        text={Object.keys(row)[id] === "id" ? idx + 1 : item}
+                        text={Object.keys(row)[id] === 'id' ? idx + 1 : item}
                       />
                     ))}
                   </tr>
@@ -141,7 +141,7 @@ const Stock = ({ stock, auth, getStock, updateStock }) => {
               {auth.token && (auth.userId === 1 || auth.userId === 2) && (
                 <ActionButton
                   onClick={() => setInput(true)}
-                  content={"Tambah Data"}
+                  content={'Tambah Data'}
                 />
               )}
             </div>
@@ -163,19 +163,19 @@ const Stock = ({ stock, auth, getStock, updateStock }) => {
                   <div className="flew flew-row space-x-10">
                     <input
                       className="py-2 border-b border-gray-700 bg-white focus:outline-none "
-                      placeholder={"Masuk"}
-                      type={"number"}
+                      placeholder={'Masuk'}
+                      type={'number'}
                       value={items.masuk}
-                      onChange={(event) => changeInput(event, idx, "income")}
+                      onChange={(event) => changeInput(event, idx, 'income')}
                       onKeyDown={onSubmit}
                     />
                     <input
                       className="py-2 border-b border-gray-700 bg-white focus:outline-none "
-                      placeholder={"Keluar"}
-                      type={"number"}
+                      placeholder={'Keluar'}
+                      type={'number'}
                       value={items.keluar}
                       onChange={(event) =>
-                        changeInput(event, idx, "expenditure")
+                        changeInput(event, idx, 'expenditure')
                       }
                       onKeyDown={onSubmit}
                     />
@@ -183,25 +183,25 @@ const Stock = ({ stock, auth, getStock, updateStock }) => {
                 </div>
               ))}
               <div className="flex justify-between">
-                <ActionButtonGray onClick={cancel} content={"Batal"} />
-                <ActionButton onClick={submit} content={"Tambah Data"} />
+                <ActionButtonGray onClick={cancel} content={'Batal'} />
+                <ActionButton onClick={submit} content={'Tambah Data'} />
               </div>
             </div>
           }
         />
       )}
     </div>
-  );
-};
+  )
+}
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
   stock: state.stock,
-});
+})
 
 const mapDispatchToProps = {
   getStock,
   updateStock,
-};
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Stock);
+export default connect(mapStateToProps, mapDispatchToProps)(Stock)

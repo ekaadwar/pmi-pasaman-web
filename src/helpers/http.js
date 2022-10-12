@@ -1,13 +1,13 @@
-import axios from "axios";
+import axios from 'axios'
 
 const http = (token = null) => {
-  const headers = {};
+  const headers = {}
   if (token) {
-    headers.authorization = `Bearer ${token}`;
+    headers.authorization = `Bearer ${token}`
   }
   return axios.create({
     headers,
-  });
-};
+  })
+}
 
-export default http;
+export default http

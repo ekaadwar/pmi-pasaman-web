@@ -1,42 +1,42 @@
 const initialState = {
   data: [],
-  msg: "",
-};
+  msg: '',
+}
 
 const expenditure = (state = initialState, action) => {
   switch (action.type) {
-    case "EXPENDITURE_GET": {
+    case 'EXPENDITURE_GET': {
       return {
         ...state,
         data: action.payload.results,
         msg: action.payload.message,
-      };
+      }
     }
-    case "ERR_EXPENDITURE_GET": {
+    case 'ERR_EXPENDITURE_GET': {
       return {
         ...state,
         data: [],
         msg: action.payload,
-      };
+      }
     }
-    case "EXPENDITURE_MSG": {
+    case 'EXPENDITURE_MSG': {
       return {
         ...state,
         msg: action.payload,
-      };
+      }
     }
-    case "EXPENDITURE_CLEAR": {
+    case 'EXPENDITURE_CLEAR': {
       return {
         data: [],
-        msg: "",
-      };
+        msg: '',
+      }
     }
     default: {
       return {
         ...state,
-      };
+      }
     }
   }
-};
+}
 
-export default expenditure;
+export default expenditure

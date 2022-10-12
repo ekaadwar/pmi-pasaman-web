@@ -1,17 +1,17 @@
-import React from "react";
-import { Switch, Route } from "react-router-dom";
+import React from 'react'
+import { Switch, Route } from 'react-router-dom'
 
-import PrivateRoute from "../components/PrivateRoute";
-import AddData from "../pages/AddData";
-import Data from "../pages/Data";
-import DonorHistoryUser from "../pages/DonorHistoryUser";
-import ForgotPass from "../pages/ForgotPass";
-import Home from "../pages/Home";
-import MyDonor from "../pages/MyDonor";
-import MyProfile from "../pages/MyProfile";
-import SignIn from "../pages/SignIn";
-import SignUp from "../pages/SignUp";
-import UserDetail from "../pages/UserDetail";
+import PrivateRoute from '../components/PrivateRoute'
+import AddData from '../pages/AddData'
+import Data from '../pages/Data'
+import DonorHistoryUser from '../pages/DonorHistoryUser'
+import ForgotPass from '../pages/ForgotPass'
+import Home from '../pages/Home'
+import MyDonor from '../pages/MyDonor'
+import MyProfile from '../pages/MyProfile'
+import SignIn from '../pages/SignIn'
+import SignUp from '../pages/SignUp'
+import UserDetail from '../pages/UserDetail'
 
 const Routes = () => {
   return (
@@ -68,7 +68,7 @@ const Routes = () => {
         )}
       />
     </Switch>
-  );
-};
+  )
+}
 
-export default Routes;
+export default Routes

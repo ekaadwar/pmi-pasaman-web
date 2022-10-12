@@ -1,11 +1,11 @@
-import React from "react";
-import { connect } from "react-redux";
-import { SectionHeader } from "../components/Text";
-import { authOn } from "../redux/actions/auth";
+import React from 'react'
+import { connect } from 'react-redux'
+import { SectionHeader } from '../components/Text'
+import { authOn } from '../redux/actions/auth'
 
 class ForgotPass extends React.Component {
   componentDidMount() {
-    this.props.authOn();
+    this.props.authOn()
   }
   render() {
     return (
@@ -27,10 +27,10 @@ class ForgotPass extends React.Component {
           Kami akan segera mengirim link ke alamat email Anda.
         </p>
       </section>
-    );
+    )
   }
 }
 
-const mapDispatchToProps = { authOn };
+const mapDispatchToProps = { authOn }
 
-export default connect(null, mapDispatchToProps)(ForgotPass);
+export default connect(null, mapDispatchToProps)(ForgotPass)

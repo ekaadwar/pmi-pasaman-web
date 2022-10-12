@@ -1,36 +1,36 @@
 const initialState = {
   data: [],
-  msg: "",
-};
+  msg: '',
+}
 
 const stock = (state = initialState, action) => {
   switch (action.type) {
-    case "STOCK_GET": {
+    case 'STOCK_GET': {
       return {
         ...state,
         data: action.payload.results,
         msg: action.payload.message,
-      };
+      }
     }
-    case "ERR_STOCK_GET": {
+    case 'ERR_STOCK_GET': {
       return {
         ...state,
         data: [],
         msg: action.payload,
-      };
+      }
     }
-    case "STOCK_UPDATE": {
+    case 'STOCK_UPDATE': {
       return {
         ...state,
         msg: action.payload,
-      };
+      }
     }
     default: {
       return {
         ...state,
-      };
+      }
     }
   }
-};
+}
 
-export default stock;
+export default stock

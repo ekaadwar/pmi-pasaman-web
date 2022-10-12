@@ -1,13 +1,13 @@
-import React from "react";
+import React from 'react'
 
-const DonorHistory = ({ id = 0, date = "", status = "" }) => {
-  let color = "";
-  if (status === "selesai") {
-    color = "bg-green-800";
-  } else if (status === "menunggu") {
-    color = "bg-yellow-800";
+const DonorHistory = ({ id = 0, date = '', status = '' }) => {
+  let color = ''
+  if (status === 'selesai') {
+    color = 'bg-green-800'
+  } else if (status === 'menunggu') {
+    color = 'bg-yellow-800'
   } else {
-    color = "bg-red-700";
+    color = 'bg-red-700'
   }
   return (
     <div className="text-white">
@@ -21,7 +21,7 @@ const DonorHistory = ({ id = 0, date = "", status = "" }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default DonorHistory;
+export default DonorHistory

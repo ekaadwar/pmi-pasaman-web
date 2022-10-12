@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 
 const Modal = ({ setOpenModal, content = <div /> }) => {
   return (
@@ -9,7 +9,7 @@ const Modal = ({ setOpenModal, content = <div /> }) => {
         className="z-10 absolute inset-0 modal-close h-full w-full"
       />
     </div>
-  );
-};
+  )
+}
 
-export default Modal;
+export default Modal

@@ -1,5 +1,5 @@
-import React from "react";
-import { rotateRectangle, love1, rectangles } from "../assets";
+import React from 'react'
+import { rotateRectangle, love1, rectangles } from '../assets'
 
 const HomeImage = () => {
   return (
@@ -12,7 +12,7 @@ const HomeImage = () => {
         <img src={rectangles} alt="rectangles" />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default HomeImage;
+export default HomeImage

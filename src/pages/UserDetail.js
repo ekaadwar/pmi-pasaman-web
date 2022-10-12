@@ -1,174 +1,174 @@
-import React from "react";
-import { connect } from "react-redux";
+import React from 'react'
+import { connect } from 'react-redux'
 
-import Container from "../components/Container";
-import { authOff } from "../redux/actions/auth";
-import { ActionButtonGray as Button } from "../components/Button";
-import { CircleButton } from "../components/Button";
-import { CircleMd } from "../components/Circle";
-import { FiEdit2 as Edit } from "react-icons/fi";
-import { getDetails, updateUser } from "../redux/actions/data";
-import { getProfile, updateProfile } from "../redux/actions/profile";
-import { InputArea, InputProfile } from "../components/Input";
+import Container from '../components/Container'
+import { authOff } from '../redux/actions/auth'
+import { ActionButtonGray as Button } from '../components/Button'
+import { CircleButton } from '../components/Button'
+import { CircleMd } from '../components/Circle'
+import { FiEdit2 as Edit } from 'react-icons/fi'
+import { getDetails, updateUser } from '../redux/actions/data'
+import { getProfile, updateProfile } from '../redux/actions/profile'
+import { InputArea, InputProfile } from '../components/Input'
 import {
   ProfileCardFullHeight as MainCard,
   ProfileCard,
   PureCard,
-} from "../components/Card";
-import { zulaikha } from "../assets";
-import { addDonor } from "../redux/actions/donor";
+} from '../components/Card'
+import { zulaikha } from '../assets'
+import { addDonor } from '../redux/actions/donor'
 
 class UserDetail extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       data: {},
-      token: "",
-      location: "",
+      token: '',
+      location: '',
       isDonor: false,
-    };
+    }
   }
 
   componentDidMount() {
-    this.props.authOff();
-    const id = this.props.match.params.id;
-    console.log(id);
+    this.props.authOff()
+    const id = this.props.match.params.id
+    console.log(id)
     this.setState({
       data: this.props.data.detailData,
       token: this.props.auth.token,
-    });
+    })
   }
 
   getData = (id) => {
     this.props.getDetails(id, this.state.token).then(() => {
       this.setState({
         data: this.props.data.detailData,
-      });
-    });
-  };
+      })
+    })
+  }
 
   submit = () => {
-    const { token } = this.state;
-    const id = this.props.match.params.id;
-    const { path } = this.props.match;
-    const prevData = this.props.data.detailData;
-    const prevKeys = Object.keys(prevData);
-    const prevValues = Object.values(prevData);
-    const realKeys = Object.keys(this.state.data);
-    const realValues = Object.values(this.state.data);
-    const length = prevKeys.length;
+    const { token } = this.state
+    const id = this.props.match.params.id
+    const { path } = this.props.match
+    const prevData = this.props.data.detailData
+    const prevKeys = Object.keys(prevData)
+    const prevValues = Object.values(prevData)
+    const realKeys = Object.keys(this.state.data)
+    const realValues = Object.values(this.state.data)
+    const length = prevKeys.length
 
-    let keys = "";
+    let keys = ''
 
     for (let i = 0; i < length; i++) {
       if (prevValues[i] !== realValues[i]) {
-        if (keys !== "") {
-          keys += ", ";
+        if (keys !== '') {
+          keys += ', '
         }
-        keys += `${prevKeys[i]}`;
+        keys += `${prevKeys[i]}`
 
-        if (path === "/profile") {
+        if (path === '/profile') {
           this.props
             .updateProfile(token, realKeys[i], realValues[i])
             .then(() => {
               this.props.getProfile(token).then(() => {
-                console.log("getProfile");
-              });
-            });
+                console.log('getProfile')
+              })
+            })
         } else {
           this.props
             .updateUser(id, token, realKeys[i], realValues[i])
             .then(() => {
-              this.getData(id);
-            });
+              this.getData(id)
+            })
         }
       }
     }
 
-    if (keys !== "") {
-      window.alert(`${keys} have been updated`);
+    if (keys !== '') {
+      window.alert(`${keys} have been updated`)
     }
-  };
+  }
 
   getDate = (strDate) => {
-    const type = typeof strDate;
-    if (type === "string") {
-      const date = strDate.slice(0, 10).split("-");
-      let month;
+    const type = typeof strDate
+    if (type === 'string') {
+      const date = strDate.slice(0, 10).split('-')
+      let month
 
       switch (Number(date[1])) {
         case 1:
-          month = "Januari";
-          break;
+          month = 'Januari'
+          break
         case 2:
-          month = "Februari";
-          break;
+          month = 'Februari'
+          break
         case 3:
-          month = "Maret";
-          break;
+          month = 'Maret'
+          break
         case 4:
-          month = "April";
-          break;
+          month = 'April'
+          break
         case 5:
-          month = "Mey";
-          break;
+          month = 'Mey'
+          break
         case 6:
-          month = "Juni";
-          break;
+          month = 'Juni'
+          break
         case 7:
-          month = "Juli";
-          break;
+          month = 'Juli'
+          break
         case 8:
-          month = "Agustus";
-          break;
+          month = 'Agustus'
+          break
         case 9:
-          month = "September";
-          break;
+          month = 'September'
+          break
         case 10:
-          month = "Oktober";
-          break;
+          month = 'Oktober'
+          break
         case 11:
-          month = "November";
-          break;
+          month = 'November'
+          break
         case 12:
-          month = "Desember";
-          break;
+          month = 'Desember'
+          break
         default:
-          console.log("default");
+          console.log('default')
       }
 
-      const schedule = `${date[2]} ${month} ${date[0]}`;
+      const schedule = `${date[2]} ${month} ${date[0]}`
 
-      return schedule;
+      return schedule
     }
-  };
+  }
 
   visibilityOn = () => {
-    this.setState({ isDonor: true });
-  };
+    this.setState({ isDonor: true })
+  }
 
   visibilityOff = () => {
-    this.setState({ isDonor: false });
-  };
+    this.setState({ isDonor: false })
+  }
 
   donor = (event) => {
     if (event.keyCode === 13) {
       const donorData = {
         id: this.state.data.id,
         location: this.state.location,
-      };
-      if (this.state.location === "") {
-        window.alert("Anda belum mengisi lokasi kegiatan donor darah.");
+      }
+      if (this.state.location === '') {
+        window.alert('Anda belum mengisi lokasi kegiatan donor darah.')
       } else {
-        this.props.addDonor(donorData, this.state.token);
-        this.visibilityOff();
+        this.props.addDonor(donorData, this.state.token)
+        this.visibilityOff()
       }
     }
-  };
+  }
 
   render() {
-    const profile = this.state.data;
-    const date = this.getDate(profile.jadwal_donor);
+    const profile = this.state.data
+    const date = this.getDate(profile.jadwal_donor)
     return (
       <section className="profile min-h-screen pt-32 pb-20">
         <Container
@@ -258,7 +258,7 @@ class UserDetail extends React.Component {
                         <div>
                           <InputProfile
                             label="Name"
-                            value={profile.nama ? profile.nama : ""}
+                            value={profile.nama ? profile.nama : ''}
                             placeholder="Masukan nama Anda"
                             onChange={(event) =>
                               this.setState((prevState) => ({
@@ -276,7 +276,7 @@ class UserDetail extends React.Component {
                             label="Tanggal Lahir"
                             type="date"
                             value={
-                              profile.tanggal_lahir ? profile.tanggal_lahir : ""
+                              profile.tanggal_lahir ? profile.tanggal_lahir : ''
                             }
                             // value={"2018-07-22"}
                             onChange={(event) =>
@@ -293,7 +293,7 @@ class UserDetail extends React.Component {
                         <div>
                           <InputProfile
                             label="Email"
-                            value={profile.email ? profile.email : ""}
+                            value={profile.email ? profile.email : ''}
                             onChange={(event) =>
                               this.setState((prevState) => ({
                                 data: {
@@ -308,7 +308,7 @@ class UserDetail extends React.Component {
                         <div>
                           <InputProfile
                             label="Pekerjaan"
-                            value={profile.pekerjaan ? profile.pekerjaan : ""}
+                            value={profile.pekerjaan ? profile.pekerjaan : ''}
                             onChange={(event) =>
                               this.setState((prevState) => ({
                                 data: {
@@ -338,7 +338,7 @@ class UserDetail extends React.Component {
                         <div>
                           <InputProfile
                             label="Golongan Darah"
-                            value={profile.gol_darah ? profile.gol_darah : ""}
+                            value={profile.gol_darah ? profile.gol_darah : ''}
                             onChange={(event) =>
                               this.setState((prevState) => ({
                                 data: {
@@ -353,7 +353,7 @@ class UserDetail extends React.Component {
                         <div className="lg:col-span-2">
                           <InputArea
                             label="Alamat"
-                            value={profile.alamat ? profile.alamat : ""}
+                            value={profile.alamat ? profile.alamat : ''}
                             onChange={(event) =>
                               this.setState((prevState) => ({
                                 data: {
@@ -400,7 +400,7 @@ class UserDetail extends React.Component {
           </div>
         )}
       </section>
-    );
+    )
   }
 }
 
@@ -408,7 +408,7 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
   data: state.data,
   profile: state.profile,
-});
+})
 
 const mapDispatchToProps = {
   addDonor,
@@ -417,6 +417,6 @@ const mapDispatchToProps = {
   getProfile,
   updateProfile,
   updateUser,
-};
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserDetail);
+export default connect(mapStateToProps, mapDispatchToProps)(UserDetail)

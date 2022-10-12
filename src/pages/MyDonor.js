@@ -1,25 +1,25 @@
-import React, { useEffect } from "react";
-import { connect } from "react-redux";
-import { GiEmptyHourglass as Empty } from "react-icons/gi";
-import { BiCaretLeft as Back, BiCaretRight as Forward } from "react-icons/bi";
-import Container from "../components/Container";
+import React, { useEffect } from 'react'
+import { connect } from 'react-redux'
+import { GiEmptyHourglass as Empty } from 'react-icons/gi'
+import { BiCaretLeft as Back, BiCaretRight as Forward } from 'react-icons/bi'
+import Container from '../components/Container'
 import {
   deleteHistDonor,
   getHistory,
   getMyHistory,
-} from "../redux/actions/donor";
+} from '../redux/actions/donor'
 import {
   FirstHeader,
   Footer,
   Header,
   LastHeader,
   TableData,
-} from "../components/Table";
+} from '../components/Table'
 
 const MyDonor = ({ auth, donor, getMyHistory }) => {
   useEffect(() => {
-    getMyHistory(auth.token);
-  }, []);
+    getMyHistory(auth.token)
+  }, [])
 
   return (
     <div>
@@ -43,7 +43,7 @@ const MyDonor = ({ auth, donor, getMyHistory }) => {
                         key={id}
                         column={Object.keys(row)[id]}
                         isEven={idx % 2 === 0 && true}
-                        text={Object.keys(row)[id] === "id" ? idx + 1 : item}
+                        text={Object.keys(row)[id] === 'id' ? idx + 1 : item}
                       />
                     ))}
                   </tr>
@@ -79,14 +79,14 @@ const MyDonor = ({ auth, donor, getMyHistory }) => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
   donor: state.donor,
-});
+})
 
-const mapDispatchToProps = { deleteHistDonor, getHistory, getMyHistory };
+const mapDispatchToProps = { deleteHistDonor, getHistory, getMyHistory }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MyDonor);
+export default connect(mapStateToProps, mapDispatchToProps)(MyDonor)

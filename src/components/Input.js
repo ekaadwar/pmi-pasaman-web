@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react'
 
 export const InputAuth = ({
-  label = "",
-  placeholder = "",
-  type = "text",
+  label = '',
+  placeholder = '',
+  type = 'text',
   onChange = () => {},
 }) => {
   return (
@@ -16,14 +16,14 @@ export const InputAuth = ({
         onChange={onChange}
       />
     </div>
-  );
-};
+  )
+}
 
 export const InputProfile = ({
-  label = "",
-  placeholder = "",
-  type = "text",
-  value = "",
+  label = '',
+  placeholder = '',
+  type = 'text',
+  value = '',
   onChange = () => {},
   onKeyDown = () => {},
 }) => {
@@ -39,13 +39,13 @@ export const InputProfile = ({
         onKeyDown={onKeyDown}
       />
     </div>
-  );
-};
+  )
+}
 
 export const InputArea = ({
-  label = "",
-  placeholder = "",
-  value = "",
+  label = '',
+  placeholder = '',
+  value = '',
   onChange = () => {},
 }) => {
   return (
@@ -59,5 +59,5 @@ export const InputArea = ({
         onChange={onChange}
       />
     </div>
-  );
-};
+  )
+}

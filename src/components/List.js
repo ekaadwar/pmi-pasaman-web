@@ -1,5 +1,5 @@
-import React from "react";
-import { PrimaryDot } from "./Circle";
+import React from 'react'
+import { PrimaryDot } from './Circle'
 
 const List = ({ list = [] }) => {
   return (
@@ -13,7 +13,7 @@ const List = ({ list = [] }) => {
         </div>
       ))}
     </>
-  );
-};
+  )
+}
 
-export default List;
+export default List

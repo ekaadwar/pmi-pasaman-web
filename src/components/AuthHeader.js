@@ -1,7 +1,7 @@
-import React from "react";
-import Container from "./Container";
-import { Link } from "react-router-dom";
-import { logoPmi } from "../assets";
+import React from 'react'
+import Container from './Container'
+import { Link } from 'react-router-dom'
+import { logoPmi } from '../assets'
 
 export const AuthHeader = ({ signup = false }) => {
   return (
@@ -24,13 +24,13 @@ export const AuthHeader = ({ signup = false }) => {
         }
       />
     </header>
-  );
-};
+  )
+}
 
 export const ForgotPassHeader = () => {
   return (
     <header className="fixed z-50 w-full bg-white shadow-md shadow-stone-500/40">
       Forgot Pass Header
     </header>
-  );
-};
+  )
+}

@@ -1,9 +1,9 @@
-import React from "react";
-import Container from "../components/Container";
-import { logoName } from "../assets";
-import { socialMedia } from "../dummy";
-import MediaLane from "../components/MediaLane";
-import { Link } from "react-router-dom";
+import React from 'react'
+import Container from '../components/Container'
+import { logoName } from '../assets'
+import { socialMedia } from '../dummy'
+import MediaLane from '../components/MediaLane'
+import { Link } from 'react-router-dom'
 
 const Footer = () => {
   return (
@@ -38,7 +38,7 @@ const Footer = () => {
         }
       />
     </div>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer

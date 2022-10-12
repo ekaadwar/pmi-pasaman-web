@@ -1,36 +1,36 @@
-import React from "react";
-import { connect } from "react-redux";
+import React from 'react'
+import { connect } from 'react-redux'
 
-import BloodBox from "../components/BloodBox";
-import Container from "../components/Container";
-import List from "../components/List";
-import { authOff } from "../redux/actions/auth";
-import { bloodStock } from "../dummy";
-import { logoName } from "../assets";
-import { loveCombine1, loveCombine2 } from "../assets";
-import { PageSection, PageJumbotron } from "../components/Section";
-import { PrimaryButton } from "../components/Button";
-import { SectionHeader } from "../components/Text";
-import { getStock } from "../redux/actions/stock";
+import BloodBox from '../components/BloodBox'
+import Container from '../components/Container'
+import List from '../components/List'
+import { authOff } from '../redux/actions/auth'
+import { bloodStock } from '../dummy'
+import { logoName } from '../assets'
+import { loveCombine1, loveCombine2 } from '../assets'
+import { PageSection, PageJumbotron } from '../components/Section'
+import { PrimaryButton } from '../components/Button'
+import { SectionHeader } from '../components/Text'
+import { getStock } from '../redux/actions/stock'
 
 class Home extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       stock: [],
-    };
+    }
   }
 
   componentDidMount() {
-    this.props.authOff();
-    this.getStockData();
+    this.props.authOff()
+    this.getStockData()
   }
 
   getStockData = () => {
     this.props.getStock().then(() => {
-      this.setState({ stock: this.props.stock.data });
-    });
-  };
+      this.setState({ stock: this.props.stock.data })
+    })
+  }
 
   render() {
     return (
@@ -76,8 +76,8 @@ class Home extends React.Component {
                       <p className="font-bold mb-5">Misi :</p>
                       <List
                         list={[
-                          "Memelihara reputasi organisasi PMI di tingkat Nasional dan Internasional",
-                          "Menjadi organisasi kemanusiaan terdepan yang memberikan layanan berkualitas kepada masyarakat sesuai dengan prinsip-prinsip dasar Gerakan Palang Merah dan Bulan Sabit Merah",
+                          'Memelihara reputasi organisasi PMI di tingkat Nasional dan Internasional',
+                          'Menjadi organisasi kemanusiaan terdepan yang memberikan layanan berkualitas kepada masyarakat sesuai dengan prinsip-prinsip dasar Gerakan Palang Merah dan Bulan Sabit Merah',
                         ]}
                       />
                     </div>
@@ -104,7 +104,7 @@ class Home extends React.Component {
                     <div
                       key={idx}
                       className="flex justify-center"
-                      onClick={() => this.props.history.push("/stock")}
+                      onClick={() => this.props.history.push('/stock')}
                     >
                       <BloodBox type={item.gol_darah} amount={item.total} />
                     </div>
@@ -130,7 +130,7 @@ class Home extends React.Component {
                 </div>
                 <div className="w-1/2 self-end">
                   <PrimaryButton
-                    onClick={() => this.props.history.push("/signin")}
+                    onClick={() => this.props.history.push('/signin')}
                     content={
                       <p className="text-xl text-white font-bold">Daftar</p>
                     }
@@ -141,17 +141,17 @@ class Home extends React.Component {
           }
         />
       </section>
-    );
+    )
   }
 }
 
 const mapStateToProps = (state) => ({
   stock: state.stock,
-});
+})
 
 const mapDispatchToProps = {
   authOff,
   getStock,
-};
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home)

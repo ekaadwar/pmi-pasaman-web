@@ -1,27 +1,27 @@
-import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
-import { useHistory } from "react-router-dom";
+import React, { useState, useEffect } from 'react'
+import { connect } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 
-import Container from "../components/Container";
-import { AuthSection } from "../components/Section";
-import { AuthHeader } from "../components/Text";
-import { authOn, authSignUp } from "../redux/actions/auth";
-import { InputAuth } from "../components/Input";
-import { PrimaryButton } from "../components/Button";
-import Footer from "../sections/Footer";
+import Container from '../components/Container'
+import { AuthSection } from '../components/Section'
+import { AuthHeader } from '../components/Text'
+import { authOn, authSignUp } from '../redux/actions/auth'
+import { InputAuth } from '../components/Input'
+import { PrimaryButton } from '../components/Button'
+import Footer from '../sections/Footer'
 
 const SignUp = (props) => {
-  const [name, setName] = useState("");
-  const [noHp, setNoHp] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [repassword, setRePassword] = React.useState("");
+  const [name, setName] = useState('')
+  const [noHp, setNoHp] = React.useState('')
+  const [email, setEmail] = React.useState('')
+  const [password, setPassword] = React.useState('')
+  const [repassword, setRePassword] = React.useState('')
 
-  const navigate = useHistory();
+  const navigate = useHistory()
 
   useEffect(() => {
-    props.authOn();
-  }, []);
+    props.authOn()
+  }, [])
 
   const submit = () => {
     const data = {
@@ -31,9 +31,9 @@ const SignUp = (props) => {
       password,
       repassword,
       navigate,
-    };
-    props.authSignUp(data);
-  };
+    }
+    props.authSignUp(data)
+  }
 
   return (
     <section className="flex flex-col min-h-screen">
@@ -89,9 +89,9 @@ const SignUp = (props) => {
       />
       <Footer />
     </section>
-  );
-};
+  )
+}
 
-const mapDispatchToProps = { authSignUp, authOn };
+const mapDispatchToProps = { authSignUp, authOn }
 
-export default connect(null, mapDispatchToProps)(SignUp);
+export default connect(null, mapDispatchToProps)(SignUp)

@@ -1,25 +1,25 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
-import { useHistory } from "react-router-dom";
-import Container from "../components/Container";
-import { ActionButton, ActionButtonGray } from "../components/Button";
-import { MdDeleteOutline as Delete } from "react-icons/md";
-import { GiEmptyHourglass as Empty } from "react-icons/gi";
+import React, { useState } from 'react'
+import { connect } from 'react-redux'
+import { useHistory } from 'react-router-dom'
+import Container from '../components/Container'
+import { ActionButton, ActionButtonGray } from '../components/Button'
+import { MdDeleteOutline as Delete } from 'react-icons/md'
+import { GiEmptyHourglass as Empty } from 'react-icons/gi'
 import {
   FirstHeader,
   Footer,
   Header,
   LastHeader,
   TableData,
-} from "../components/Table";
-import { BiCaretLeft as Back, BiCaretRight as Forward } from "react-icons/bi";
-import Modal from "./Modal";
-import { InputProfile } from "./Input";
+} from '../components/Table'
+import { BiCaretLeft as Back, BiCaretRight as Forward } from 'react-icons/bi'
+import Modal from './Modal'
+import { InputProfile } from './Input'
 import {
   addExpenditure,
   getExpenditure,
   deleteExpenditure,
-} from "../redux/actions/expenditure";
+} from '../redux/actions/expenditure'
 
 const Expenditure = ({
   auth,
@@ -28,45 +28,45 @@ const Expenditure = ({
   getExpenditure,
   deleteExpenditure,
 }) => {
-  const [visibility, setVisibility] = useState(false);
-  const [bloodGroup, setBloodGroup] = useState("");
-  const [amount, setAmount] = useState(0);
-  const [receiver, setReceiver] = useState("");
-  const [deleteModal, setDeleteModal] = useState(false);
-  const [idDelete, setIdDelete] = useState("");
+  const [visibility, setVisibility] = useState(false)
+  const [bloodGroup, setBloodGroup] = useState('')
+  const [amount, setAmount] = useState(0)
+  const [receiver, setReceiver] = useState('')
+  const [deleteModal, setDeleteModal] = useState(false)
+  const [idDelete, setIdDelete] = useState('')
 
-  let history = useHistory();
+  let history = useHistory()
 
   const onSubmit = (event) => {
     if (event.keyCode === 13) {
-      submit();
+      submit()
     }
-  };
+  }
 
   const submit = () => {
-    const submitData = { bloodGroup, amount, receiver };
-    console.log(submitData);
+    const submitData = { bloodGroup, amount, receiver }
+    console.log(submitData)
     addExpenditure(submitData, auth.token, history).then(() => {
-      setVisibility(false);
-      setBloodGroup("");
-      setAmount(0);
-      setReceiver("");
-      getExpenditure(auth.token);
-    });
-  };
+      setVisibility(false)
+      setBloodGroup('')
+      setAmount(0)
+      setReceiver('')
+      getExpenditure(auth.token)
+    })
+  }
 
   const onDelete = (id, name) => {
-    console.log(id);
-    setDeleteModal(true);
-    setIdDelete(id);
-  };
+    console.log(id)
+    setDeleteModal(true)
+    setIdDelete(id)
+  }
 
   const delExpenditure = () => {
-    setDeleteModal(false);
+    setDeleteModal(false)
     deleteExpenditure(idDelete, auth.token).then(() => {
-      getExpenditure(auth.token);
-    });
-  };
+      getExpenditure(auth.token)
+    })
+  }
 
   return (
     <div>
@@ -93,7 +93,7 @@ const Expenditure = ({
                         key={id}
                         column={Object.keys(row)[id]}
                         isEven={idx % 2 === 0 && true}
-                        text={Object.keys(row)[id] === "id" ? idx + 1 : item}
+                        text={Object.keys(row)[id] === 'id' ? idx + 1 : item}
                       />
                     ))}
                     <td>
@@ -135,7 +135,7 @@ const Expenditure = ({
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-end sm:space-x-2 space-y-1 sm:space-y-0">
                 <ActionButton
                   onClick={() => setVisibility(true)}
-                  content={"Tambah Data"}
+                  content={'Tambah Data'}
                 />
               </div>
             }
@@ -157,7 +157,7 @@ const Expenditure = ({
                 <p className="text-gray-700">Golongan Darah :</p>
                 <select
                   className={`block bg-white pt-2 focus:outline-none w-full ${
-                    bloodGroup === "" && "text-gray-500"
+                    bloodGroup === '' && 'text-gray-500'
                   }`}
                   onChange={(event) => setBloodGroup(event.target.value)}
                 >
@@ -195,7 +195,7 @@ const Expenditure = ({
               />
 
               <div className="flex justify-end w-full">
-                <ActionButton onClick={submit} content={"Kirim"} />
+                <ActionButton onClick={submit} content={'Kirim'} />
               </div>
             </div>
           }
@@ -213,27 +213,27 @@ const Expenditure = ({
               <div className="flex justify-between">
                 <ActionButtonGray
                   onClick={() => setDeleteModal(false)}
-                  content={"Batal"}
+                  content={'Batal'}
                 />
-                <ActionButton onClick={delExpenditure} content={"Ya"} />
+                <ActionButton onClick={delExpenditure} content={'Ya'} />
               </div>
             </div>
           }
         />
       )}
     </div>
-  );
-};
+  )
+}
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
   expenditure: state.expenditure,
-});
+})
 
 const mapDispatchToProps = {
   addExpenditure,
   getExpenditure,
   deleteExpenditure,
-};
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Expenditure);
+export default connect(mapStateToProps, mapDispatchToProps)(Expenditure)

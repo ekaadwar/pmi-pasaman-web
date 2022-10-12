@@ -1,38 +1,38 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 
-import Container from "../../components/Container";
-import { authOff } from "../../redux/actions/auth";
-import { CircleButton } from "../../components/Button";
-import { CircleMd } from "../../components/Circle";
+import Container from '../../components/Container'
+import { authOff } from '../../redux/actions/auth'
+import { CircleButton } from '../../components/Button'
+import { CircleMd } from '../../components/Circle'
 // import { donorHistory } from "../../dummy";
-import { FiEdit2 as Edit } from "react-icons/fi";
-import { getProfile } from "../../redux/actions/profile";
-import { InputArea, InputProfile } from "../../components/Input";
-import { ProfileCard } from "../../components/Card";
-import { zulaikha } from "../../assets";
+import { FiEdit2 as Edit } from 'react-icons/fi'
+import { getProfile } from '../../redux/actions/profile'
+import { InputArea, InputProfile } from '../../components/Input'
+import { ProfileCard } from '../../components/Card'
+import { zulaikha } from '../../assets'
 // import DonorHistory from "../../components/DonorHistory";
 
 class Profile extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       data: {},
       currentPhoto: null,
-    };
+    }
   }
 
   componentDidMount() {
-    this.props.authOff();
-    console.log(this.props.match);
+    this.props.authOff()
+    console.log(this.props.match)
     this.props.getProfile(this.props.auth.token).then((res) => {
-      this.setState({ data: this.props.profile.data });
-    });
+      this.setState({ data: this.props.profile.data })
+    })
   }
 
   render() {
-    const profile = this.state.data;
+    const profile = this.state.data
     return (
       <section className="profile min-h-screen pt-32 pb-20">
         <Container
@@ -84,7 +84,7 @@ class Profile extends React.Component {
                         <div>
                           <InputProfile
                             label="Name"
-                            value={profile.nama ? profile.nama : ""}
+                            value={profile.nama ? profile.nama : ''}
                             placeholder="Masukan nama Anda"
                             onChange={(event) =>
                               this.setState((prevState) => ({
@@ -101,7 +101,7 @@ class Profile extends React.Component {
                           <InputProfile
                             label="Tanggal Lahir"
                             value={
-                              profile.tanggal_lahir ? profile.tanggal_lahir : ""
+                              profile.tanggal_lahir ? profile.tanggal_lahir : ''
                             }
                             onChange={(event) =>
                               this.setState((prevState) => ({
@@ -117,7 +117,7 @@ class Profile extends React.Component {
                         <div>
                           <InputProfile
                             label="Email"
-                            value={profile.email ? profile.email : ""}
+                            value={profile.email ? profile.email : ''}
                             onChange={(event) =>
                               this.setState((prevState) => ({
                                 data: {
@@ -132,7 +132,7 @@ class Profile extends React.Component {
                         <div>
                           <InputProfile
                             label="Pekerjaan"
-                            value={profile.pekerjaan ? profile.pekerjaan : ""}
+                            value={profile.pekerjaan ? profile.pekerjaan : ''}
                             onChange={(event) =>
                               this.setState((prevState) => ({
                                 data: {
@@ -147,7 +147,7 @@ class Profile extends React.Component {
                         <div>
                           <InputProfile
                             label="No. HP"
-                            value={profile.no_hp ? profile.no_hp : ""}
+                            value={profile.no_hp ? profile.no_hp : ''}
                             onChange={(event) =>
                               this.setState((prevState) => ({
                                 data: {
@@ -162,7 +162,7 @@ class Profile extends React.Component {
                         <div>
                           <InputProfile
                             label="Golongan Darah"
-                            value={profile.gol_darah ? profile.gol_darah : ""}
+                            value={profile.gol_darah ? profile.gol_darah : ''}
                             onChange={(event) =>
                               this.setState((prevState) => ({
                                 data: {
@@ -177,7 +177,7 @@ class Profile extends React.Component {
                         <div className="lg:col-span-2">
                           <InputArea
                             label="Alamat"
-                            value={profile.alamat ? profile.alamat : ""}
+                            value={profile.alamat ? profile.alamat : ''}
                             onChange={(event) =>
                               this.setState((prevState) => ({
                                 data: {
@@ -197,15 +197,15 @@ class Profile extends React.Component {
           }
         />
       </section>
-    );
+    )
   }
 }
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
   profile: state.profile,
-});
+})
 
-const mapDispatchToProps = { authOff, getProfile };
+const mapDispatchToProps = { authOff, getProfile }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default connect(mapStateToProps, mapDispatchToProps)(Profile)

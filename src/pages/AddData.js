@@ -1,33 +1,33 @@
-import React from "react";
+import React from 'react'
 
-import Container from "../components/Container";
-import { addUser } from "../redux/actions/data";
-import { CircleButton } from "../components/Button";
-import { InputArea, InputProfile } from "../components/Input";
-import { ProfileCard } from "../components/Card";
-import { connect } from "react-redux";
+import Container from '../components/Container'
+import { addUser } from '../redux/actions/data'
+import { CircleButton } from '../components/Button'
+import { InputArea, InputProfile } from '../components/Input'
+import { ProfileCard } from '../components/Card'
+import { connect } from 'react-redux'
 
 class AddData extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
-      nama: "",
-      password: "",
-      noHp: "",
-      email: "",
-      umur: "",
-      gender: "",
-      golDarah: "",
-      pekerjaan: "",
-      alamat: "",
-    };
+      nama: '',
+      password: '',
+      noHp: '',
+      email: '',
+      umur: '',
+      gender: '',
+      golDarah: '',
+      pekerjaan: '',
+      alamat: '',
+    }
   }
 
   submit = () => {
-    const token = this.props.auth.token;
-    const history = this.props.history;
-    this.props.addUser(this.state, token, history);
-  };
+    const token = this.props.auth.token
+    const history = this.props.history
+    this.props.addUser(this.state, token, history)
+  }
   render() {
     return (
       <section className="profile pt-32 pb-20">
@@ -140,17 +140,17 @@ class AddData extends React.Component {
           }
         />
       </section>
-    );
+    )
   }
 }
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
   data: state.data,
-});
+})
 
 const mapDispatchToProps = {
   addUser,
-};
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddData);
+export default connect(mapStateToProps, mapDispatchToProps)(AddData)

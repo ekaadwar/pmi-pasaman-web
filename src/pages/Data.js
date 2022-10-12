@@ -1,18 +1,14 @@
-import React from "react";
+import React from 'react'
 // import qs from "querystring";
-import { Link } from "react-router-dom";
-import { MdDeleteOutline as Delete } from "react-icons/md";
+import { Link } from 'react-router-dom'
+import { MdDeleteOutline as Delete } from 'react-icons/md'
 import {
   BiCaretLeft as Back,
   BiCaretRight as Forward,
   BiSearchAlt as Search,
-} from "react-icons/bi";
-import {
-  ActionButton,
-  ActionButtonGray,
-  NavButton,
-} from "../components/Button";
-import Container from "../components/Container";
+} from 'react-icons/bi'
+import { ActionButton, ActionButtonGray, NavButton } from '../components/Button'
+import Container from '../components/Container'
 import {
   CheckTableRow as CheckRow,
   FirstHeader,
@@ -20,42 +16,42 @@ import {
   Header,
   LastHeader,
   TableData,
-} from "../components/Table";
+} from '../components/Table'
 
-import qs from "query-string";
-import { SectionHeader } from "../components/Text";
-import { connect } from "react-redux";
-import { authOff } from "../redux/actions/auth";
-import { deleteUser, getData, getDetails } from "../redux/actions/data";
-import Modal from "../components/Modal";
+import qs from 'query-string'
+import { SectionHeader } from '../components/Text'
+import { connect } from 'react-redux'
+import { authOff } from '../redux/actions/auth'
+import { deleteUser, getData, getDetails } from '../redux/actions/data'
+import Modal from '../components/Modal'
 
 class Data extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       data: [],
       pageInfo: {},
       nextPage: `${URL}/items?page=2`,
       prevPage: null,
-      token: "",
+      token: '',
       params: {
-        blood: "all",
+        blood: 'all',
       },
       deleteModal: false,
       deleteData: {},
-    };
+    }
   }
 
   componentDidMount() {
-    this.props.authOff();
-    const { token } = this.props.auth;
-    let params = {};
-    console.log("mounting");
+    this.props.authOff()
+    const { token } = this.props.auth
+    let params = {}
+    console.log('mounting')
     if (this.props.location.search) {
-      params = this.parseQuery(this.props.location.search);
-      console.log(params);
+      params = this.parseQuery(this.props.location.search)
+      console.log(params)
     }
-    this.getData(token, "", params);
+    this.getData(token, '', params)
   }
 
   getData = (token, page, params) => {
@@ -64,74 +60,74 @@ class Data extends React.Component {
         data: this.props.data.data,
         pageInfo: this.props.data.pageInfo,
         token: this.props.auth.token,
-      });
-    });
-  };
+      })
+    })
+  }
 
   componentDidUpdate(prevProps) {
-    const { token } = this.props.auth;
-    const { params } = this.state;
+    const { token } = this.props.auth
+    const { params } = this.state
 
     if (prevProps.location.search !== this.props.location.search) {
-      this.props.getData(token, "", params).then(() => {
+      this.props.getData(token, '', params).then(() => {
         this.setState({
           items: this.props.data.data,
           pageInfo: this.props.data.pageInfo,
           params,
-        });
-      });
+        })
+      })
     }
   }
 
   parseQuery = (str) => {
-    return qs.parse(str.slice("1"));
-  };
+    return qs.parse(str.slice('1'))
+  }
 
   getDetail = (event) => {
-    const id = event.currentTarget.value;
-    this.props.getDetails(id, this.props.auth.token, this.props.history);
-  };
+    const id = event.currentTarget.value
+    this.props.getDetails(id, this.props.auth.token, this.props.history)
+  }
 
   changePage = (event) => {
-    this.props.getData(this.props.auth.token, event.currentTarget.value);
-  };
+    this.props.getData(this.props.auth.token, event.currentTarget.value)
+  }
 
   onSearch = (event) => {
     if (event.keyCode === 13) {
-      this.search();
+      this.search()
     }
-  };
+  }
 
   search = () => {
-    const { params } = this.state;
-    let url = this.getUrl(params);
-    this.props.history.push(url);
-  };
+    const { params } = this.state
+    let url = this.getUrl(params)
+    this.props.history.push(url)
+  }
 
   getUrl = (params = {}) => {
-    let url = "/data";
+    let url = '/data'
 
-    let paramKeys = Object.keys(params);
-    const paramLength = paramKeys.length;
+    let paramKeys = Object.keys(params)
+    const paramLength = paramKeys.length
 
     if (paramLength > 0) {
-      url += "?";
-      let paramValues = Object.values(params);
+      url += '?'
+      let paramValues = Object.values(params)
       for (let i = 0; i < paramLength; i++) {
         if (i > 0) {
-          url += "&";
+          url += '&'
         }
-        if (paramKeys[i] === "sort") {
-          const splitSort = paramValues[i].split("-");
-          paramKeys[i] = `sort[${splitSort[0]}]`;
-          paramValues[i] = splitSort[1];
+        if (paramKeys[i] === 'sort') {
+          const splitSort = paramValues[i].split('-')
+          paramKeys[i] = `sort[${splitSort[0]}]`
+          paramValues[i] = splitSort[1]
         }
-        url += `${paramKeys[i]}=${paramValues[i]}`;
+        url += `${paramKeys[i]}=${paramValues[i]}`
       }
     }
 
-    return url;
-  };
+    return url
+  }
 
   getCategory = (category) => {
     this.setState((prevState) => ({
@@ -140,28 +136,28 @@ class Data extends React.Component {
         ...prevState.params,
         blood: category,
       },
-    }));
+    }))
 
     if (category) {
-      let params = this.state.params;
-      if (category === "all") {
-        delete params.blood;
-        this.props.history.push("/data");
-        this.getData(this.state.token, "", params);
+      let params = this.state.params
+      if (category === 'all') {
+        delete params.blood
+        this.props.history.push('/data')
+        this.getData(this.state.token, '', params)
       } else {
         params = {
           ...params,
           blood: category,
-        };
-        const url = this.getUrl(params);
-        this.props.history.push(url);
+        }
+        const url = this.getUrl(params)
+        this.props.history.push(url)
       }
     }
-  };
+  }
 
   onDelete = (id, name) => {
-    console.log(id);
-    console.log(name);
+    console.log(id)
+    console.log(name)
     this.setState((prevState) => ({
       ...prevState,
       deleteData: {
@@ -170,17 +166,17 @@ class Data extends React.Component {
         name,
       },
       deleteModal: true,
-    }));
-  };
+    }))
+  }
 
   deleteUser = () => {
-    this.setState({ deleteModal: false });
+    this.setState({ deleteModal: false })
     this.props
       .deleteUser(this.state.deleteData.id, this.state.token)
       .then(() => {
-        this.props.getData(this.state.token);
-      });
-  };
+        this.props.getData(this.state.token)
+      })
+  }
 
   render() {
     return (
@@ -198,28 +194,28 @@ class Data extends React.Component {
             <div className="flex flex-col space-y-3 md:space-y-0 md:flex-row md:items-center my-12 space-x-2">
               <div className="flex flex-row justify-center items-center space-x-2">
                 <NavButton
-                  active={this.state.params.blood === "all" ? true : false}
-                  onClick={() => this.getCategory("all")}
+                  active={this.state.params.blood === 'all' ? true : false}
+                  onClick={() => this.getCategory('all')}
                   text="All"
                 />
                 <NavButton
-                  active={this.state.params.blood === "a" ? true : false}
-                  onClick={() => this.getCategory("a")}
+                  active={this.state.params.blood === 'a' ? true : false}
+                  onClick={() => this.getCategory('a')}
                   text="A"
                 />
                 <NavButton
-                  active={this.state.params.blood === "b" ? true : false}
-                  onClick={() => this.getCategory("b")}
+                  active={this.state.params.blood === 'b' ? true : false}
+                  onClick={() => this.getCategory('b')}
                   text="B"
                 />
                 <NavButton
-                  active={this.state.params.blood === "ab" ? true : false}
-                  onClick={() => this.getCategory("ab")}
+                  active={this.state.params.blood === 'ab' ? true : false}
+                  onClick={() => this.getCategory('ab')}
                   text="AB"
                 />
                 <NavButton
-                  active={this.state.params.blood === "o" ? true : false}
-                  onClick={() => this.getCategory("o")}
+                  active={this.state.params.blood === 'o' ? true : false}
+                  onClick={() => this.getCategory('o')}
                   text="O"
                 />
               </div>
@@ -228,7 +224,7 @@ class Data extends React.Component {
                   className="h-10 w-full focus:outline-none px-5 border border-red-800 border-r-0 rounded-l-lg placeholder:text-red-400"
                   placeholder="Cari ..."
                   value={
-                    this.state.params.search ? this.state.params.search : ""
+                    this.state.params.search ? this.state.params.search : ''
                   }
                   onChange={(event) =>
                     this.setState((prevState) => ({
@@ -279,7 +275,7 @@ class Data extends React.Component {
                       column={Object.keys(row)[id]}
                       isEven={idx % 2 === 0 && true}
                       text={
-                        Object.keys(row)[id] === "id"
+                        Object.keys(row)[id] === 'id'
                           ? (this.props.data.pageInfo.currentPage - 1) * 20 +
                             (idx + 1)
                           : item
@@ -336,10 +332,10 @@ class Data extends React.Component {
         <Container
           content={
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-end sm:space-x-2 space-y-1 sm:space-y-0">
-              <ActionButton content={"Unduh Data"} />
-              <ActionButton content={"Unggah Data"} />
+              <ActionButton content={'Unduh Data'} />
+              <ActionButton content={'Unggah Data'} />
               <Link to="/data/add">
-                <ActionButton content={"Tambah Data"} />
+                <ActionButton content={'Tambah Data'} />
               </Link>
             </div>
           }
@@ -350,22 +346,22 @@ class Data extends React.Component {
             content={
               <div>
                 <p className="align-center pb-5">
-                  Apakah Anda yakin ingin menghapus data{" "}
+                  Apakah Anda yakin ingin menghapus data{' '}
                   {this.state.deleteData.name} ?
                 </p>
                 <div className="flex justify-between">
                   <ActionButtonGray
                     onClick={() => this.setState({ deleteModal: false })}
-                    content={"Batal"}
+                    content={'Batal'}
                   />
-                  <ActionButton onClick={this.deleteUser} content={"Ya"} />
+                  <ActionButton onClick={this.deleteUser} content={'Ya'} />
                 </div>
               </div>
             }
           />
         )}
       </section>
-    );
+    )
   }
 }
 
@@ -374,11 +370,11 @@ const mapDispatchToProps = {
   getData,
   getDetails,
   deleteUser,
-};
+}
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
   data: state.data,
-});
+})
 
-export default connect(mapStateToProps, mapDispatchToProps)(Data);
+export default connect(mapStateToProps, mapDispatchToProps)(Data)

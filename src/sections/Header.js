@@ -1,32 +1,32 @@
-import React, { useState } from "react";
-import { Sling as Hamburger } from "hamburger-react";
-import { Link } from "react-router-dom";
+import React, { useState } from 'react'
+import { Sling as Hamburger } from 'hamburger-react'
+import { Link } from 'react-router-dom'
 import {
   RiUser3Fill as Profile,
   RiShutDownLine as SignOut,
-} from "react-icons/ri";
+} from 'react-icons/ri'
 
-import Container from "../components/Container";
-import { authLogout } from "../redux/actions/auth";
-import { logoPmi } from "../assets";
-import { connect } from "react-redux";
-import { CircleSm } from "../components/Circle";
+import Container from '../components/Container'
+import { authLogout } from '../redux/actions/auth'
+import { logoPmi } from '../assets'
+import { connect } from 'react-redux'
+import { CircleSm } from '../components/Circle'
 
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom'
 
 const Header = (props) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const history = useHistory();
+  const [isOpen, setIsOpen] = useState(false)
+  const history = useHistory()
 
   const logout = () => {
-    props.authLogout();
-    history.push("/");
-  };
+    props.authLogout()
+    history.push('/')
+  }
 
   const resLogout = () => {
-    logout();
-    setIsOpen(false);
-  };
+    logout()
+    setIsOpen(false)
+  }
 
   return (
     <header className="fixed z-50 w-full bg-white shadow-md shadow-stone-500/40">
@@ -138,13 +138,13 @@ const Header = (props) => {
         </div>
       )}
     </header>
-  );
-};
+  )
+}
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-});
+})
 
-const mapDispatchToProps = { authLogout };
+const mapDispatchToProps = { authLogout }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header)

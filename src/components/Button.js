@@ -1,5 +1,5 @@
-import React from "react";
-import { CircleSm } from "./Circle";
+import React from 'react'
+import { CircleSm } from './Circle'
 
 export const PrimaryButton = ({ content = <div />, onClick = () => {} }) => {
   return (
@@ -9,8 +9,8 @@ export const PrimaryButton = ({ content = <div />, onClick = () => {} }) => {
     >
       {content}
     </div>
-  );
-};
+  )
+}
 
 export const SecondaryButton = ({ content = <div />, onClick = () => {} }) => {
   return (
@@ -20,8 +20,8 @@ export const SecondaryButton = ({ content = <div />, onClick = () => {} }) => {
     >
       {content}
     </div>
-  );
-};
+  )
+}
 
 export const CircleButton = ({ content = <div />, onClick = () => {} }) => {
   return (
@@ -35,37 +35,37 @@ export const CircleButton = ({ content = <div />, onClick = () => {} }) => {
         </button>
       }
     />
-  );
-};
+  )
+}
 
 export const NavButton = ({
   active = false,
-  text = "",
+  text = '',
   onClick = () => {},
 }) => {
   return (
     <button
       className={`${
-        active ? "bg-red-900" : "bg-red-400"
+        active ? 'bg-red-900' : 'bg-red-400'
       } text-white h-10 w-20 flex flex-row items-center justify-center rounded-lg`}
       onClick={onClick}
     >
       {text}
     </button>
-  );
-};
+  )
+}
 
-export const NavButtonFocus = ({ active = false, text = "" }) => {
+export const NavButtonFocus = ({ active = false, text = '' }) => {
   return (
     <button className="bg-red-900 text-white h-10 w-20 flex flex-row items-center justify-center rounded-lg">
       {text}
     </button>
-  );
-};
+  )
+}
 
 export const ActionButton = ({
   content = <div />,
-  value = "",
+  value = '',
   onClick = () => {},
 }) => {
   return (
@@ -76,12 +76,12 @@ export const ActionButton = ({
     >
       {content}
     </button>
-  );
-};
+  )
+}
 
 export const ActionButtonGray = ({
   content = <div />,
-  value = "",
+  value = '',
   onClick = () => {},
 }) => {
   return (
@@ -92,5 +92,5 @@ export const ActionButtonGray = ({
     >
       {content}
     </button>
-  );
-};
+  )
+}

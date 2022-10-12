@@ -1,17 +1,17 @@
-import React from "react";
-import { connect } from "react-redux";
-import { addExpenditure, getExpenditure } from "../redux/actions/expenditure";
-import { PrimaryButton, SecondaryButton } from "../components/Button";
-import { getHistory, getMyHistory } from "../redux/actions/donor";
-import { getStock } from "../redux/actions/stock";
-import Donor from "../components/Donor";
-import Stock from "../components/Stock";
-import Expenditure from "../components/Expenditure";
-import Container from "../components/Container";
+import React from 'react'
+import { connect } from 'react-redux'
+import { addExpenditure, getExpenditure } from '../redux/actions/expenditure'
+import { PrimaryButton, SecondaryButton } from '../components/Button'
+import { getHistory, getMyHistory } from '../redux/actions/donor'
+import { getStock } from '../redux/actions/stock'
+import Donor from '../components/Donor'
+import Stock from '../components/Stock'
+import Expenditure from '../components/Expenditure'
+import Container from '../components/Container'
 
 class DonorHistoryUser extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       history: [],
       stock: [],
@@ -19,67 +19,67 @@ class DonorHistoryUser extends React.Component {
       isDonor: false,
       isExpenditure: false,
       isStock: true,
-      token: "",
-    };
+      token: '',
+    }
   }
 
   componentDidMount() {
-    const token = this.props.auth.token;
-    const url = this.getUrl();
+    const token = this.props.auth.token
+    const url = this.getUrl()
     switch (url) {
-      case "history": {
-        this.setState({ isDonor: true, isExpenditure: false, isStock: false });
-        let { id } = this.props.match.params;
+      case 'history': {
+        this.setState({ isDonor: true, isExpenditure: false, isStock: false })
+        let { id } = this.props.match.params
         this.props.getHistory(token, id).then(() => {
-          this.setState({ history: this.props.donor.history, token: token });
-        });
-        break;
+          this.setState({ history: this.props.donor.history, token: token })
+        })
+        break
       }
-      case "myhistory": {
-        this.setState({ isDonor: true, isExpenditure: false, isStock: false });
+      case 'myhistory': {
+        this.setState({ isDonor: true, isExpenditure: false, isStock: false })
         this.props.getMyHistory(token).then(() => {
-          this.setState({ history: this.props.donor.history, token: token });
-        });
-        break;
+          this.setState({ history: this.props.donor.history, token: token })
+        })
+        break
       }
-      case "expenditure": {
-        this.toExpenditure(token);
-        this.setState({ token });
-        break;
+      case 'expenditure': {
+        this.toExpenditure(token)
+        this.setState({ token })
+        break
       }
       default: {
-        this.toStock(this.props.auth.token);
+        this.toStock(this.props.auth.token)
       }
     }
   }
 
   getUrl = () => {
-    const url = this.props.match.path.split("/");
-    return url[1];
-  };
+    const url = this.props.match.path.split('/')
+    return url[1]
+  }
 
   toDonor = () => {
-    const token = this.props.auth.token;
-    this.setState({ isDonor: true, isExpenditure: false, isStock: false });
-    let { id } = this.props.match.params;
+    const token = this.props.auth.token
+    this.setState({ isDonor: true, isExpenditure: false, isStock: false })
+    let { id } = this.props.match.params
     this.props.getHistory(token, id).then(() => {
-      this.setState({ history: this.props.donor.history, token: token });
-    });
-  };
+      this.setState({ history: this.props.donor.history, token: token })
+    })
+  }
 
   toStock = (token) => {
-    this.setState({ isDonor: false, isExpenditure: false, isStock: true });
+    this.setState({ isDonor: false, isExpenditure: false, isStock: true })
     this.props.getStock(token).then(() => {
-      this.setState({ stock: this.props.stock.data, token: token });
-    });
-  };
+      this.setState({ stock: this.props.stock.data, token: token })
+    })
+  }
 
   toExpenditure = (token) => {
-    this.setState({ isDonor: false, isExpenditure: true, isStock: false });
+    this.setState({ isDonor: false, isExpenditure: true, isStock: false })
     this.props.getExpenditure(token).then(() => {
-      this.setState({ expenditure: this.props.expenditure.data });
-    });
-  };
+      this.setState({ expenditure: this.props.expenditure.data })
+    })
+  }
 
   // submitExpenditure = (data) => {
   //   console.log("submit Expenditure");
@@ -142,7 +142,7 @@ class DonorHistoryUser extends React.Component {
         {this.state.isStock && <Stock />}
         {this.state.isExpenditure && <Expenditure />}
       </section>
-    );
+    )
   }
 }
 
@@ -151,7 +151,7 @@ const mapStateToProps = (state) => ({
   donor: state.donor,
   expenditure: state.expenditure,
   stock: state.stock,
-});
+})
 
 const mapDispatchToProps = {
   addExpenditure,
@@ -159,6 +159,6 @@ const mapDispatchToProps = {
   getHistory,
   getStock,
   getMyHistory,
-};
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(DonorHistoryUser);
+export default connect(mapStateToProps, mapDispatchToProps)(DonorHistoryUser)

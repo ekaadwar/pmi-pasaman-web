@@ -2,70 +2,70 @@ const initialState = {
   data: [],
   pageInfo: {},
   detailData: {},
-  msg: "",
-};
+  msg: '',
+}
 
 const data = (state = initialState, action) => {
   switch (action.type) {
-    case "DATA_GET": {
+    case 'DATA_GET': {
       return {
         ...state,
         data: action.payload.results,
         pageInfo: action.payload.pageInfo,
-      };
+      }
     }
-    case "DATA_ADD": {
+    case 'DATA_ADD': {
       return {
         ...state,
         msg: action.payload,
-      };
+      }
     }
-    case "DATA_GET_NEXT": {
+    case 'DATA_GET_NEXT': {
       return {
         ...state,
         data: [...state.data, ...action.payload.data],
         pageInfo: action.payload.pageInfo,
-      };
+      }
     }
-    case "DETAIL_DATA_GET": {
+    case 'DETAIL_DATA_GET': {
       return {
         ...state,
         detailData: action.payload.detail,
         msg: action.payload.msg,
-      };
+      }
     }
-    case "USER_ERROR": {
+    case 'USER_ERROR': {
       return {
         ...state,
         msg: action.payload,
-      };
+      }
     }
-    case "USER_UPDATE": {
+    case 'USER_UPDATE': {
       return {
         ...state,
         msg: action.payload,
-      };
+      }
     }
-    case "USER_DELETE": {
+    case 'USER_DELETE': {
       return {
         ...state,
         msg: action.payload,
-      };
+      }
     }
-    case "DATA_CLEAR": {
+    case 'DATA_CLEAR': {
       return {
         data: [],
         pageInfo: {},
         detailData: {},
-        msg: "",
-      };
+        msg: '',
+      }
     }
     default: {
       return {
         ...state,
-      };
+      }
     }
   }
-};
+}
 
-export default data;
+export default data

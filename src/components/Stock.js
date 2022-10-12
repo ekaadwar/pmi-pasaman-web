@@ -28,7 +28,6 @@ const Stock = ({ stock, auth, getStock, updateStock }) => {
   const getStockData = () => {
     getStock().then(() => {
       setData(stock.data);
-      console.log(stock.data);
     });
   };
 
@@ -43,7 +42,7 @@ const Stock = ({ stock, auth, getStock, updateStock }) => {
       }
       setData(newArray);
     } else {
-      console.log("no negative data");
+      window.alert("Data yang dimasukan tidak boleh bernilai negatif.");
     }
   };
 
@@ -72,14 +71,13 @@ const Stock = ({ stock, auth, getStock, updateStock }) => {
       dataCollabs = { alert, bloodGroup, income, expenditure };
       return dataCollabs;
     });
-    // console.log(dataCollabs);
-    // console.log(`alert : ${alert}`);
-    updateStock(dataCollabs, auth.token);
-    // setInput(false);
+    updateStock(dataCollabs, auth.token).then(() => {
+      getStockData();
+    });
+    setInput(false);
   };
 
   const cancel = () => {
-    console.log(stock);
     setData(stock.data);
     setInput(false);
   };

@@ -26,7 +26,6 @@ class DonorHistoryUser extends React.Component {
   componentDidMount() {
     const token = this.props.auth.token;
     const url = this.getUrl();
-    console.log(url);
     switch (url) {
       case "history": {
         this.setState({ isDonor: true, isExpenditure: false, isStock: false });
@@ -44,7 +43,6 @@ class DonorHistoryUser extends React.Component {
         break;
       }
       case "expenditure": {
-        console.log(token);
         this.toExpenditure(token);
         this.setState({ token });
         break;
@@ -70,7 +68,6 @@ class DonorHistoryUser extends React.Component {
   };
 
   toStock = (token) => {
-    console.log(token);
     this.setState({ isDonor: false, isExpenditure: false, isStock: true });
     this.props.getStock(token).then(() => {
       this.setState({ stock: this.props.stock.data, token: token });
@@ -84,9 +81,9 @@ class DonorHistoryUser extends React.Component {
     });
   };
 
-  submitExpenditure = (data) => {
-    console.log("submit Expenditure");
-  };
+  // submitExpenditure = (data) => {
+  //   console.log("submit Expenditure");
+  // };
 
   render() {
     return (

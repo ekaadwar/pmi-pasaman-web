@@ -31,7 +31,6 @@ export const getStock =
 export const updateStock =
   (data, token = null) =>
   async (dispatch) => {
-    console.log(data);
     dispatch({ type: "SET_LOADING", payload: true });
     const form = new URLSearchParams();
     for (let i = 0; i < 4; i++) {
@@ -49,11 +48,11 @@ export const updateStock =
       window.alert(data.message);
       dispatch({ type: "SET_LOADING", payload: false });
     } catch (err) {
-      console.log(err);
       dispatch({
         type: "STOCK_ERR",
         payload: err.response.data.message,
       });
+      window.alert(err.response.data.message);
       dispatch({ type: "SET_LOADING", payload: false });
     }
   };

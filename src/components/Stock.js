@@ -11,9 +11,9 @@ import {
 import { ActionButton, ActionButtonGray } from "../components/Button";
 import { connect } from "react-redux";
 import Modal from "./Modal";
-import { getStock } from "../redux/actions/stock";
+import { getStock, updateStock } from "../redux/actions/stock";
 
-const Stock = ({ stock, auth, getStock }) => {
+const Stock = ({ stock, auth, getStock, updateStock }) => {
   const [input, setInput] = useState(false);
   const [data, setData] = useState([]);
 
@@ -23,7 +23,6 @@ const Stock = ({ stock, auth, getStock }) => {
     } else {
       getStockData();
     }
-    // setData(stock.data);
   }, []);
 
   const getStockData = () => {
@@ -56,16 +55,27 @@ const Stock = ({ stock, auth, getStock }) => {
 
   const submit = () => {
     let alert = false;
+    let bloodGroup = [];
+    let income = [];
+    let expenditure = [];
+
+    let dataCollabs;
+
     data.map((items) => {
       const range = items.masuk - items.keluar;
       if (range < 0) {
         alert = true;
       }
-      return alert;
+      bloodGroup = [...bloodGroup, items.gol_darah];
+      income = [...income, items.masuk];
+      expenditure = [...expenditure, items.keluar];
+      dataCollabs = { alert, bloodGroup, income, expenditure };
+      return dataCollabs;
     });
-    console.log(`alert : ${alert}`);
-    console.log(data);
-    setInput(false);
+    // console.log(dataCollabs);
+    // console.log(`alert : ${alert}`);
+    updateStock(dataCollabs, auth.token);
+    // setInput(false);
   };
 
   const cancel = () => {
@@ -193,6 +203,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   getStock,
+  updateStock,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Stock);

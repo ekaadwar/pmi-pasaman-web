@@ -19,6 +19,12 @@ const stock = (state = initialState, action) => {
         msg: action.payload,
       };
     }
+    case "STOCK_UPDATE": {
+      return {
+        ...state,
+        msg: action.payload,
+      };
+    }
     default: {
       return {
         ...state,

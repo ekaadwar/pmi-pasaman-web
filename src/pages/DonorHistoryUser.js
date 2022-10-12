@@ -7,6 +7,7 @@ import { getStock } from "../redux/actions/stock";
 import Donor from "../components/Donor";
 import Stock from "../components/Stock";
 import Expenditure from "../components/Expenditure";
+import Container from "../components/Container";
 
 class DonorHistoryUser extends React.Component {
   constructor(props) {
@@ -90,51 +91,58 @@ class DonorHistoryUser extends React.Component {
   render() {
     return (
       <section className="min-h-screen py-20">
-        <div className="flex flex-row justify-center space-x-5 my-20">
-          {this.state.token &&
-            (this.props.auth.userId === 1 || this.props.auth.userId === 2) && (
-              <div className="max-w-xs w-full">
-                {this.state.isDonor ? (
-                  <PrimaryButton
-                    onClick={this.toDonor}
-                    content="Pemasukan Darah"
-                  />
-                ) : (
-                  <SecondaryButton
-                    onClick={this.toDonor}
-                    content="Pemasukan Darah"
-                  />
+        <Container
+          content={
+            <div className="flex flex-col sm:flex-row items-center justify-center sm:space-x-5 space-y-5 sm:space-y-0 my-20">
+              {this.state.token &&
+                (this.props.auth.userId === 1 ||
+                  this.props.auth.userId === 2) && (
+                  <div className="max-w-xs w-full">
+                    {this.state.isDonor ? (
+                      <PrimaryButton
+                        onClick={this.toDonor}
+                        content="Pemasukan Darah"
+                      />
+                    ) : (
+                      <SecondaryButton
+                        onClick={this.toDonor}
+                        content="Pemasukan Darah"
+                      />
+                    )}
+                  </div>
                 )}
-              </div>
-            )}
-          <div className="max-w-xs w-full">
-            {this.state.isStock ? (
-              <PrimaryButton content="Stok Darah" />
-            ) : (
-              <SecondaryButton
-                onClick={() => this.toStock(this.props.auth.token)}
-                content="Stok Darah"
-              />
-            )}
-          </div>
 
-          {this.state.token &&
-            (this.props.auth.userId === 1 || this.props.auth.userId === 2) && (
               <div className="max-w-xs w-full">
-                {this.state.isExpenditure ? (
-                  <PrimaryButton content="Pengeluaran Darah" />
+                {this.state.isStock ? (
+                  <PrimaryButton content="Stok Darah" />
                 ) : (
                   <SecondaryButton
-                    onClick={() => this.toExpenditure(this.state.token)}
-                    content="Pengeluaran Darah"
+                    onClick={() => this.toStock(this.props.auth.token)}
+                    content="Stok Darah"
                   />
                 )}
               </div>
-            )}
-        </div>
+
+              {this.state.token &&
+                (this.props.auth.userId === 1 ||
+                  this.props.auth.userId === 2) && (
+                  <div className="max-w-xs w-full">
+                    {this.state.isExpenditure ? (
+                      <PrimaryButton content="Pengeluaran Darah" />
+                    ) : (
+                      <SecondaryButton
+                        onClick={() => this.toExpenditure(this.state.token)}
+                        content="Pengeluaran Darah"
+                      />
+                    )}
+                  </div>
+                )}
+            </div>
+          }
+        />
 
         {this.state.isDonor && <Donor />}
-        {this.state.isStock && <Stock stock={this.state.stock} />}
+        {this.state.isStock && <Stock />}
         {this.state.isExpenditure && <Expenditure />}
       </section>
     );

@@ -55,7 +55,7 @@ const Expenditure = ({
     })
   }
 
-  const onDelete = (id, name) => {
+  const onDelete = (id) => {
     console.log(id)
     setDeleteModal(true)
     setIdDelete(id)

@@ -1,9 +1,12 @@
+/* eslint-disable no-undef */
 import React from 'react'
 
 export const PrimaryDot = ({ content = <div /> }) => {
   return (
     <div
-      className={`flex justify-center items-center bg-red-600 w-5 h-5 rounded-full`}
+      className={
+        'flex justify-center items-center bg-red-600 w-5 h-5 rounded-full'
+      }
     >
       {content}
     </div>
@@ -12,9 +15,7 @@ export const PrimaryDot = ({ content = <div /> }) => {
 
 export const SecondaryDot = ({ content = <div /> }) => {
   return (
-    <div
-      className={`flex justify-center items-center bg-red-800 w-5 h-5 rounded-full`}
-    >
+    <div className="flex justify-center items-center bg-red-800 w-5 h-5 rounded-full">
       {content}
     </div>
   )

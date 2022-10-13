@@ -1,34 +1,34 @@
-import React, { useEffect } from "react";
-import Container from "../components/Container";
-import { Link } from "react-router-dom";
-import { AuthSection } from "../components/Section";
-import { AuthHeader } from "../components/Text";
-import { InputAuth } from "../components/Input";
-import { PrimaryButton } from "../components/Button";
-import { connect } from "react-redux";
-import { authSignin, authOn } from "../redux/actions/auth";
+import React, { useEffect } from 'react'
+import Container from '../components/Container'
+import { Link } from 'react-router-dom'
+import { AuthSection } from '../components/Section'
+import { AuthHeader } from '../components/Text'
+import { InputAuth } from '../components/Input'
+import { PrimaryButton } from '../components/Button'
+import { connect } from 'react-redux'
+import { authSignin, authOn } from '../redux/actions/auth'
 
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom'
 
-import Footer from "../sections/Footer";
+import Footer from '../sections/Footer'
 
 const SignIn = (props) => {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const navigate = useHistory();
+  const [email, setEmail] = React.useState('')
+  const [password, setPassword] = React.useState('')
+  const navigate = useHistory()
 
   useEffect(() => {
-    props.authOn();
-  }, []);
+    props.authOn()
+  }, [])
 
   const submit = () => {
     const data = {
       email,
       password,
       navigate,
-    };
-    props.authSignin(data);
-  };
+    }
+    props.authSignin(data)
+  }
 
   return (
     <section className="flex flex-col min-h-screen">
@@ -74,12 +74,12 @@ const SignIn = (props) => {
       />
       <Footer />
     </section>
-  );
-};
+  )
+}
 
 const mapDispatchToProps = {
   authSignin,
   authOn,
-};
+}
 
-export default connect(null, mapDispatchToProps)(SignIn);
+export default connect(null, mapDispatchToProps)(SignIn)

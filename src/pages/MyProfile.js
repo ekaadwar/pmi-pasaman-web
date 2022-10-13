@@ -1,132 +1,132 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import React from 'react'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
-import Container from "../components/Container";
-import { authOff } from "../redux/actions/auth";
-import { ActionButtonGray as Button } from "../components/Button";
-import { CircleButton } from "../components/Button";
-import { CircleMd } from "../components/Circle";
-import { FiEdit2 as Edit } from "react-icons/fi";
-import { getDetails, updateUser } from "../redux/actions/data";
-import { getProfile, updateProfile } from "../redux/actions/profile";
-import { InputArea, InputProfile } from "../components/Input";
+import Container from '../components/Container'
+import { authOff } from '../redux/actions/auth'
+import { ActionButtonGray as Button } from '../components/Button'
+import { CircleButton } from '../components/Button'
+import { CircleMd } from '../components/Circle'
+import { FiEdit2 as Edit } from 'react-icons/fi'
+import { getDetails, updateUser } from '../redux/actions/data'
+import { getProfile, updateProfile } from '../redux/actions/profile'
+import { InputArea, InputProfile } from '../components/Input'
 import {
   ProfileCardFullHeight as MainCard,
   ProfileCard,
-} from "../components/Card";
-import { zulaikha } from "../assets";
+} from '../components/Card'
+import { zulaikha } from '../assets'
 
 class MyProfile extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       data: {},
-      token: "",
-    };
+      token: '',
+    }
   }
 
   componentDidMount() {
-    this.props.authOff();
-    const { path } = this.props.match;
-    console.log(path);
-    this.getData();
+    this.props.authOff()
+    const { path } = this.props.match
+    console.log(path)
+    this.getData()
   }
 
   getData = () => {
-    this.props.getProfile(this.props.auth.token).then((res) => {
+    this.props.getProfile(this.props.auth.token).then(() => {
       this.setState({
         data: this.props.profile.data,
         token: this.props.auth.token,
-      });
-    });
-  };
+      })
+    })
+  }
 
   submit = () => {
-    const { token } = this.state;
-    const prevData = this.props.profile.data;
-    const prevKeys = Object.keys(prevData);
-    const prevValues = Object.values(prevData);
-    const realKeys = Object.keys(this.state.data);
-    const realValues = Object.values(this.state.data);
-    const length = prevKeys.length;
+    const { token } = this.state
+    const prevData = this.props.profile.data
+    const prevKeys = Object.keys(prevData)
+    const prevValues = Object.values(prevData)
+    const realKeys = Object.keys(this.state.data)
+    const realValues = Object.values(this.state.data)
+    const length = prevKeys.length
 
-    let keys = "";
+    let keys = ''
 
     for (let i = 0; i < length; i++) {
       if (prevValues[i] !== realValues[i]) {
-        if (keys !== "") {
-          keys += ", ";
+        if (keys !== '') {
+          keys += ', '
         }
-        keys += `${prevKeys[i]}`;
+        keys += `${prevKeys[i]}`
 
         this.props.updateProfile(token, realKeys[i], realValues[i]).then(() => {
-          this.getData();
-        });
+          this.getData()
+        })
       }
     }
 
-    if (keys !== "") {
-      window.alert(`${keys} have been updated`);
+    if (keys !== '') {
+      window.alert(`${keys} have been updated`)
     }
-  };
+  }
 
   getDate = (strDate) => {
-    const type = typeof strDate;
-    if (type === "string") {
-      const date = strDate.slice(0, 10).split("-");
-      let month;
+    const type = typeof strDate
+    if (type === 'string') {
+      const date = strDate.slice(0, 10).split('-')
+      let month
 
       switch (Number(date[1])) {
         case 1:
-          month = "Januari";
-          break;
+          month = 'Januari'
+          break
         case 2:
-          month = "Februari";
-          break;
+          month = 'Februari'
+          break
         case 3:
-          month = "Maret";
-          break;
+          month = 'Maret'
+          break
         case 4:
-          month = "April";
-          break;
+          month = 'April'
+          break
         case 5:
-          month = "Mey";
-          break;
+          month = 'Mey'
+          break
         case 6:
-          month = "Juni";
-          break;
+          month = 'Juni'
+          break
         case 7:
-          month = "Juli";
-          break;
+          month = 'Juli'
+          break
         case 8:
-          month = "Agustus";
-          break;
+          month = 'Agustus'
+          break
         case 9:
-          month = "September";
-          break;
+          month = 'September'
+          break
         case 10:
-          month = "Oktober";
-          break;
+          month = 'Oktober'
+          break
         case 11:
-          month = "November";
-          break;
+          month = 'November'
+          break
         case 12:
-          month = "Desember";
-          break;
+          month = 'Desember'
+          break
         default:
-          console.log("default");
+          console.log('default')
       }
 
-      const schedule = `${date[2]} ${month} ${date[0]}`;
+      const schedule = `${date[2]} ${month} ${date[0]}`
 
-      return schedule;
+      return schedule
     }
-  };
+  }
 
   render() {
-    const profile = this.state.data;
-    const date = this.getDate(profile.jadwal_donor);
+    const profile = this.state.data
+    const date = this.getDate(profile.jadwal_donor)
     return (
       <section className="profile min-h-screen pt-32 pb-20">
         <Container
@@ -181,7 +181,7 @@ class MyProfile extends React.Component {
                         </div>
 
                         <div className="flex flex-col items-stretch space-y-1 pt-4">
-                          <Link to={`/myhistory`} className="w-full">
+                          <Link to={'/myhistory'} className="w-full">
                             <Button content={<p>Riwayat Donor</p>} />
                           </Link>
                         </div>
@@ -207,7 +207,7 @@ class MyProfile extends React.Component {
                         <div>
                           <InputProfile
                             label="Name"
-                            value={profile.nama ? profile.nama : ""}
+                            value={profile.nama ? profile.nama : ''}
                             placeholder="Masukan nama Anda"
                             onChange={(event) =>
                               this.setState((prevState) => ({
@@ -225,7 +225,7 @@ class MyProfile extends React.Component {
                             label="Tanggal Lahir"
                             type="date"
                             value={
-                              profile.tanggal_lahir ? profile.tanggal_lahir : ""
+                              profile.tanggal_lahir ? profile.tanggal_lahir : ''
                             }
                             // value={"2018-07-22"}
                             onChange={(event) =>
@@ -242,7 +242,7 @@ class MyProfile extends React.Component {
                         <div>
                           <InputProfile
                             label="Email"
-                            value={profile.email ? profile.email : ""}
+                            value={profile.email ? profile.email : ''}
                             onChange={(event) =>
                               this.setState((prevState) => ({
                                 data: {
@@ -257,7 +257,7 @@ class MyProfile extends React.Component {
                         <div>
                           <InputProfile
                             label="Pekerjaan"
-                            value={profile.pekerjaan ? profile.pekerjaan : ""}
+                            value={profile.pekerjaan ? profile.pekerjaan : ''}
                             onChange={(event) =>
                               this.setState((prevState) => ({
                                 data: {
@@ -287,7 +287,7 @@ class MyProfile extends React.Component {
                         <div>
                           <InputProfile
                             label="Golongan Darah"
-                            value={profile.gol_darah ? profile.gol_darah : ""}
+                            value={profile.gol_darah ? profile.gol_darah : ''}
                             onChange={(event) =>
                               this.setState((prevState) => ({
                                 data: {
@@ -302,7 +302,7 @@ class MyProfile extends React.Component {
                         <div className="lg:col-span-2">
                           <InputArea
                             label="Alamat"
-                            value={profile.alamat ? profile.alamat : ""}
+                            value={profile.alamat ? profile.alamat : ''}
                             onChange={(event) =>
                               this.setState((prevState) => ({
                                 data: {
@@ -322,7 +322,7 @@ class MyProfile extends React.Component {
           }
         />
       </section>
-    );
+    )
   }
 }
 
@@ -330,7 +330,7 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
   data: state.data,
   profile: state.profile,
-});
+})
 
 const mapDispatchToProps = {
   authOff,
@@ -338,6 +338,6 @@ const mapDispatchToProps = {
   getProfile,
   updateProfile,
   updateUser,
-};
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(MyProfile);
+export default connect(mapStateToProps, mapDispatchToProps)(MyProfile)

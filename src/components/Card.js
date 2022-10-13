@@ -1,3 +1,4 @@
+import React from 'react'
 export const PureCard = ({ content = <div /> }) => {
   return <div className="bg-white rounded-xl p-5">{content}</div>
 }

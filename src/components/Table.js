@@ -1,21 +1,21 @@
-import React from "react";
+import React from 'react'
 
-export const FirstHeader = ({ text = "" }) => {
-  return <th className="h-16 bg-red-900 text-white rounded-tl-md">{text}</th>;
-};
+export const FirstHeader = ({ text = '' }) => {
+  return <th className="h-16 bg-red-900 text-white rounded-tl-md">{text}</th>
+}
 
-export const Header = ({ text = "" }) => {
-  return <th className="h-16 bg-red-900 text-white">{text}</th>;
-};
+export const Header = ({ text = '' }) => {
+  return <th className="h-16 bg-red-900 text-white">{text}</th>
+}
 
-export const LastHeader = ({ text = "" }) => {
-  return <th className="h-16 bg-red-900 text-white rounded-tr-md">{text}</th>;
-};
+export const LastHeader = ({ text = '' }) => {
+  return <th className="h-16 bg-red-900 text-white rounded-tr-md">{text}</th>
+}
 
-export const TableData = ({ isEven = false, column = "", text = "" }) => {
+export const TableData = ({ isEven = false, column = '', text = '' }) => {
   return isEven ? (
     <td className="h-12 text-center bg-red-100 border-y border-red-300">
-      {column === "nama" || column === "alamat" ? (
+      {column === 'nama' || column === 'alamat' ? (
         <p className="text-left">{text}</p>
       ) : (
         <p className="text-center">{text}</p>
@@ -23,14 +23,14 @@ export const TableData = ({ isEven = false, column = "", text = "" }) => {
     </td>
   ) : (
     <td className="h-12">
-      {column === "nama" || column === "alamat" ? (
+      {column === 'nama' || column === 'alamat' ? (
         <p className="text-left">{text}</p>
       ) : (
         <p className="text-center">{text}</p>
       )}
     </td>
-  );
-};
+  )
+}
 
 export const CheckTableRow = ({ checked = false }) => {
   return (
@@ -39,9 +39,9 @@ export const CheckTableRow = ({ checked = false }) => {
         {checked === true && <div className="h-3 w-3 bg-red-900 rounded-sm" />}
       </button>
     </td>
-  );
-};
+  )
+}
 
 export const Footer = ({ colspan = 0 }) => {
-  return <td colSpan={colspan} className="h-4 bg-red-900 rounded-b-md" />;
-};
+  return <td colSpan={colspan} className="h-4 bg-red-900 rounded-b-md" />
+}

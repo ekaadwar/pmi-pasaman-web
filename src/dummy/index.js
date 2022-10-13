@@ -1,3 +1,5 @@
+import React from 'react'
+
 import {
   FaFacebookSquare as Facebook,
   FaWhatsappSquare as WhatsApp,

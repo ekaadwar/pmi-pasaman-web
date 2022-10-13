@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+import React from 'react'
 export const SectionHeader = ({ text = '' }) => {
   return <p className="text-2xl sm:text-4xl font-bold">{text}</p>
 }

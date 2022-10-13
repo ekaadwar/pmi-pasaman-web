@@ -1,19 +1,19 @@
-import storage from "redux-persist/lib/storage";
-import { combineReducers } from "redux";
-import { persistReducer } from "redux-persist";
+import storage from 'redux-persist/lib/storage'
+import { combineReducers } from 'redux'
+import { persistReducer } from 'redux-persist'
 
-import auth from "./auth";
-import data from "./data";
-import donor from "./donor";
-import expenditure from "./expenditure";
-import { globalReducer } from "./global";
-import profile from "./profile";
-import stock from "./stock";
+import auth from './auth'
+import data from './data'
+import donor from './donor'
+import expenditure from './expenditure'
+import { globalReducer } from './global'
+import profile from './profile'
+import stock from './stock'
 
 const persistAuth = {
   storage,
-  key: "auth",
-};
+  key: 'auth',
+}
 
 const reducer = combineReducers({
   auth: persistReducer(persistAuth, auth),
@@ -23,6 +23,6 @@ const reducer = combineReducers({
   expenditure,
   globalReducer,
   stock,
-});
+})
 
-export default reducer;
+export default reducer

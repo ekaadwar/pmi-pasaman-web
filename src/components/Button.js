@@ -55,7 +55,7 @@ export const NavButton = ({
   )
 }
 
-export const NavButtonFocus = ({ active = false, text = '' }) => {
+export const NavButtonFocus = ({ text = '' }) => {
   return (
     <button className="bg-red-900 text-white h-10 w-20 flex flex-row items-center justify-center rounded-lg">
       {text}

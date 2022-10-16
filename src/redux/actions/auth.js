@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import http from '../../helpers/http'
 
 const { REACT_APP_BACKEND_URL: URL } = process.env
@@ -54,6 +55,31 @@ export const authSignin = (dataForm) => {
     } catch (error) {
       dispatch({ type: 'SET_LOADING', payload: false })
       window.alert(error.message)
+    }
+  }
+}
+
+export const forgotPassword = (email) => {
+  return async (dispatch) => {
+    dispatch({ type: 'SET_LOADING', payload: true })
+
+    const form = new URLSearchParams()
+    form.append('email', email)
+
+    try {
+      const { data } = await http().put(
+        `${URL}/auth/forgotpassword`,
+        form.toString()
+      )
+      dispatch({
+        type: 'AUTH_FORGOT_PASS',
+        payload: data.message,
+      })
+      window.alert(data.message)
+      dispatch({ type: 'SET_LOADING', payload: false })
+    } catch (error) {
+      window.alert(error.response.data.message)
+      dispatch({ type: 'SET_LOADING', payload: false })
     }
   }
 }

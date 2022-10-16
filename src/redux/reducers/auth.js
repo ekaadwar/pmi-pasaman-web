@@ -43,6 +43,12 @@ const auth = (state = initialState, action) => {
         msg: '',
       }
     }
+    case 'AUTH_FORGOT_PASS': {
+      return {
+        ...state,
+        msg: action.payload,
+      }
+    }
     case 'AUTH_ON': {
       return {
         ...state,

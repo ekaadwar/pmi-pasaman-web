@@ -8,7 +8,6 @@ import { AuthHeader } from '../components/Text'
 import { authOn, authSignUp } from '../redux/actions/auth'
 import { InputAuth } from '../components/Input'
 import { PrimaryButton } from '../components/Button'
-import Footer from '../sections/Footer'
 
 const SignUp = (props) => {
   const [name, setName] = useState('')
@@ -87,7 +86,6 @@ const SignUp = (props) => {
           />
         }
       />
-      <Footer />
     </section>
   )
 }

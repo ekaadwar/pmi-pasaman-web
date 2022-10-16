@@ -10,8 +10,6 @@ import { authSignin, authOn } from '../redux/actions/auth'
 
 import { useHistory } from 'react-router-dom'
 
-import Footer from '../sections/Footer'
-
 const SignIn = (props) => {
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
@@ -72,7 +70,6 @@ const SignIn = (props) => {
           />
         }
       />
-      <Footer />
     </section>
   )
 }

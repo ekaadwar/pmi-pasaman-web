@@ -1,11 +1,13 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
+import AuthRoute from '../components/AuthRoute'
 
 import PrivateRoute from '../components/PrivateRoute'
 import AddData from '../pages/AddData'
 import Data from '../pages/Data'
 import DonorHistoryUser from '../pages/DonorHistoryUser'
 import ForgotPass from '../pages/ForgotPass'
+import GeneralRoute from '../pages/GeneralRoute'
 import Home from '../pages/Home'
 import MyDonor from '../pages/MyDonor'
 import MyProfile from '../pages/MyProfile'
@@ -16,14 +18,27 @@ import UserDetail from '../pages/UserDetail'
 const Routes = () => {
   return (
     <Switch>
-      <Route path="/" exact component={Home} />
+      <Route
+        path="/"
+        exact
+        render={(props) => <GeneralRoute element={<Home {...props} />} />}
+      />
       <Route
         path="/profile"
         render={(props) => <PrivateRoute element={<MyProfile {...props} />} />}
       />
-      <Route path="/signin" component={SignIn} />
-      <Route path="/signup" component={SignUp} />
-      <Route path="/forgot-pass" component={ForgotPass} />
+      <Route
+        path="/signin"
+        render={(props) => <AuthRoute element={<SignIn {...props} />} />}
+      />
+      <Route
+        path="/signup"
+        render={(props) => <AuthRoute element={<SignUp {...props} />} />}
+      />
+      <Route
+        path="/forgot-pass"
+        render={(props) => <AuthRoute element={<ForgotPass {...props} />} />}
+      />
       <Route
         path="/data"
         exact
@@ -39,7 +54,13 @@ const Routes = () => {
         exact
         render={(props) => <PrivateRoute element={<UserDetail {...props} />} />}
       />
-      <Route path="/stock" exact component={DonorHistoryUser} />
+      <Route
+        path="/stock"
+        exact
+        render={(props) => (
+          <GeneralRoute element={<DonorHistoryUser {...props} />} />
+        )}
+      />
       <Route
         path="/history"
         exact

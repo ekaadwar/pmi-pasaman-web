@@ -4,17 +4,19 @@ export const InputAuth = ({
   label = '',
   placeholder = '',
   type = 'text',
+  alert = '',
   onChange = () => {},
 }) => {
   return (
-    <div className="flex flex-col space-y-4">
-      <p>{label}</p>
+    <div className="flex flex-col ">
+      <p className="mb-2">{label}</p>
       <input
-        className="px-3 py-2 rounded-md border border-gray-300 bg-white"
+        className="px-3 py-2 rounded-md border border-gray-300 bg-white focus:outline-none"
         placeholder={placeholder}
         type={type}
         onChange={onChange}
       />
+      {alert && <p className="text-red-700 text-sm mt-1">{alert}</p>}
     </div>
   )
 }

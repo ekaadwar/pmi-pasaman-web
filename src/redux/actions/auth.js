@@ -54,7 +54,11 @@ export const authSignin = (dataForm) => {
       window.alert(data.message)
     } catch (error) {
       dispatch({ type: 'SET_LOADING', payload: false })
-      window.alert(error.message)
+      window.alert(
+        error.response.data.message
+          ? error.response.data.message
+          : error.message
+      )
     }
   }
 }

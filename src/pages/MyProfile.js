@@ -27,9 +27,6 @@ class MyProfile extends React.Component {
   }
 
   componentDidMount() {
-    this.props.authOff()
-    const { path } = this.props.match
-    console.log(path)
     this.getData()
   }
 

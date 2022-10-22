@@ -220,7 +220,6 @@ class MyProfile extends React.Component {
                             value={
                               profile.tanggal_lahir ? profile.tanggal_lahir : ''
                             }
-                            // value={"2018-07-22"}
                             onChange={(event) =>
                               this.setState((prevState) => ({
                                 data: {
@@ -279,22 +278,39 @@ class MyProfile extends React.Component {
                         </div>
 
                         <div>
-                          <InputProfile
-                            label="Golongan Darah"
-                            value={profile.gol_darah ? profile.gol_darah : ''}
+                          <p className="text-gray-700">Golongan Darah :</p>
+                          <select
+                            className="block bg-white pt-2 focus:outline-none w-full"
                             onChange={(event) =>
                               this.setState((prevState) => ({
+                                ...prevState,
                                 data: {
                                   ...prevState.data,
                                   gol_darah: event.target.value,
                                 },
                               }))
                             }
-                          />
+                          >
+                            <option className="text-black" value="">
+                              {this.state.data.gol_darah}
+                            </option>
+                            <option className="text-black" value="A">
+                              A
+                            </option>
+                            <option className="text-black" value="B">
+                              B
+                            </option>
+                            <option className="text-black" value="AB">
+                              AB
+                            </option>
+                            <option className="text-black" value="O">
+                              O
+                            </option>
+                          </select>
                         </div>
 
                         <div>
-                          <p className="text-gray-700">Golongan Darah :</p>
+                          <p className="text-gray-700">Jenis Kelamin :</p>
                           <select
                             className="block bg-white pt-2 focus:outline-none w-full"
                             onChange={(event) =>

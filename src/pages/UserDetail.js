@@ -244,7 +244,7 @@ class UserDetail extends React.Component {
                 <div className="lg:col-span-2">
                   <ProfileCard
                     content={
-                      <div className="grid grid-cols-1 gap-5">
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
                         <div className="lg:col-span-2 flex flex-row justify-between items-center">
                           <p className="font-bold text-2xl pt-5 text-gray-600">
                             Detail
@@ -336,18 +336,61 @@ class UserDetail extends React.Component {
                         </div>
 
                         <div>
-                          <InputProfile
-                            label="Golongan Darah"
-                            value={profile.gol_darah ? profile.gol_darah : ''}
+                          <p className="text-gray-700">Golongan Darah :</p>
+                          <select
+                            className="block bg-white pt-2 focus:outline-none w-full"
                             onChange={(event) =>
                               this.setState((prevState) => ({
+                                ...prevState,
                                 data: {
                                   ...prevState.data,
                                   gol_darah: event.target.value,
                                 },
                               }))
                             }
-                          />
+                          >
+                            <option className="text-black" value="">
+                              {this.state.data.gol_darah}
+                            </option>
+                            <option className="text-black" value="A">
+                              A
+                            </option>
+                            <option className="text-black" value="B">
+                              B
+                            </option>
+                            <option className="text-black" value="AB">
+                              AB
+                            </option>
+                            <option className="text-black" value="O">
+                              O
+                            </option>
+                          </select>
+                        </div>
+
+                        <div>
+                          <p className="text-gray-700">Jenis Kelamin :</p>
+                          <select
+                            className="block bg-white pt-2 focus:outline-none w-full"
+                            onChange={(event) =>
+                              this.setState((prevState) => ({
+                                ...prevState,
+                                data: {
+                                  ...prevState.data,
+                                  jenis_kelamin: event.target.value,
+                                },
+                              }))
+                            }
+                          >
+                            <option className="text-black" value="">
+                              {this.state.data.jenis_kelamin}
+                            </option>
+                            <option className="text-black" value="Pria">
+                              Pria
+                            </option>
+                            <option className="text-black" value="Wanita">
+                              Wanita
+                            </option>
+                          </select>
                         </div>
 
                         <div className="lg:col-span-2">

@@ -26,6 +26,7 @@ export const InputProfile = ({
   placeholder = '',
   type = 'text',
   value = '',
+  disabled = false,
   onChange = () => {},
   onKeyDown = () => {},
 }) => {
@@ -33,6 +34,7 @@ export const InputProfile = ({
     <div className="flex flex-col space-y-0">
       <p className="text-gray-700">{label}</p>
       <input
+        disabled={disabled}
         className="py-2 border-b border-gray-700 bg-white focus:outline-none "
         placeholder={placeholder}
         type={type}

@@ -55,7 +55,6 @@ class SignIn extends Component {
                     <div className="text-center">
                       <AuthHeader text="Masuk" />
                     </div>
-
                     <InputAuth
                       label="Username :"
                       placeholder="Masukan email Anda"
@@ -77,12 +76,10 @@ class SignIn extends Component {
                         <p>Anda lupa password?</p>
                       </Link>
                     </div>
-
                     <PrimaryButton
                       content={<p className="text-white font-bold">Kirim</p>}
                       onClick={this.submit}
                     />
-
                     {this.state.errAlert && (
                       <ErrAlert
                         text={this.state.errAlert}

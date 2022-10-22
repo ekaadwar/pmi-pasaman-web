@@ -81,10 +81,6 @@ class DonorHistoryUser extends React.Component {
     })
   }
 
-  // submitExpenditure = (data) => {
-  //   console.log("submit Expenditure");
-  // };
-
   render() {
     return (
       <section className="min-h-screen py-20">

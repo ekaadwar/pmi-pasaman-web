@@ -47,16 +47,13 @@ class MyProfile extends React.Component {
     const realKeys = Object.keys(this.state.data)
     const realValues = Object.values(this.state.data)
     const length = prevKeys.length
-
     let keys = ''
-
     for (let i = 0; i < length; i++) {
       if (prevValues[i] !== realValues[i]) {
         if (keys !== '') {
           keys += ', '
         }
         keys += `${prevKeys[i]}`
-
         this.props.updateProfile(token, realKeys[i], realValues[i]).then(() => {
           this.getData()
         })
@@ -114,15 +111,14 @@ class MyProfile extends React.Component {
         default:
           console.log('default')
       }
-
       const schedule = `${date[2]} ${month} ${date[0]}`
-
       return schedule
     }
   }
 
   render() {
     const profile = this.state.data
+    console.log(profile)
     const date = this.getDate(profile.jadwal_donor)
     return (
       <section className="profile min-h-screen pt-32 pb-20">
@@ -190,7 +186,7 @@ class MyProfile extends React.Component {
                 <div className="lg:col-span-2">
                   <ProfileCard
                     content={
-                      <div className="grid grid-cols-1 gap-5">
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
                         <div className="lg:col-span-2 flex flex-row justify-between items-center">
                           <p className="font-bold text-2xl pt-5 text-gray-600">
                             Detail
@@ -238,6 +234,7 @@ class MyProfile extends React.Component {
 
                         <div>
                           <InputProfile
+                            disabled
                             label="Email"
                             value={profile.email ? profile.email : ''}
                             onChange={(event) =>
@@ -294,6 +291,32 @@ class MyProfile extends React.Component {
                               }))
                             }
                           />
+                        </div>
+
+                        <div>
+                          <p className="text-gray-700">Golongan Darah :</p>
+                          <select
+                            className="block bg-white pt-2 focus:outline-none w-full"
+                            onChange={(event) =>
+                              this.setState((prevState) => ({
+                                ...prevState,
+                                data: {
+                                  ...prevState.data,
+                                  jenis_kelamin: event.target.value,
+                                },
+                              }))
+                            }
+                          >
+                            <option className="text-black" value="">
+                              {this.state.data.jenis_kelamin}
+                            </option>
+                            <option className="text-black" value="Pria">
+                              Pria
+                            </option>
+                            <option className="text-black" value="Wanita">
+                              Wanita
+                            </option>
+                          </select>
                         </div>
 
                         <div className="lg:col-span-2">

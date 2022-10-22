@@ -31,8 +31,6 @@ class UserDetail extends React.Component {
 
   componentDidMount() {
     this.props.authOff()
-    const id = this.props.match.params.id
-    console.log(id)
     this.setState({
       data: this.props.data.detailData,
       token: this.props.auth.token,
@@ -71,9 +69,7 @@ class UserDetail extends React.Component {
           this.props
             .updateProfile(token, realKeys[i], realValues[i])
             .then(() => {
-              this.props.getProfile(token).then(() => {
-                console.log('getProfile')
-              })
+              this.props.getProfile(token)
             })
         } else {
           this.props

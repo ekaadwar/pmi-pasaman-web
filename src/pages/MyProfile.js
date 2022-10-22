@@ -118,7 +118,6 @@ class MyProfile extends React.Component {
 
   render() {
     const profile = this.state.data
-    console.log(profile)
     const date = this.getDate(profile.jadwal_donor)
     return (
       <section className="profile min-h-screen pt-32 pb-20">

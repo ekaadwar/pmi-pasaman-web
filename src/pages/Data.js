@@ -261,7 +261,8 @@ class Data extends React.Component {
                 <Header text="Usia" />
                 <Header text="No. HP" />
                 <Header text="Gender" />
-                <LastHeader text="Gol.Darah" />
+                <Header text="Gol. Darah" />
+                <LastHeader text="Jadwal Donor" />
                 <th></th>
               </tr>
             </thead>

@@ -4,16 +4,27 @@ import http from '../../helpers/http'
 const { REACT_APP_BACKEND_URL: URL } = process.env
 
 export const getHistory =
-  (token = null, id = null) =>
+  (token = null, id = null, url = null) =>
   async (dispatch) => {
     dispatch({ type: 'SET_LOADING', payload: true })
+    let defaultUrl
+    if (id) {
+      defaultUrl = `${URL}/donor/${id}`
+    } else if (url) {
+      defaultUrl = url
+    } else {
+      defaultUrl = `${URL}/donor`
+    }
     try {
-      const { data } = await http(token).get(
-        id ? `${URL}/donor/${id}` : `${URL}/donor`
-      )
+      console.log(defaultUrl)
+      const { data } = await http(token).get(defaultUrl)
       dispatch({
         type: 'HISTORY_GET',
-        payload: data,
+        payload: {
+          results: data.results,
+          pageInfo: data.pageInfo,
+          message: data.message,
+        },
       })
       dispatch({ type: 'SET_LOADING', payload: false })
     } catch (err) {

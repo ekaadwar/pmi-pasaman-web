@@ -30,6 +30,7 @@ class DonorHistoryUser extends React.Component {
       case 'history': {
         this.setState({ isDonor: true, isExpenditure: false, isStock: false })
         let { id } = this.props.match.params
+        console.log(id)
         this.props.getHistory(token, id).then(() => {
           this.setState({ history: this.props.donor.history, token: token })
         })

@@ -1,20 +1,32 @@
 import React from 'react'
 
 export const FirstHeader = ({ text = '' }) => {
-  return <th className="h-16 bg-red-900 text-white rounded-tl-md">{text}</th>
+  return (
+    <th className="h-16 bg-red-900 text-white rounded-tl-md border-b border-red-700 px-2">
+      {text}
+    </th>
+  )
 }
 
 export const Header = ({ text = '' }) => {
-  return <th className="h-16 bg-red-900 text-white">{text}</th>
+  return (
+    <th className="h-16 bg-red-900 text-white border-x border-b border-red-700 px-2">
+      {text}
+    </th>
+  )
 }
 
 export const LastHeader = ({ text = '' }) => {
-  return <th className="h-16 bg-red-900 text-white rounded-tr-md">{text}</th>
+  return (
+    <th className="h-16 bg-red-900 text-white rounded-tr-md border-b border-red-700 px-2">
+      {text}
+    </th>
+  )
 }
 
 export const TableData = ({ isEven = false, column = '', text = '' }) => {
   return isEven ? (
-    <td className="h-12 text-center bg-red-100 border-y border-red-300">
+    <td className="h-12 text-center bg-red-100 border-y border-red-300 p-2">
       {column === 'nama' || column === 'alamat' ? (
         <p className="text-left">{text}</p>
       ) : (
@@ -22,7 +34,7 @@ export const TableData = ({ isEven = false, column = '', text = '' }) => {
       )}
     </td>
   ) : (
-    <td className="h-12">
+    <td className="h-12 p-2">
       {column === 'nama' || column === 'alamat' ? (
         <p className="text-left">{text}</p>
       ) : (

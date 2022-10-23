@@ -23,12 +23,15 @@ class Donor extends React.Component {
       deleteModal: false,
       idDelete: '',
       userDelete: '',
+      history: [],
     }
   }
 
+  componentDidMount() {
+    console.log(this.props.donor)
+  }
+
   onDelete = (id, name) => {
-    console.log(id)
-    console.log(name)
     this.setState({ deleteModal: true, idDelete: id, userDelete: name })
   }
 
@@ -39,6 +42,13 @@ class Donor extends React.Component {
       .then(() => {
         getHistory(this.props.auth.token)
       })
+  }
+
+  changePage = (url) => {
+    if (url) {
+      console.log(url)
+      this.props.getHistory(this.props.auth.token, null, url)
+    }
   }
 
   render() {
@@ -67,7 +77,13 @@ class Donor extends React.Component {
                           key={id}
                           column={Object.keys(row)[id]}
                           isEven={idx % 2 === 0 && true}
-                          text={Object.keys(row)[id] === 'id' ? idx + 1 : item}
+                          text={
+                            Object.keys(row)[id] === 'id'
+                              ? (this.props.donor.pageInfo.currentPage - 1) *
+                                  20 +
+                                (idx + 1)
+                              : item
+                          }
                         />
                       ))}
                       <td>
@@ -93,11 +109,29 @@ class Donor extends React.Component {
             <Container
               content={
                 <div className="flex flex-row items-center justify-center py-4">
-                  <button className="text-gray-800 cursor-default">
+                  <button
+                    className={
+                      this.props.donor.pageInfo.prevPage
+                        ? 'text-red-800 cursor-pointer'
+                        : 'text-gray-800 cursor-default'
+                    }
+                    onClick={() =>
+                      this.changePage(this.props.donor.pageInfo.prevPage)
+                    }
+                  >
                     <Back size={24} />
                   </button>
-                  <p>1</p>
-                  <button className="text-gray-800 active:text-red-900">
+                  <p>{this.props.donor.pageInfo.currentPage}</p>
+                  <button
+                    onClick={() =>
+                      this.changePage(this.props.donor.pageInfo.nextPage)
+                    }
+                    className={
+                      this.props.donor.pageInfo.nextPage
+                        ? 'text-red-800 cursor-pointer'
+                        : 'text-gray-800 cursor-default'
+                    }
+                  >
                     <Forward size={24} />
                   </button>
                 </div>

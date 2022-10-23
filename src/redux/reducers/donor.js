@@ -1,5 +1,6 @@
 const initialState = {
   history: [],
+  pageInfo: {},
   msg: '',
 }
 
@@ -9,6 +10,7 @@ const donor = (state = initialState, action) => {
       return {
         ...state,
         history: action.payload.results,
+        pageInfo: action.payload.pageInfo,
         msg: action.payload.message,
       }
     }

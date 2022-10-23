@@ -96,7 +96,11 @@ class Data extends React.Component {
       console.log(this.state.params)
       const page = event.currentTarget.value.split('?')[1]
       console.log(page)
-      this.props.getData(this.props.auth.token, event.currentTarget.value)
+      this.props.getData(
+        this.props.auth.token,
+        event.currentTarget.value,
+        this.state.params
+      )
     }
   }
 
@@ -145,22 +149,6 @@ class Data extends React.Component {
         blood: category,
       },
     }))
-
-    // if (category) {
-    //   let params = this.state.params
-    //   if (category === 'all') {
-    //     delete params.blood
-    //     this.props.history.push('/data')
-    //     this.getData(this.state.token, '', params)
-    //   } else {
-    //     params = {
-    //       ...params,
-    //       blood: category,
-    //     }
-    //     const url = this.getUrl(params)
-    //     this.props.history.push(url)
-    //   }
-    // }
 
     let params = this.state.params
 

@@ -27,10 +27,6 @@ class Donor extends React.Component {
     }
   }
 
-  componentDidMount() {
-    console.log(this.props.donor)
-  }
-
   onDelete = (id, name) => {
     this.setState({ deleteModal: true, idDelete: id, userDelete: name })
   }

@@ -9,6 +9,7 @@ const expenditure = (state = initialState, action) => {
       return {
         ...state,
         data: action.payload.results,
+        pageInfo: action.payload.pageInfo,
         msg: action.payload.message,
       }
     }

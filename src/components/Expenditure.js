@@ -45,7 +45,6 @@ const Expenditure = ({
 
   const submit = () => {
     const submitData = { bloodGroup, amount, receiver }
-    console.log(submitData)
     addExpenditure(submitData, auth.token, history).then(() => {
       setVisibility(false)
       setBloodGroup('')
@@ -56,7 +55,6 @@ const Expenditure = ({
   }
 
   const onDelete = (id) => {
-    console.log(id)
     setDeleteModal(true)
     setIdDelete(id)
   }
@@ -66,6 +64,12 @@ const Expenditure = ({
     deleteExpenditure(idDelete, auth.token).then(() => {
       getExpenditure(auth.token)
     })
+  }
+
+  const changePage = (url) => {
+    if (url) {
+      getExpenditure(auth.token, url)
+    }
   }
 
   return (
@@ -93,7 +97,12 @@ const Expenditure = ({
                         key={id}
                         column={Object.keys(row)[id]}
                         isEven={idx % 2 === 0 && true}
-                        text={Object.keys(row)[id] === 'id' ? idx + 1 : item}
+                        text={
+                          Object.keys(row)[id] === 'id'
+                            ? (expenditure.pageInfo.currentPage - 1) * 20 +
+                              (idx + 1)
+                            : item
+                        }
                       />
                     ))}
                     <td>
@@ -119,11 +128,25 @@ const Expenditure = ({
           <Container
             content={
               <div className="flex flex-row items-center justify-center py-4">
-                <button className="text-gray-800 cursor-default">
+                <button
+                  className={
+                    expenditure.pageInfo.prevPage
+                      ? 'text-red-800 cursor-pointer'
+                      : 'text-gray-800 cursor-default'
+                  }
+                  onClick={() => changePage(expenditure.pageInfo.prevPage)}
+                >
                   <Back size={24} />
                 </button>
-                <p>1</p>
-                <button className="text-red-800 active:text-red-900">
+                <p>{expenditure.pageInfo.currentPage}</p>
+                <button
+                  className={
+                    expenditure.pageInfo.nextPage
+                      ? 'text-red-800 cursor-pointer'
+                      : 'text-gray-800 cursor-default'
+                  }
+                  onClick={() => changePage(expenditure.pageInfo.nextPage)}
+                >
                   <Forward size={24} />
                 </button>
               </div>

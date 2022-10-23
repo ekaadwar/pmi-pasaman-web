@@ -9,13 +9,13 @@ export const addUser = (formData, token, history) => {
 
     form.append('nama', formData.nama)
     form.append('email', formData.email)
-    form.append('no_hp', formData.no_hp)
+    form.append('no_hp', formData.noHp)
     form.append('password', formData.password)
     form.append('alamat', formData.alamat)
-    form.append('umur', formData.umur)
+    form.append('tanggalLahir', formData.tanggalLahir)
     form.append('pekerjaan', formData.pekerjaan)
     form.append('jenis_kelamin', formData.gender)
-    form.append('golDarah', formData.gol_darah)
+    form.append('gol_darah', formData.golDarah)
 
     dispatch({ type: 'SET_LOADING', payload: true })
     try {
@@ -67,9 +67,6 @@ export const getData =
       })
       dispatch({ type: 'SET_LOADING', payload: false })
     } catch (err) {
-      // window.alert(err.response.data.message);
-      // console.log("action");
-      // console.log(paramKeys);
       console.log(err)
       dispatch({ type: 'SET_LOADING', payload: false })
     }

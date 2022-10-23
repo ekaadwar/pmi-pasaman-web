@@ -33,11 +33,17 @@ export const addExpenditure = (formData, token) => async (dispatch) => {
 }
 
 export const getExpenditure =
-  (token = null) =>
+  (token = null, url = null) =>
   async (dispatch) => {
     dispatch({ type: 'SET_LOADING', payload: true })
+    let defaultUrl
+    if (url) {
+      defaultUrl = url
+    } else {
+      defaultUrl = `${URL}/expenditure`
+    }
     try {
-      const { data } = await http(token).get(`${URL}/expenditure`)
+      const { data } = await http(token).get(defaultUrl)
       dispatch({
         type: 'EXPENDITURE_GET',
         payload: data,

@@ -16,7 +16,6 @@ export const getHistory =
       defaultUrl = `${URL}/donor`
     }
     try {
-      console.log(defaultUrl)
       const { data } = await http(token).get(defaultUrl)
       dispatch({
         type: 'HISTORY_GET',

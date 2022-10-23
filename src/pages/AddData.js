@@ -6,6 +6,7 @@ import { CircleButton } from '../components/Button'
 import { InputArea, InputProfile } from '../components/Input'
 import { ProfileCard } from '../components/Card'
 import { connect } from 'react-redux'
+import { ErrAlert } from '../components/Alert'
 
 class AddData extends React.Component {
   constructor(props) {
@@ -15,18 +16,37 @@ class AddData extends React.Component {
       password: '',
       noHp: '',
       email: '',
-      umur: '',
+      tanggalLahir: '',
       gender: '',
       golDarah: '',
       pekerjaan: '',
       alamat: '',
+      errAlert: '',
     }
+  }
+
+  closeAlert = () => {
+    this.setState({ errAlert: '' })
   }
 
   submit = () => {
     const token = this.props.auth.token
     const history = this.props.history
-    this.props.addUser(this.state, token, history)
+    if (
+      this.state.nama &&
+      this.state.password &&
+      this.state.noHp &&
+      this.state.email &&
+      this.state.tanggalLahir &&
+      this.state.gender &&
+      this.state.golDarah &&
+      this.state.pekerjaan &&
+      this.state.alamat
+    ) {
+      this.props.addUser(this.state, token, history)
+    } else {
+      this.setState({ errAlert: 'Kolon isian tidak boleh kosong' })
+    }
   }
   render() {
     return (
@@ -38,6 +58,14 @@ class AddData extends React.Component {
                 <ProfileCard
                   content={
                     <div className="grid sm:grid-cols-2 gap-5">
+                      <div className="sm:col-span-2">
+                        {this.state.errAlert && (
+                          <ErrAlert
+                            text={this.state.errAlert}
+                            onClick={this.closeAlert}
+                          />
+                        )}
+                      </div>
                       <div className="sm:col-span-2 flex flex-row justify-between items-center">
                         <p className="font-bold text-2xl pt-5 pr-5 text-gray-800">
                           Tambah Data Pendonor
@@ -58,11 +86,11 @@ class AddData extends React.Component {
                       </div>
                       <div>
                         <InputProfile
-                          label="Umur"
-                          value={this.state.umur}
-                          type="number"
-                          onChange={(e) =>
-                            this.setState({ umur: e.target.value })
+                          label="Tanggal Lahir"
+                          type="date"
+                          value={this.state.tanggalLahir}
+                          onChange={(event) =>
+                            this.setState({ tanggalLahir: event.target.value })
                           }
                         />
                       </div>
@@ -77,13 +105,23 @@ class AddData extends React.Component {
                         />
                       </div>
                       <div>
-                        <InputProfile
-                          label="Jenis Kelamin"
-                          value={this.state.gender}
-                          onChange={(e) =>
-                            this.setState({ gender: e.target.value })
+                        <p className="text-gray-700">Jenis Kelamin :</p>
+                        <select
+                          className="block bg-white pt-2 focus:outline-none w-full"
+                          onChange={(event) =>
+                            this.setState({ gender: event.target.value })
                           }
-                        />
+                        >
+                          <option className="text-black" value="">
+                            Pilih
+                          </option>
+                          <option className="text-black" value="Pria">
+                            Pria
+                          </option>
+                          <option className="text-black" value="Wanita">
+                            Wanita
+                          </option>
+                        </select>
                       </div>
                       <div>
                         <InputProfile
@@ -96,13 +134,29 @@ class AddData extends React.Component {
                         />
                       </div>
                       <div>
-                        <InputProfile
-                          label="Golongan Darah"
-                          value={this.state.golDarah}
-                          onChange={(e) =>
-                            this.setState({ golDarah: e.target.value })
+                        <p className="text-gray-700">Golongan Darah :</p>
+                        <select
+                          className="block bg-white pt-2 focus:outline-none w-full"
+                          onChange={(event) =>
+                            this.setState({ golDarah: event.target.value })
                           }
-                        />
+                        >
+                          <option className="text-black" value="">
+                            Pilih
+                          </option>
+                          <option className="text-black" value="A">
+                            A
+                          </option>
+                          <option className="text-black" value="B">
+                            B
+                          </option>
+                          <option className="text-black" value="AB">
+                            AB
+                          </option>
+                          <option className="text-black" value="O">
+                            O
+                          </option>
+                        </select>
                       </div>
                       <div>
                         <InputProfile

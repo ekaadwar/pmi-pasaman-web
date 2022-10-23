@@ -302,7 +302,7 @@ class Data extends React.Component {
             <tbody>
               <tr>
                 <td />
-                <Footer colspan={8} />
+                <Footer colspan={9} />
               </tr>
             </tbody>
           </table>

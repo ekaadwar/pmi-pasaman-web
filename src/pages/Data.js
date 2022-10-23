@@ -87,7 +87,13 @@ class Data extends React.Component {
   }
 
   changePage = (event) => {
+    console.log(event.currentTarget.value)
     if (event.currentTarget.value) {
+      const url = this.getUrl(this.state.params)
+      console.log(url)
+      console.log(this.state.params)
+      const page = event.currentTarget.value.split('?')[1]
+      console.log(page)
       this.props.getData(this.props.auth.token, event.currentTarget.value)
     }
   }
@@ -137,7 +143,30 @@ class Data extends React.Component {
         blood: category,
       },
     }))
-    const url = this.getUrl(this.state.params)
+
+    // if (category) {
+    //   let params = this.state.params
+    //   if (category === 'all') {
+    //     delete params.blood
+    //     this.props.history.push('/data')
+    //     this.getData(this.state.token, '', params)
+    //   } else {
+    //     params = {
+    //       ...params,
+    //       blood: category,
+    //     }
+    //     const url = this.getUrl(params)
+    //     this.props.history.push(url)
+    //   }
+    // }
+
+    let params = this.state.params
+
+    params = {
+      ...params,
+      blood: category,
+    }
+    const url = this.getUrl(params)
     this.props.history.push(url)
   }
 
@@ -300,7 +329,7 @@ class Data extends React.Component {
               <button
                 className={
                   this.props.data.pageInfo.prevPage
-                    ? 'text-red-800 active:text-red-900'
+                    ? 'text-red-800 cursor-pointer'
                     : 'text-gray-800 cursor-default'
                 }
                 value={this.props.data.pageInfo.prevPage}
@@ -312,7 +341,7 @@ class Data extends React.Component {
               <button
                 className={
                   this.props.data.pageInfo.nextPage
-                    ? 'text-red-800 active:text-red-900'
+                    ? 'text-red-800 cursor-pointer'
                     : 'text-gray-800 cursor-default'
                 }
                 value={this.props.data.pageInfo.nextPage}

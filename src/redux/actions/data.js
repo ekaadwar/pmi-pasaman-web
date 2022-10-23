@@ -61,6 +61,7 @@ export const getData =
     try {
       console.log(url)
       const { data } = await http(token).get(url)
+      console.log(data)
       dispatch({
         type: 'DATA_GET',
         payload: data,

@@ -35,7 +35,7 @@ class Data extends React.Component {
       prevPage: null,
       token: '',
       params: {
-        blood: 'all',
+        blood: '',
       },
       deleteModal: false,
       deleteData: {},
@@ -43,25 +43,13 @@ class Data extends React.Component {
   }
 
   componentDidMount() {
-    this.props.authOff()
     const { token } = this.props.auth
     let params = {}
-    console.log('mounting')
     if (this.props.location.search) {
       params = this.parseQuery(this.props.location.search)
-      console.log(params)
+      this.setState({ params })
     }
     this.getData(token, '', params)
-  }
-
-  getData = (token, page, params) => {
-    this.props.getData(token, page, params).then(() => {
-      this.setState({
-        data: this.props.data.data,
-        pageInfo: this.props.data.pageInfo,
-        token: this.props.auth.token,
-      })
-    })
   }
 
   componentDidUpdate(prevProps) {
@@ -79,6 +67,16 @@ class Data extends React.Component {
     }
   }
 
+  getData = (token, page, params) => {
+    this.props.getData(token, page, params).then(() => {
+      this.setState({
+        data: this.props.data.data,
+        pageInfo: this.props.data.pageInfo,
+        token: this.props.auth.token,
+      })
+    })
+  }
+
   parseQuery = (str) => {
     return qs.parse(str.slice('1'))
   }
@@ -89,7 +87,9 @@ class Data extends React.Component {
   }
 
   changePage = (event) => {
-    this.props.getData(this.props.auth.token, event.currentTarget.value)
+    if (event.currentTarget.value) {
+      this.props.getData(this.props.auth.token, event.currentTarget.value)
+    }
   }
 
   onSearch = (event) => {
@@ -137,22 +137,8 @@ class Data extends React.Component {
         blood: category,
       },
     }))
-
-    if (category) {
-      let params = this.state.params
-      if (category === 'all') {
-        delete params.blood
-        this.props.history.push('/data')
-        this.getData(this.state.token, '', params)
-      } else {
-        params = {
-          ...params,
-          blood: category,
-        }
-        const url = this.getUrl(params)
-        this.props.history.push(url)
-      }
-    }
+    const url = this.getUrl(this.state.params)
+    this.props.history.push(url)
   }
 
   onDelete = (id, name) => {
@@ -194,8 +180,8 @@ class Data extends React.Component {
             <div className="flex flex-col space-y-3 md:space-y-0 md:flex-row md:items-center my-12 space-x-2">
               <div className="flex flex-row justify-center items-center space-x-2">
                 <NavButton
-                  active={this.state.params.blood === 'all' ? true : false}
-                  onClick={() => this.getCategory('all')}
+                  active={this.state.params.blood === '' ? true : false}
+                  onClick={() => this.getCategory('')}
                   text="All"
                 />
                 <NavButton
@@ -312,16 +298,24 @@ class Data extends React.Component {
           content={
             <div className="flex flex-row items-center justify-center py-4">
               <button
-                className="text-gray-800 cursor-default"
-                value={this.state.pageInfo.prevPage}
+                className={
+                  this.props.data.pageInfo.prevPage
+                    ? 'text-red-800 active:text-red-900'
+                    : 'text-gray-800 cursor-default'
+                }
+                value={this.props.data.pageInfo.prevPage}
                 onClick={this.changePage}
               >
                 <Back size={24} />
               </button>
               <p>{this.props.data.pageInfo.currentPage}</p>
               <button
-                className="text-red-800 active:text-red-900"
-                value={this.state.pageInfo.nextPage}
+                className={
+                  this.props.data.pageInfo.nextPage
+                    ? 'text-red-800 active:text-red-900'
+                    : 'text-gray-800 cursor-default'
+                }
+                value={this.props.data.pageInfo.nextPage}
                 onClick={this.changePage}
               >
                 <Forward size={24} />

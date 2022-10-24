@@ -54,12 +54,16 @@ export const getData =
 
     if (paramLength > 0) {
       for (let i = 0; i < paramLength; i++) {
-        url += `&${paramKeys[i]}=${paramValues[i]}`
+        if (paramKeys[i] === 'sort') {
+          const sort = paramValues[i].split('-')
+          url += `&sort[${sort[0]}]=${sort[1]}`
+        } else {
+          url += `&${paramKeys[i]}=${paramValues[i]}`
+        }
       }
     }
     dispatch({ type: 'SET_LOADING', payload: true })
     try {
-      console.log(url)
       const { data } = await http(token).get(url)
       dispatch({
         type: 'DATA_GET',
@@ -67,7 +71,6 @@ export const getData =
       })
       dispatch({ type: 'SET_LOADING', payload: false })
     } catch (err) {
-      console.log(err)
       dispatch({ type: 'SET_LOADING', payload: false })
     }
   }

@@ -1,7 +1,10 @@
 import React from 'react'
 // import qs from "querystring";
 import { Link } from 'react-router-dom'
-import { MdDeleteOutline as Delete } from 'react-icons/md'
+import {
+  MdDeleteOutline as Delete,
+  MdSortByAlpha as Sort,
+} from 'react-icons/md'
 import {
   BiCaretLeft as Back,
   BiCaretRight as Forward,
@@ -38,6 +41,7 @@ class Data extends React.Component {
         blood: '',
       },
       deleteModal: false,
+      sortModal: false,
       deleteData: {},
     }
   }
@@ -46,10 +50,8 @@ class Data extends React.Component {
     this.props.authOff()
     const { token } = this.props.auth
     let params = {}
-    console.log('mounting')
     if (this.props.location.search) {
       params = this.parseQuery(this.props.location.search)
-      console.log(params)
     }
     this.getData(token, '', params)
   }
@@ -89,13 +91,7 @@ class Data extends React.Component {
   }
 
   changePage = (event) => {
-    console.log(event.currentTarget.value)
     if (event.currentTarget.value) {
-      const url = this.getUrl(this.state.params)
-      console.log(url)
-      console.log(this.state.params)
-      const page = event.currentTarget.value.split('?')[1]
-      console.log(page)
       this.props.getData(
         this.props.auth.token,
         event.currentTarget.value,
@@ -112,6 +108,25 @@ class Data extends React.Component {
 
   search = () => {
     const { params } = this.state
+    let url = this.getUrl(params)
+    this.props.history.push(url)
+  }
+
+  sort = (event) => {
+    const sortValue = event.currentTarget.value
+    this.setState((prevState) => ({
+      ...prevState,
+      params: {
+        ...prevState.params,
+        sort: sortValue,
+      },
+      sortModal: false,
+    }))
+    let { params } = this.state
+    params = {
+      ...params,
+      sort: sortValue,
+    }
     let url = this.getUrl(params)
     this.props.history.push(url)
   }
@@ -161,8 +176,6 @@ class Data extends React.Component {
   }
 
   onDelete = (id, name) => {
-    console.log(id)
-    console.log(name)
     this.setState((prevState) => ({
       ...prevState,
       deleteData: {
@@ -172,6 +185,10 @@ class Data extends React.Component {
       },
       deleteModal: true,
     }))
+  }
+
+  onSort = () => {
+    this.setState({ sortModal: true })
   }
 
   deleteUser = () => {
@@ -256,7 +273,7 @@ class Data extends React.Component {
           <table className="data-table mx-auto">
             <thead>
               <tr>
-                <th>
+                <th className="flex justify-center items-center px-2">
                   <ActionButton content={<Delete size={20} />} />
                 </th>
                 <FirstHeader text="No" />
@@ -268,7 +285,12 @@ class Data extends React.Component {
                 <Header text="Gender" />
                 <Header text="Gol. Darah" />
                 <LastHeader text="Jadwal Donor" />
-                <th></th>
+                <th
+                  className="flex justify-center items-center"
+                  onClick={this.onSort}
+                >
+                  <ActionButton content={<Sort size={20} />} />
+                </th>
               </tr>
             </thead>
             {this.props.data.data.map((row, idx) => (
@@ -289,7 +311,7 @@ class Data extends React.Component {
                     />
                   ))}
                   <td>
-                    <div className="flex flex-row w-full space-x-2 items-center justify-center">
+                    <div className="flex flex-row w-full space-x-2 px-2 items-center justify-center">
                       <ActionButton
                         value={row.id}
                         content={<Search size={20} />}
@@ -363,13 +385,64 @@ class Data extends React.Component {
                   Apakah Anda yakin ingin menghapus data{' '}
                   {this.state.deleteData.name} ?
                 </p>
-                <div className="flex justify-between">
+                <div className="flex justify-end space-x-2">
                   <ActionButtonGray
                     onClick={() => this.setState({ deleteModal: false })}
                     content={'Batal'}
                   />
                   <ActionButton onClick={this.deleteUser} content={'Ya'} />
                 </div>
+              </div>
+            }
+          />
+        )}
+
+        {this.state.sortModal === true && (
+          <Modal
+            setOpenModal={() => this.setState({ sortModal: false })}
+            content={
+              <div className="flex flex-col">
+                <p className="text-center mb-4">Urut Berdasarkan :</p>
+
+                <button
+                  className={
+                    'text-left text-gray-700 hover:text-black cursor-pointer bg-gray-100 p-2 border-y border-gray-200'
+                  }
+                  value={'nama-asc'}
+                  onClick={this.sort}
+                >
+                  <p>Nama (A-Z)</p>
+                </button>
+
+                <button
+                  className={
+                    'text-left text-gray-700 hover:text-black cursor-pointer p-2 border-y border-gray-200'
+                  }
+                  value={'nama-desc'}
+                  onClick={this.sort}
+                >
+                  <p>Nama (Z-A)</p>
+                </button>
+
+                <button
+                  className={
+                    'text-left text-gray-700 hover:text-black cursor-pointer bg-gray-100 p-2 border-y border-gray-200'
+                  }
+                  value={'jadwal_donor-asc'}
+                  onClick={this.sort}
+                >
+                  <p>Jadwal Donor (A-Z)</p>
+                </button>
+
+                <button
+                  className={
+                    'text-left text-gray-700 hover:text-black cursor-pointer p-2 border-b border-gray-200'
+                  }
+                  value={'jadwal_donor-desc'}
+                  onClick={this.sort}
+                >
+                  <p>Jadwal Donor (Z-A)</p>
+                </button>
               </div>
             }
           />

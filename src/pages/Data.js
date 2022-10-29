@@ -27,6 +27,7 @@ import { connect } from 'react-redux'
 import { authOff } from '../redux/actions/auth'
 import { deleteUser, getData, getDetails } from '../redux/actions/data'
 import Modal from '../components/Modal'
+import { ddmmmmyyyy } from '../helpers/date'
 
 class Data extends React.Component {
   constructor(props) {
@@ -47,6 +48,7 @@ class Data extends React.Component {
   }
 
   componentDidMount() {
+    ddmmmmyyyy()
     const { token } = this.props.auth
     let params = {}
     if (this.props.location.search) {
@@ -305,6 +307,8 @@ class Data extends React.Component {
                         Object.keys(row)[id] === 'id'
                           ? (this.props.data.pageInfo.currentPage - 1) * 20 +
                             (idx + 1)
+                          : Object.keys(row)[id] === 'jadwal_donor'
+                          ? ddmmmmyyyy(new Date(item))
                           : item
                       }
                     />

@@ -20,6 +20,7 @@ import {
   getExpenditure,
   deleteExpenditure,
 } from '../redux/actions/expenditure'
+import { ddmmmmyyyy } from '../helpers/date'
 
 const Expenditure = ({
   auth,
@@ -101,6 +102,8 @@ const Expenditure = ({
                           Object.keys(row)[id] === 'id'
                             ? (expenditure.pageInfo.currentPage - 1) * 20 +
                               (idx + 1)
+                            : Object.keys(row)[id] === 'created_at'
+                            ? ddmmmmyyyy(new Date(item))
                             : item
                         }
                       />

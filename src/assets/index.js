@@ -1,5 +1,4 @@
-// import React from "react"
-
+/* eslint-disable no-undef */
 export const authBg = require('./image/background/auth_bg.png')
 export const jumbotron = require('./image/background/jumbotron.jpg')
 export const logoPmi = require('./image/logo/logo_pmi.png')

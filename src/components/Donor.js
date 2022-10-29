@@ -15,6 +15,7 @@ import {
   LastHeader,
   TableData,
 } from '../components/Table'
+import { ddmmmmyyyy } from '../helpers/date'
 
 class Donor extends React.Component {
   constructor(props) {
@@ -78,6 +79,8 @@ class Donor extends React.Component {
                               ? (this.props.donor.pageInfo.currentPage - 1) *
                                   20 +
                                 (idx + 1)
+                              : Object.keys(row)[id] === 'created_at'
+                              ? ddmmmmyyyy(new Date(item))
                               : item
                           }
                         />

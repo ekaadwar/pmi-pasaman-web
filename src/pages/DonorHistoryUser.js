@@ -24,6 +24,7 @@ class DonorHistoryUser extends React.Component {
   }
 
   componentDidMount() {
+    window.scrollTo(0, 0)
     const token = this.props.auth.token
     const url = this.getUrl()
     switch (url) {

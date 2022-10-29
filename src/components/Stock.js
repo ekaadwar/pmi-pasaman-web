@@ -141,7 +141,7 @@ const Stock = ({ stock, auth, getStock, updateStock }) => {
               {auth.token && (auth.userId === 1 || auth.userId === 2) && (
                 <ActionButton
                   onClick={() => setInput(true)}
-                  content={'Tambah Data'}
+                  content={'Ubah Data'}
                 />
               )}
             </div>
@@ -184,7 +184,7 @@ const Stock = ({ stock, auth, getStock, updateStock }) => {
               ))}
               <div className="flex justify-between">
                 <ActionButtonGray onClick={cancel} content={'Batal'} />
-                <ActionButton onClick={submit} content={'Tambah Data'} />
+                <ActionButton onClick={submit} content={'Ubah Data'} />
               </div>
             </div>
           }

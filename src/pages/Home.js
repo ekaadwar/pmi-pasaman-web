@@ -11,6 +11,7 @@ import { PageSection, PageJumbotron } from '../components/Section'
 import { PrimaryButton } from '../components/Button'
 import { SectionHeader } from '../components/Text'
 import { getStock } from '../redux/actions/stock'
+// import BloodCircle from '../components/BloodCircle'
 
 class Home extends React.Component {
   constructor(props) {
@@ -21,6 +22,7 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
+    window.scrollTo(0, 0)
     this.props.authOff()
     this.getStockData()
   }
@@ -103,21 +105,60 @@ class Home extends React.Component {
           </svg>
         </div>
 
-        <div className="bg-gray-200">
+        <div className="bg-gray-200 pb-10">
           <Container
             content={
               <div className="h-full text-center">
                 <SectionHeader text="Jumlah Darah yang Tersedia" />
-                <div className="grid grid-cols-2 sm:grid-cols-4 justify-center pt-10 gap-5">
-                  {this.state.stock.map((item, idx) => (
-                    <div
-                      key={idx}
-                      className="flex justify-center"
-                      onClick={() => this.props.history.push('/stock')}
-                    >
-                      <BloodBox type={item.gol_darah} amount={item.total} />
-                    </div>
-                  ))}
+                {/* <div className="grid grid-cols-1 xs-grid-cols-2 lg:grid-cols-4 justify-items-center pt-10 gap-5">
+                  <div onClick={() => this.props.history.push('/stock')}>
+                    <BloodCircle
+                      data={[
+                        this.state.stock[0],
+                        this.state.stock[1],
+                        this.state.stock[2],
+                      ]}
+                    />
+                  </div>
+
+                  <div onClick={() => this.props.history.push('/stock')}>
+                    <BloodCircle
+                      data={[
+                        this.state.stock[3],
+                        this.state.stock[4],
+                        this.state.stock[5],
+                      ]}
+                    />
+                  </div>
+
+                  <div onClick={() => this.props.history.push('/stock')}>
+                    <BloodCircle
+                      data={[
+                        this.state.stock[6],
+                        this.state.stock[7],
+                        this.state.stock[8],
+                      ]}
+                    />
+                  </div>
+
+                  <div onClick={() => this.props.history.push('/stock')}>
+                    <BloodCircle
+                      data={[
+                        this.state.stock[9],
+                        this.state.stock[10],
+                        this.state.stock[11],
+                      ]}
+                    />
+                  </div>
+                </div> */}
+                <div className="flex justify-center h-full text-center mt-10">
+                  <div className="grid grid-cols-2 sm:grid-cols-4 justify-center gap-5 max-w-2xl w-full">
+                    {this.state.stock.map((item, idx) => (
+                      <div key={idx} className="flex justify-center">
+                        <BloodBox type={item.gol_darah} amount={item.total} />
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             }

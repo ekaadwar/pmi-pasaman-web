@@ -38,11 +38,14 @@ class Data extends React.Component {
       nextPage: `${URL}/items?page=2`,
       prevPage: null,
       token: '',
+      generalBlood: '',
+      optionBlood: [],
       params: {
         blood: '',
       },
       deleteModal: false,
       sortModal: false,
+      categoryModal: false,
       deleteData: {},
     }
   }
@@ -157,6 +160,16 @@ class Data extends React.Component {
     return url
   }
 
+  onCategory = (generalBlood, optionBlood) => {
+    console.log(generalBlood)
+    console.log(optionBlood)
+    this.setState({
+      categoryModal: true,
+      generalBlood,
+      optionBlood,
+    })
+  }
+
   getCategory = (category) => {
     this.setState((prevState) => ({
       ...prevState,
@@ -164,6 +177,7 @@ class Data extends React.Component {
         ...prevState.params,
         blood: category,
       },
+      categoryModal: false,
     }))
 
     let params = this.state.params
@@ -223,22 +237,22 @@ class Data extends React.Component {
                 />
                 <NavButton
                   active={this.state.params.blood === 'a' ? true : false}
-                  onClick={() => this.getCategory('a')}
+                  onClick={() => this.onCategory('a', ['A', 'A+', 'A-'])}
                   text="A"
                 />
                 <NavButton
                   active={this.state.params.blood === 'b' ? true : false}
-                  onClick={() => this.getCategory('b')}
+                  onClick={() => this.onCategory('b', ['B', 'B+', 'B-'])}
                   text="B"
                 />
                 <NavButton
                   active={this.state.params.blood === 'ab' ? true : false}
-                  onClick={() => this.getCategory('ab')}
+                  onClick={() => this.onCategory('ab', ['AB', 'AB+', 'AB-'])}
                   text="AB"
                 />
                 <NavButton
                   active={this.state.params.blood === 'o' ? true : false}
-                  onClick={() => this.getCategory('o')}
+                  onClick={() => this.onCategory('o', ['O', 'O+', 'O-'])}
                   text="O"
                 />
               </div>
@@ -446,6 +460,29 @@ class Data extends React.Component {
                 >
                   <p>Jadwal Donor (Z-A)</p>
                 </button>
+              </div>
+            }
+          />
+        )}
+
+        {this.state.categoryModal && (
+          <Modal
+            setOpenModal={() => this.setState({ categoryModal: false })}
+            content={
+              <div>
+                {this.state.optionBlood.map((item, id) => (
+                  <button
+                    key={id}
+                    value={item}
+                    onClick={(e) => this.getCategory(e.currentTarget.value)}
+                    className="flex items-center justify-left cursor-pointer space-x-3 w-20 h-8 px-3 hover:bg-gray-200"
+                  >
+                    <div>
+                      <div className="w-3 h-3 rounded-full bg-gray-500" />
+                    </div>
+                    <p>{item}</p>
+                  </button>
+                ))}
               </div>
             }
           />

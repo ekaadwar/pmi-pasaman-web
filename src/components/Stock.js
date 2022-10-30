@@ -87,7 +87,7 @@ const Stock = ({ stock, auth, getStock, updateStock }) => {
       <Container
         content={
           <div className="flex justify-center h-full text-center">
-            <div className="grid grid-cols-2 sm:grid-cols-4 justify-center gap-5 max-w-2xl w-full">
+            <div className="grid grid-flow-col grid-cols-2 sm:grid-cols-4 grid-rows-6 sm:grid-rows-3 justify-center gap-5 max-w-2xl w-full">
               {data.map((item, idx) => (
                 <div key={idx} className="flex justify-center">
                   <BloodBox type={item.gol_darah} amount={item.total} />
@@ -153,36 +153,42 @@ const Stock = ({ stock, auth, getStock, updateStock }) => {
         <Modal
           setOpenModal={setInput}
           content={
-            <div className="flex flex-col space-y-10">
+            <div className="scroll-hidden flex flex-col space-y-8 overflow-y-auto h-96">
               <p className="text-center font-bold text-xl">Update Stock Data</p>
               {data.map((items, idx) => (
-                <div key={idx} className="flex flex-col space-y-0">
-                  <p className="text-gray-700">
+                <div key={idx} className="flex flex-col space-y-2">
+                  <p className="text-gray-700 font-bold">
                     Golongan Darah {items.gol_darah}
                   </p>
-                  <div className="flew flew-row space-x-10">
-                    <input
-                      className="py-2 border-b border-gray-700 bg-white focus:outline-none "
-                      placeholder={'Masuk'}
-                      type={'number'}
-                      value={items.masuk}
-                      onChange={(event) => changeInput(event, idx, 'income')}
-                      onKeyDown={onSubmit}
-                    />
-                    <input
-                      className="py-2 border-b border-gray-700 bg-white focus:outline-none "
-                      placeholder={'Keluar'}
-                      type={'number'}
-                      value={items.keluar}
-                      onChange={(event) =>
-                        changeInput(event, idx, 'expenditure')
-                      }
-                      onKeyDown={onSubmit}
-                    />
+                  <div className="flex flex-col sm:flex-row sm:space-x-5 space-y-5 sm:-space-y-0">
+                    <div>
+                      <p className="text-gray-700">masuk :</p>
+                      <input
+                        className="py-2 border-b border-gray-700 bg-white focus:outline-none "
+                        placeholder={'Masuk'}
+                        type={'number'}
+                        value={items.masuk}
+                        onChange={(event) => changeInput(event, idx, 'income')}
+                        onKeyDown={onSubmit}
+                      />
+                    </div>
+                    <div>
+                      <p className="text-gray-700">keluar :</p>
+                      <input
+                        className="py-2 border-b border-gray-700 bg-white focus:outline-none "
+                        placeholder={'Keluar'}
+                        type={'number'}
+                        value={items.keluar}
+                        onChange={(event) =>
+                          changeInput(event, idx, 'expenditure')
+                        }
+                        onKeyDown={onSubmit}
+                      />
+                    </div>
                   </div>
                 </div>
               ))}
-              <div className="flex justify-between">
+              <div className="flex flex-col sm:flex-row sm:justify-end sm:space-x-5 space-y-2 sm:space-y-0">
                 <ActionButtonGray onClick={cancel} content={'Batal'} />
                 <ActionButton onClick={submit} content={'Ubah Data'} />
               </div>

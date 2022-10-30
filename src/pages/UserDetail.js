@@ -165,6 +165,20 @@ class UserDetail extends React.Component {
   render() {
     const profile = this.state.data
     const date = this.getDate(profile.jadwal_donor)
+    const bloodGroup = [
+      'A',
+      'A+',
+      'A-',
+      'B',
+      'B+',
+      'B-',
+      'AB',
+      'AB+',
+      'AB-',
+      'O',
+      'O+',
+      'O-',
+    ]
     return (
       <section className="profile min-h-screen pt-32 pb-20">
         <Container
@@ -345,21 +359,18 @@ class UserDetail extends React.Component {
                               }))
                             }
                           >
-                            <option className="text-black" value="">
+                            <option className="text-gray-500" value="">
                               {this.state.data.gol_darah}
                             </option>
-                            <option className="text-black" value="A">
-                              A
-                            </option>
-                            <option className="text-black" value="B">
-                              B
-                            </option>
-                            <option className="text-black" value="AB">
-                              AB
-                            </option>
-                            <option className="text-black" value="O">
-                              O
-                            </option>
+                            {bloodGroup.map((item, id) => (
+                              <option
+                                key={id}
+                                className="text-black"
+                                value={item}
+                              >
+                                {item}
+                              </option>
+                            ))}
                           </select>
                         </div>
 

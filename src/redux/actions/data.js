@@ -69,11 +69,14 @@ export const getData =
     dispatch({ type: 'SET_LOADING', payload: true })
     try {
       const { data } = await http(token).get(url)
+      console.log(url)
 
       data.results.map((items) => {
         const blood = typeConverter(items.gol_darah)
         items.gol_darah = blood
       })
+
+      console.log(data)
 
       dispatch({
         type: 'DATA_GET',

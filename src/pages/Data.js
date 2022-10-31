@@ -71,7 +71,6 @@ class Data extends React.Component {
           pageInfo: this.props.data.pageInfo,
           params,
         })
-        console.log(this.state)
       })
     }
   }
@@ -162,7 +161,6 @@ class Data extends React.Component {
   }
 
   onCategory = (generalBlood, optionBlood) => {
-    console.log(`generalBlood : ${generalBlood}`)
     this.setState({
       categoryModal: true,
       generalBlood,
@@ -175,7 +173,7 @@ class Data extends React.Component {
       ...prevState,
       params: {
         ...prevState.params,
-        blood: category,
+        blood: category.toLowerCase(),
       },
       categoryModal: false,
     }))
@@ -184,7 +182,7 @@ class Data extends React.Component {
 
     params = {
       ...params,
-      blood: category,
+      blood: category.toLowerCase(),
     }
     const url = this.getUrl(params)
     this.props.history.push(url)

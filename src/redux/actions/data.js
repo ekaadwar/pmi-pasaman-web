@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import http from '../../helpers/http'
-import { typeConverter } from '../../helpers/bloodConverter'
+import { typeConverter, typeDeConverter } from '../../helpers/bloodConverter'
 
 const { REACT_APP_BACKEND_URL: URL } = process.env
 
@@ -58,6 +58,9 @@ export const getData =
         if (paramKeys[i] === 'sort') {
           const sort = paramValues[i].split('-')
           url += `&sort[${sort[0]}]=${sort[1]}`
+        } else if (paramKeys[i] === 'blood') {
+          const value = typeDeConverter(paramValues[i])
+          url += `&${paramKeys[i]}=${value}`
         } else {
           url += `&${paramKeys[i]}=${paramValues[i]}`
         }

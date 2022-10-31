@@ -71,6 +71,7 @@ class Data extends React.Component {
           pageInfo: this.props.data.pageInfo,
           params,
         })
+        console.log(this.state)
       })
     }
   }
@@ -161,8 +162,7 @@ class Data extends React.Component {
   }
 
   onCategory = (generalBlood, optionBlood) => {
-    console.log(generalBlood)
-    console.log(optionBlood)
+    console.log(`generalBlood : ${generalBlood}`)
     this.setState({
       categoryModal: true,
       generalBlood,
@@ -236,22 +236,25 @@ class Data extends React.Component {
                   text="All"
                 />
                 <NavButton
-                  active={this.state.params.blood === 'a' ? true : false}
+                  active={this.state.params.generalBlood === 'a' ? true : false}
                   onClick={() => this.onCategory('a', ['A', 'A+', 'A-'])}
                   text="A"
                 />
+                {}
                 <NavButton
-                  active={this.state.params.blood === 'b' ? true : false}
+                  active={this.state.params.generalBlood === 'b' ? true : false}
                   onClick={() => this.onCategory('b', ['B', 'B+', 'B-'])}
                   text="B"
                 />
                 <NavButton
-                  active={this.state.params.blood === 'ab' ? true : false}
+                  active={
+                    this.state.params.generalBlood === 'ab' ? true : false
+                  }
                   onClick={() => this.onCategory('ab', ['AB', 'AB+', 'AB-'])}
                   text="AB"
                 />
                 <NavButton
-                  active={this.state.params.blood === 'o' ? true : false}
+                  active={this.state.params.generalBlood === 'o' ? true : false}
                   onClick={() => this.onCategory('o', ['O', 'O+', 'O-'])}
                   text="O"
                 />

@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 import http from '../../helpers/http'
+import { typeConverter } from '../../helpers/bloodConverter'
 
 const { REACT_APP_BACKEND_URL: URL } = process.env
 
@@ -65,6 +66,12 @@ export const getData =
     dispatch({ type: 'SET_LOADING', payload: true })
     try {
       const { data } = await http(token).get(url)
+
+      data.results.map((items) => {
+        const blood = typeConverter(items.gol_darah)
+        items.gol_darah = blood
+      })
+
       dispatch({
         type: 'DATA_GET',
         payload: data,

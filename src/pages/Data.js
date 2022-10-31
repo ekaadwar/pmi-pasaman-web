@@ -321,9 +321,11 @@ class Data extends React.Component {
                         Object.keys(row)[id] === 'id'
                           ? (this.props.data.pageInfo.currentPage - 1) * 20 +
                             (idx + 1)
-                          : Object.keys(row)[id] === 'jadwal_donor'
+                          : Object.keys(row)[id] !== 'jadwal_donor'
+                          ? item
+                          : item !== null
                           ? ddmmmmyyyy(new Date(item))
-                          : item
+                          : '-'
                       }
                     />
                   ))}

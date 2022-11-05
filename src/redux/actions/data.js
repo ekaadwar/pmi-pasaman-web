@@ -42,9 +42,9 @@ export const getData =
     let initialUrl
 
     if (targetPage !== '') {
-      initialUrl = `${targetPage}&limit=20`
+      initialUrl = `${targetPage}&limit=5`
     } else {
-      initialUrl = `${URL}/users?limit=20`
+      initialUrl = `${URL}/users?limit=5`
     }
 
     let url = initialUrl
@@ -145,7 +145,7 @@ export const deleteUser = (id, token) => {
   return async (dispatch) => {
     dispatch({ type: 'SET_LOADING', payload: true })
     try {
-      const { data } = await http(token).patch(`${URL}/users/delete/${id}`)
+      const { data } = await http(token).delete(`${URL}/users/${id}`)
       dispatch({
         type: 'USER_DELETE',
         payload: data.message,

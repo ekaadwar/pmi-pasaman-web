@@ -96,11 +96,25 @@ class Data extends React.Component {
 
   changePage = (event) => {
     if (event.currentTarget.value) {
-      this.props.getData(
-        this.props.auth.token,
-        event.currentTarget.value,
-        this.state.params
-      )
+      const otherPage = event.currentTarget.value.split('page')[1].slice(1)
+      console.log(event.currentTarget.value)
+
+      this.setState((prevState) => ({
+        ...prevState,
+        params: {
+          ...prevState.params,
+          page: otherPage,
+        },
+      }))
+
+      let params = this.state.params
+
+      params = {
+        ...params,
+        page: otherPage,
+      }
+      const url = this.getUrl(params)
+      this.props.history.push(url)
     }
   }
 
@@ -112,6 +126,7 @@ class Data extends React.Component {
 
   search = () => {
     const { params } = this.state
+    params.page && delete params.page
     let url = this.getUrl(params)
     this.props.history.push(url)
   }
@@ -369,7 +384,9 @@ class Data extends React.Component {
               >
                 <Back size={24} />
               </button>
+
               <p>{this.props.data.pageInfo.currentPage}</p>
+
               <button
                 className={
                   this.props.data.pageInfo.nextPage

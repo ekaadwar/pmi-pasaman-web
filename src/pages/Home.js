@@ -12,6 +12,7 @@ import { ActionButton, PrimaryButton } from '../components/Button'
 import { SectionHeader } from '../components/Text'
 import { getStock } from '../redux/actions/stock'
 import BarChart from '../components/BarChart'
+import { typeConverter } from '../helpers/bloodConverter'
 // import BloodCircle from '../components/BloodCircle'
 
 class Home extends React.Component {
@@ -32,8 +33,10 @@ class Home extends React.Component {
       let labels = []
       let values = []
       this.props.stock.data.map((items) => {
-        labels.push(items.gol_darah)
+        // labels = labels.push(typeConverter(items.gol_darah))
+        labels.push(typeConverter(items.gol_darah))
         values.push(items.total)
+        console.log(typeConverter(items.gol_darah))
       })
       console.log(labels)
       console.log(values)

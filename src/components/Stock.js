@@ -12,6 +12,7 @@ import { ActionButton, ActionButtonGray } from '../components/Button'
 import { connect } from 'react-redux'
 import Modal from './Modal'
 import { getStock, updateStock } from '../redux/actions/stock'
+import { typeConverter } from '../helpers/bloodConverter'
 
 const Stock = ({ stock, auth, getStock, updateStock }) => {
   const [input, setInput] = useState(false)
@@ -90,7 +91,10 @@ const Stock = ({ stock, auth, getStock, updateStock }) => {
             <div className="grid grid-flow-col grid-cols-2 sm:grid-cols-4 grid-rows-6 sm:grid-rows-3 justify-center gap-5 max-w-2xl w-full">
               {data.map((item, idx) => (
                 <div key={idx} className="flex justify-center">
-                  <BloodBox type={item.gol_darah} amount={item.total} />
+                  <BloodBox
+                    type={typeConverter(item.gol_darah)}
+                    amount={item.total}
+                  />
                 </div>
               ))}
             </div>
@@ -120,7 +124,13 @@ const Stock = ({ stock, auth, getStock, updateStock }) => {
                         key={id}
                         column={Object.keys(row)[id]}
                         isEven={idx % 2 === 0 && true}
-                        text={Object.keys(row)[id] === 'id' ? idx + 1 : item}
+                        text={
+                          Object.keys(row)[id] === 'id'
+                            ? idx + 1
+                            : Object.keys(row)[id] === 'gol_darah'
+                            ? typeConverter(item)
+                            : item
+                        }
                       />
                     ))}
                   </tr>

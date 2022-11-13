@@ -27,7 +27,7 @@ import { connect } from 'react-redux'
 import { authOff } from '../redux/actions/auth'
 import { deleteUser, getData, getDetails } from '../redux/actions/data'
 import Modal from '../components/Modal'
-import { ddmmmmyyyy } from '../helpers/date'
+import { ddmmmmyyyy, diffMonth } from '../helpers/date'
 import { typeConverter } from '../helpers/bloodConverter'
 
 class Data extends React.Component {
@@ -327,7 +327,16 @@ class Data extends React.Component {
             </thead>
             {this.props.data.data.map((row, idx) => (
               <tbody key={idx}>
-                <tr>
+                <tr
+                  className={
+                    diffMonth(row.jadwal_donor) >= 0
+                      ? 'text-red-700 font-bold'
+                      : diffMonth(row.jadwal_donor) >= -1
+                      ? 'text-yellow-700 font-bold'
+                      : ''
+                  }
+                >
+                  {console.log(diffMonth(row.jadwal_donor))}
                   <CheckRow />
                   {Object.values(row).map((item, id) => (
                     <TableData

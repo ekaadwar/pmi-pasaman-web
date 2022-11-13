@@ -25,7 +25,9 @@ class UserDetail extends React.Component {
       data: {},
       token: '',
       location: '',
+      schedule: '',
       isDonor: false,
+      isSchedule: false,
     }
   }
 
@@ -35,6 +37,10 @@ class UserDetail extends React.Component {
       data: this.props.data.detailData,
       token: this.props.auth.token,
     })
+  }
+
+  componentDidUpdate() {
+    console.log(this.state.schedule)
   }
 
   getData = (id) => {
@@ -84,6 +90,10 @@ class UserDetail extends React.Component {
     if (keys !== '') {
       window.alert(`${keys} have been updated`)
     }
+  }
+
+  editSchedule = () => {
+    this.setState({ isSchedule: true })
   }
 
   getDate = (strDate) => {
@@ -144,7 +154,7 @@ class UserDetail extends React.Component {
   }
 
   visibilityOff = () => {
-    this.setState({ isDonor: false })
+    this.setState({ isDonor: false, isSchedule: false })
   }
 
   donor = (event) => {
@@ -159,6 +169,12 @@ class UserDetail extends React.Component {
         this.props.addDonor(donorData, this.state.token)
         this.visibilityOff()
       }
+    }
+  }
+
+  schedule = (event) => {
+    if (event.keyCode === 13) {
+      this.visibilityOff()
     }
   }
 
@@ -228,7 +244,15 @@ class UserDetail extends React.Component {
                           </div>
                           <div className="flex flex-row justify-between">
                             <p>Jadwal Donor :</p>
-                            <p className="font-bold Capitalize">{date}</p>
+                            <div className="flex flex-row items-center justify-end space-x-1">
+                              <p className="font-bold Capitalize">{date}</p>
+                              <button
+                                onClick={this.editSchedule}
+                                className="active:bg-gray-300 p-2 rounded-sm"
+                              >
+                                <Edit />
+                              </button>
+                            </div>
                           </div>
                         </div>
 
@@ -441,6 +465,33 @@ class UserDetail extends React.Component {
                       value={this.state.location}
                       onChange={(event) =>
                         this.setState({ location: event.target.value })
+                      }
+                    />
+                  </div>
+                }
+              />
+            </div>
+          </div>
+        )}
+
+        {this.state.isSchedule && (
+          <div className="fixed z-50 top-0 w-full h-full flex items-center justify-center">
+            <div
+              onClick={this.visibilityOff}
+              className="absolute transparent-black-80 h-screen w-full"
+            />
+            <div className="z-50">
+              <PureCard
+                content={
+                  <div>
+                    <p className="text-gray-700 text-sm">Ubah Jadwal Donor:</p>
+                    <input
+                      className="py-2 focus:outline-none border-b border-gray-500"
+                      type="date"
+                      onKeyDown={this.schedule}
+                      value={this.props.data.detailData.jadwal_donor}
+                      onChange={(event) =>
+                        this.setState({ schedule: event.target.value })
                       }
                     />
                   </div>

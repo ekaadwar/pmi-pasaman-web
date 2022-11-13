@@ -17,6 +17,8 @@ import { typeConverter } from '../helpers/bloodConverter'
 const Stock = ({ stock, auth, getStock, updateStock }) => {
   const [input, setInput] = useState(false)
   const [data, setData] = useState([])
+  // const [labels, setLabels] = useState([])
+  // const [values, setValues] = useState([])
 
   useEffect(() => {
     if (stock.data.length > 0) {
@@ -28,6 +30,16 @@ const Stock = ({ stock, auth, getStock, updateStock }) => {
 
   const getStockData = () => {
     getStock().then(() => {
+      let labels = []
+      let values = []
+      stock.data.map((items) => {
+        labels.push(typeConverter(items.gol_darah))
+        values.push(items.total)
+        console.log(typeConverter(items.gol_darah))
+      })
+      console.log('oke')
+      console.log(labels)
+      console.log(values)
       setData(stock.data)
     })
   }

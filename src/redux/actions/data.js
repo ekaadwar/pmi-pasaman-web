@@ -42,9 +42,9 @@ export const getData =
     let initialUrl
 
     if (targetPage !== '') {
-      initialUrl = `${targetPage}&limit=5`
+      initialUrl = `${targetPage}&limit=20`
     } else {
-      initialUrl = `${URL}/users?limit=5`
+      initialUrl = `${URL}/users?limit=20`
     }
 
     let url = initialUrl

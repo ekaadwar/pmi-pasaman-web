@@ -33,13 +33,10 @@ class Home extends React.Component {
       let labels = []
       let values = []
       this.props.stock.data.map((items) => {
-        // labels = labels.push(typeConverter(items.gol_darah))
         labels.push(typeConverter(items.gol_darah))
         values.push(items.total)
         console.log(typeConverter(items.gol_darah))
       })
-      console.log(labels)
-      console.log(values)
       this.setState({ stock: this.props.stock.data, labels, values })
     })
   }

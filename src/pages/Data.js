@@ -28,6 +28,7 @@ import { authOff } from '../redux/actions/auth'
 import { deleteUser, getData, getDetails } from '../redux/actions/data'
 import Modal from '../components/Modal'
 import { ddmmmmyyyy } from '../helpers/date'
+import { typeConverter } from '../helpers/bloodConverter'
 
 class Data extends React.Component {
   constructor(props) {
@@ -337,6 +338,8 @@ class Data extends React.Component {
                         Object.keys(row)[id] === 'id'
                           ? (this.props.data.pageInfo.currentPage - 1) * 20 +
                             (idx + 1)
+                          : Object.keys(row)[id] === 'gol_darah'
+                          ? typeConverter(item && item)
                           : Object.keys(row)[id] !== 'jadwal_donor'
                           ? item
                           : item !== null

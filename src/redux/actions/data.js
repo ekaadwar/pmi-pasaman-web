@@ -1,6 +1,8 @@
 /* eslint-disable no-undef */
 import http from '../../helpers/http'
-import { typeConverter, typeDeConverter } from '../../helpers/bloodConverter'
+import {
+  /*typeConverter,*/ typeDeConverter,
+} from '../../helpers/bloodConverter'
 
 const { REACT_APP_BACKEND_URL: URL } = process.env
 
@@ -39,6 +41,7 @@ export const addUser = (formData, token, history) => {
 export const getData =
   (token = null, targetPage = '', params = {}) =>
   async (dispatch) => {
+    dispatch({ type: 'SET_LOADING', payload: true })
     let initialUrl
 
     if (targetPage !== '') {
@@ -66,14 +69,16 @@ export const getData =
         }
       }
     }
-    dispatch({ type: 'SET_LOADING', payload: true })
     try {
       const { data } = await http(token).get(url)
 
-      data.results.map((items) => {
-        const blood = typeConverter(items.gol_darah)
-        items.gol_darah = blood
-      })
+      // console.log(data.results)
+      // data.results.map((items) => {
+      //   const blood = typeConverter(items.gol_darah)
+      //   console.log(blood)
+      // })
+
+      // console.log(data)
 
       dispatch({
         type: 'DATA_GET',

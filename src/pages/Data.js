@@ -112,6 +112,7 @@ class Data extends React.Component {
         ...params,
         page: otherPage,
       }
+
       const url = this.getUrl(params)
       this.props.history.push(url)
     }

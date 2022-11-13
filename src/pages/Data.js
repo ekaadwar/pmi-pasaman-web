@@ -97,7 +97,6 @@ class Data extends React.Component {
   changePage = (event) => {
     if (event.currentTarget.value) {
       const otherPage = event.currentTarget.value.split('page')[1].slice(1)
-      console.log(event.currentTarget.value)
 
       this.setState((prevState) => ({
         ...prevState,

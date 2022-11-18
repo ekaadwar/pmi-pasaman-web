@@ -333,7 +333,7 @@ class Data extends React.Component {
                       ? 'text-red-700 font-bold'
                       : diffMonth(row.jadwal_donor) >= -1
                       ? 'text-yellow-700 font-bold'
-                      : ''
+                      : 'text-gray-700'
                   }
                 >
                   {console.log(diffMonth(row.jadwal_donor))}

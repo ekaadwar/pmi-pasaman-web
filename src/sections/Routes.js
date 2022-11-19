@@ -13,6 +13,7 @@ import PrivateRoute from '../components/PrivateRoute'
 import SignIn from '../pages/SignIn'
 import SignUp from '../pages/SignUp'
 import UserDetail from '../pages/UserDetail'
+import ResetPass from '../pages/ResetPass'
 
 const Routes = () => {
   return (
@@ -37,6 +38,10 @@ const Routes = () => {
       <Route
         path="/forgot-pass"
         render={(props) => <AuthRoute element={<ForgotPass {...props} />} />}
+      />
+      <Route
+        path="/reset-pass/:token"
+        render={(props) => <AuthRoute element={<ResetPass {...props} />} />}
       />
       <Route
         path="/data"

@@ -21,6 +21,27 @@ export const InputAuth = ({
   )
 }
 
+export const InputReset = ({
+  label = '',
+  placeholder = '',
+  type = 'text',
+  alert = '',
+  onChange = () => {},
+}) => {
+  return (
+    <div className="flex flex-col ">
+      <p className="mb-2 text-white">{label}</p>
+      <input
+        className="px-3 py-2 rounded-md border border-gray-300 text-gray-700 focus:outline-none"
+        placeholder={placeholder}
+        type={type}
+        onChange={onChange}
+      />
+      {alert && <p className="text-red-700 text-sm mt-1">{alert}</p>}
+    </div>
+  )
+}
+
 export const InputProfile = ({
   label = '',
   placeholder = '',

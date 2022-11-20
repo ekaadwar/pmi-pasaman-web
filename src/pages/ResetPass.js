@@ -7,6 +7,8 @@ import { AuthHeader } from '../components/Text'
 import { InputReset as Input } from '../components/Input'
 import { PrimaryButton } from '../components/Button'
 import { ErrAlert } from '../components/Alert'
+import { updatePassword } from '../redux/actions/auth'
+import { useHistory } from 'react-router-dom'
 
 const ResetPass = (props) => {
   const [password, setPassword] = useState('')
@@ -14,6 +16,8 @@ const ResetPass = (props) => {
   const [rePassword, setRePassword] = useState('')
   const [valRePassword, setValRePassword] = useState('')
   const [alert, setAlert] = useState(false)
+
+  const history = useHistory()
 
   const changePassword = (e) => {
     const value = e.target.value
@@ -47,8 +51,11 @@ const ResetPass = (props) => {
         const data = {
           token: props.match.params.token,
           password,
+          history,
         }
-        console.log(data)
+        props.updatePassword(data)
+        setPassword('')
+        setRePassword('')
       }
     } else {
       setValPassword('Password tidak boleh kosong')
@@ -114,4 +121,8 @@ const ResetPass = (props) => {
   )
 }
 
-export default connect()(ResetPass)
+const mapDispatchToProps = {
+  updatePassword,
+}
+
+export default connect(null, mapDispatchToProps)(ResetPass)

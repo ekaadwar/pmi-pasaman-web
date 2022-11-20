@@ -23,36 +23,44 @@ const Routes = () => {
         exact
         render={(props) => <GeneralRoute element={<Home {...props} />} />}
       />
+
       <Route
         path="/profile"
         render={(props) => <PrivateRoute element={<MyProfile {...props} />} />}
       />
+
       <Route
         path="/signin"
         render={(props) => <AuthRoute element={<SignIn {...props} />} />}
       />
+
       <Route
         path="/signup"
         render={(props) => <AuthRoute element={<SignUp {...props} />} />}
       />
+
       <Route
         path="/forgot-pass"
         render={(props) => <AuthRoute element={<ForgotPass {...props} />} />}
       />
+
       <Route
-        path="/reset-pass/:token"
+        path="/reset-password/:token"
         render={(props) => <AuthRoute element={<ResetPass {...props} />} />}
       />
+
       <Route
         path="/data"
         exact
         render={(props) => <PrivateRoute element={<Data {...props} />} />}
       />
+
       <Route
         path="/data/add"
         exact
         render={(props) => <PrivateRoute element={<AddData {...props} />} />}
       />
+
       <Route
         path="/data/:id"
         exact
@@ -72,6 +80,7 @@ const Routes = () => {
           <PrivateRoute element={<DonorHistoryUser {...props} />} />
         )}
       />
+
       <Route
         path="/history/:id"
         exact

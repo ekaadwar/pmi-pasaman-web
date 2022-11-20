@@ -88,6 +88,35 @@ export const forgotPassword = (email) => {
   }
 }
 
+export const updatePassword = (param) => {
+  return async (dispatch) => {
+    dispatch({ type: 'SET_LOADING', payload: true })
+    console.log(param.token)
+    const formData = new URLSearchParams()
+    formData.append('password', param.password)
+    try {
+      const { data } = await http().patch(
+        `${URL}/auth/resetpassword/${param.token}`,
+        formData.toString()
+      )
+      dispatch({
+        type: 'USER_UPDATE',
+        payload: data.message,
+      })
+      dispatch({ type: 'SET_LOADING', payload: false })
+      param.history.push('/signin')
+    } catch (err) {
+      dispatch({
+        type: 'USER_ERROR',
+        payload: err.response.data.message,
+      })
+      window.alert(err.response.data.message)
+
+      dispatch({ type: 'SET_LOADING', payload: false })
+    }
+  }
+}
+
 export const authOn = () => ({
   type: 'AUTH_ON',
 })

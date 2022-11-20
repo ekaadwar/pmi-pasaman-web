@@ -1,10 +1,12 @@
 /* eslint-disable no-undef */
 import http from '../../helpers/http'
-import {
-  /*typeConverter,*/ typeDeConverter,
-} from '../../helpers/bloodConverter'
+import { typeDeConverter } from '../../helpers/bloodConverter'
 
 const { REACT_APP_BACKEND_URL: URL } = process.env
+
+// ---------- create ----------
+// ---------- create ----------
+// ---------- create ----------
 
 export const addUser = (formData, token, history) => {
   return async (dispatch) => {
@@ -37,6 +39,10 @@ export const addUser = (formData, token, history) => {
     }
   }
 }
+
+// ---------- read ----------
+// ---------- read ----------
+// ---------- read ----------
 
 export const getData =
   (token = null, targetPage = '', params = {}) =>
@@ -71,14 +77,6 @@ export const getData =
     }
     try {
       const { data } = await http(token).get(url)
-
-      // console.log(data.results)
-      // data.results.map((items) => {
-      //   const blood = typeConverter(items.gol_darah)
-      //   console.log(blood)
-      // })
-
-      // console.log(data)
 
       dispatch({
         type: 'DATA_GET',
@@ -117,6 +115,10 @@ export const getDetails = (id, token, history = null) => {
   }
 }
 
+// ---------- update ----------
+// ---------- update ----------
+// ---------- update ----------
+
 export const updateUser = (id, token, key, value, file = null) => {
   return async (dispatch) => {
     const formData = new FormData()
@@ -142,6 +144,10 @@ export const updateUser = (id, token, key, value, file = null) => {
     }
   }
 }
+
+// ---------- delete ----------
+// ---------- delete ----------
+// ---------- delete ----------
 
 export const deleteUser = (id, token) => {
   return async (dispatch) => {

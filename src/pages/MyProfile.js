@@ -186,8 +186,17 @@ class MyProfile extends React.Component {
                           </div>
                         </div>
 
-                        <div className="flex flex-col items-stretch space-y-1 pt-4">
-                          <Link to={'/myhistory'} className="w-full">
+                        <div className="flex flex-col space-y-1 pt-4 bg-yellow-200">
+                          <Link
+                            to={'/update-pass'}
+                            className="flex flex-col items-stretch w-full bg-red-200"
+                          >
+                            <Button content={<p>Update Password</p>} />
+                          </Link>
+                          <Link
+                            to={'/myhistory'}
+                            className="flex flex-col items-stretch w-full bg-red-200"
+                          >
                             <Button content={<p>Riwayat Donor</p>} />
                           </Link>
                         </div>

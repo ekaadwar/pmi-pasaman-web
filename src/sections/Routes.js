@@ -15,6 +15,7 @@ import SignUp from '../pages/SignUp'
 import UserDetail from '../pages/UserDetail'
 import ResetPass from '../pages/ResetPass'
 import UpdatePass from '../pages/UpdatePass'
+import ConfirmPass from '../pages/ConfirmPass'
 
 const Routes = () => {
   return (
@@ -33,6 +34,13 @@ const Routes = () => {
       <Route
         path="/update-pass"
         render={(props) => <PrivateRoute element={<UpdatePass {...props} />} />}
+      />
+
+      <Route
+        path="/confirm-pass"
+        render={(props) => (
+          <PrivateRoute element={<ConfirmPass {...props} />} />
+        )}
       />
 
       <Route

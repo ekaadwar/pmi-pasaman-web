@@ -50,3 +50,53 @@ export const updateProfile = (token, key, value, file = null) => {
     }
   }
 }
+
+export const updatePassword = (token, dataUpdate) => {
+  return async (dispatch) => {
+    dispatch({ type: 'SET_LOADING', payload: true })
+    const formData = new URLSearchParams()
+    formData.append('password', dataUpdate.password)
+    formData.append('newPassword', dataUpdate.newPassword)
+    formData.append('rePassword', dataUpdate.newPassword)
+
+    try {
+      const { data } = await http(token).post(
+        `${URL}/users/update_password`,
+        formData.toString()
+      )
+      dispatch({ type: 'SET_LOADING', payload: false })
+      window.alert(data.message)
+      dataUpdate.history.push('/confirm-pass')
+    } catch (error) {
+      console.log(error)
+
+      dispatch({ type: 'SET_LOADING', payload: false })
+      window.alert(error?.response.data.message)
+    }
+  }
+}
+
+export const confirmPassword = (dataConfirm) => {
+  return async (dispatch) => {
+    dispatch({ type: 'SET_LOADING', payload: true })
+    const form = new URLSearchParams()
+    form.append('pin', dataConfirm.pin)
+
+    try {
+      const { data } = await http(dataConfirm.token).patch(
+        `${URL}/users/update_password`,
+        form.toString()
+      )
+      dispatch({ type: 'SET_LOADING', payload: false })
+
+      window.alert(data.message)
+
+      dataConfirm.history.push('/profile')
+    } catch (error) {
+      console.log(error)
+
+      dispatch({ type: 'SET_LOADING', payload: false })
+      window.alert(error?.response.data.message)
+    }
+  }
+}

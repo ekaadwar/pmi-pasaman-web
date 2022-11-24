@@ -11,7 +11,7 @@ const About = () => {
           <div className="py-10">
             <div className="flex justify-center">
               <div className="max-w-xs w-full">
-                <PrimaryButton content="Struktur Organisasi" />
+                <PrimaryButton content="Struktur Organisasigit sta" />
               </div>
             </div>
 

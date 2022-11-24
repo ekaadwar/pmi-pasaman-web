@@ -87,7 +87,7 @@ class DonorHistoryUser extends React.Component {
       <section className="min-h-screen py-20">
         <Container
           content={
-            <div className="flex flex-col sm:flex-row items-center justify-center sm:space-x-5 space-y-5 sm:space-y-0 my-20">
+            <div className="flex flex-col sm:flex-row items-center justify-center sm:space-x-5 space-y-5 sm:space-y-0 my-10">
               {this.state.token &&
                 (this.props.auth.userId === 1 ||
                   this.props.auth.userId === 2) && (

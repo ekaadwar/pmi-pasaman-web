@@ -49,7 +49,7 @@ const Header = (props) => {
             </div>
 
             <div className="hidden lg:flex flex-row justify-center space-x-8">
-              <Link to="#">Tentang Kami</Link>
+              <Link to="/about">Tentang Kami</Link>
               <Link to="/stock">Stok Darah</Link>
               <Link to="#">Pelayanan</Link>
               {(props.auth.userId === 1 || props.auth.userId === 2) && (

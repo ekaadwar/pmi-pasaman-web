@@ -16,6 +16,7 @@ import UserDetail from '../pages/UserDetail'
 import ResetPass from '../pages/ResetPass'
 import UpdatePass from '../pages/UpdatePass'
 import ConfirmPass from '../pages/ConfirmPass'
+import About from '../pages/About'
 
 const Routes = () => {
   return (
@@ -79,6 +80,10 @@ const Routes = () => {
         path="/data/:id"
         exact
         render={(props) => <PrivateRoute element={<UserDetail {...props} />} />}
+      />
+      <Route
+        path="/about"
+        render={(props) => <GeneralRoute element={<About {...props} />} />}
       />
       <Route
         path="/stock"

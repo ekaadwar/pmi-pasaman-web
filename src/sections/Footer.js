@@ -24,13 +24,20 @@ const Footer = () => {
                 Meningkatkan ketersediaan darah yang aman, mudah dijangkau,
                 berkualitas dan berkesinambungan di seluruh Indonesia
               </p>
-              <p>Alamat Markas PMI Kabupaten Pasaman</p>
+              <p>
+                Jalan A. Yani Nomor 28, Kec. Lubuk Sikaping, Pasaman, <br />
+                Sumatera Barat 26318
+              </p>
             </div>
 
             <div className="flex flex-col items-start sm:items-end space-y-2">
               {socialMedia.map((item, idx) => (
                 <div key={idx}>
-                  <MediaLane media={item.media} icon={item.icon} />
+                  <MediaLane
+                    media={item.media}
+                    icon={item.icon}
+                    link={item.link}
+                  />
                 </div>
               ))}
             </div>

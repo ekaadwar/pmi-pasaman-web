@@ -2,9 +2,9 @@ import React from 'react'
 
 import {
   FaFacebookSquare as Facebook,
-  FaWhatsappSquare as WhatsApp,
+  // FaWhatsappSquare as WhatsApp,
   FaInstagramSquare as Instagram,
-  FaTwitterSquare as Twitter,
+  // FaTwitterSquare as Twitter,
 } from 'react-icons/fa'
 
 export const bloodStock = [
@@ -15,10 +15,19 @@ export const bloodStock = [
 ]
 
 export const socialMedia = [
-  { media: 'Contact Person', icon: <WhatsApp size={24} /> },
-  { media: 'Facebook', icon: <Facebook size={24} /> },
-  { media: 'Instagram', icon: <Instagram size={24} /> },
-  { media: 'Twitter', icon: <Twitter size={24} /> },
+  // {
+  //   media: 'Contact Person',
+  //   icon: <WhatsApp size={24} />,
+  // },
+  {
+    icon: <Facebook size={24} />,
+    link: 'https://www.facebook.com/profile.php?id=100083763250303',
+  },
+  {
+    icon: <Instagram size={24} />,
+    link: 'https://www.instagram.com/pasamanpmi/?hl=id',
+  },
+  // { icon: <Twitter size={24} /> },
 ]
 
 export const donorHistory = [

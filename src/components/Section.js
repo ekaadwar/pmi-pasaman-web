@@ -12,7 +12,9 @@ export const AuthSection = ({ content = <div />, signup = false }) => {
 
 export const PageJumbotron = ({ content = <div /> }) => {
   return (
-    <section className="jumbotron min-height h-screen pt-20">{content}</section>
+    <section className="jumbotron relative min-height h-screen pt-20">
+      {content}
+    </section>
   )
 }
 

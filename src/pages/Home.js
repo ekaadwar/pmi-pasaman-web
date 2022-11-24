@@ -46,21 +46,23 @@ class Home extends React.Component {
       <section className="">
         <PageJumbotron
           content={
-            <Container
-              content={
-                <div className="flex flex-col justify-center sm:w-1/2 h-full space-y-12">
-                  <div className="max-w-xs">
-                    <img src={logoName} alt="logo PMI Pasaman" />
-                  </div>
+            <div className="jumbotron-gradation h-full">
+              <Container
+                content={
+                  <div className="flex flex-col justify-center sm:w-1/2 h-full space-y-12">
+                    <div className="max-w-xs">
+                      <img src={logoName} alt="logo PMI Pasaman" />
+                    </div>
 
-                  <p className="xl:w-1/2 text-white font-bold">
-                    Pelayanan yang dilaksanakan oleh Palang Merah Indonesia
-                    sesuai amanat Undang-Undang No.1 Tahun 2018 tentang
-                    Kepalangmerahan
-                  </p>
-                </div>
-              }
-            />
+                    <p className="xl:w-1/2 text-white font-bold">
+                      Pelayanan yang dilaksanakan oleh Palang Merah Indonesia
+                      sesuai amanat Undang-Undang No.1 Tahun 2018 tentang
+                      Kepalangmerahan
+                    </p>
+                  </div>
+                }
+              />
+            </div>
           }
         />
 

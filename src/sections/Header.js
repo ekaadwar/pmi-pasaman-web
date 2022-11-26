@@ -100,7 +100,7 @@ const Header = (props) => {
                 <Link to="/" onClick={() => setIsOpen(false)}>
                   Home
                 </Link>
-                <Link to="#" onClick={() => setIsOpen(false)}>
+                <Link to="/about" onClick={() => setIsOpen(false)}>
                   Tentang Kami
                 </Link>
                 <Link to="/stock" onClick={() => setIsOpen(false)}>
@@ -109,9 +109,12 @@ const Header = (props) => {
                 <Link to="#" onClick={() => setIsOpen(false)}>
                   Pelayan
                 </Link>
-                <Link to="/data" onClick={() => setIsOpen(false)}>
-                  Data
-                </Link>
+
+                {(props.auth.userId === 1 || props.auth.userId === 2) && (
+                  <Link to="/data" onClick={() => setIsOpen(false)}>
+                    Data
+                  </Link>
+                )}
 
                 {!props.auth.token ? (
                   <div className="flex flex-row space-x-3 font-bold">

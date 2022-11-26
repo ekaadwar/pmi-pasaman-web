@@ -46,7 +46,7 @@ class Home extends React.Component {
       <section className="">
         <PageJumbotron
           content={
-            <div className="jumbotron-gradation h-full">
+            <div className="jumbotron-gradation absolute top-0 w-full h-screen">
               <Container
                 content={
                   <div className="flex flex-col justify-center sm:w-1/2 h-full space-y-12">

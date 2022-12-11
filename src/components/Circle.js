@@ -23,7 +23,7 @@ export const SecondaryDot = ({ content = <div /> }) => {
 
 export const CircleMd = ({ content = <div /> }) => {
   return (
-    <div className="flex justify-center items-center overflow-hidden w-32 h-32 bg-red-300 rounded-full">
+    <div className="flex justify-center items-center overflow-hidden w-32 h-32 bg-gray-300 rounded-full">
       {content}
     </div>
   )

@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 import Container from '../components/Container'
+
+import { RiUser3Fill as Profile } from 'react-icons/ri'
 import { authOff } from '../redux/actions/auth'
 import { ActionButtonGray as Button } from '../components/Button'
 import { CircleButton } from '../components/Button'
@@ -15,7 +17,7 @@ import {
   ProfileCardFullHeight as MainCard,
   ProfileCard,
 } from '../components/Card'
-import { zulaikha } from '../assets'
+// import { zulaikha } from '../assets'
 
 class MyProfile extends React.Component {
   constructor(props) {
@@ -146,13 +148,7 @@ class MyProfile extends React.Component {
                         <div className="flex-1 flex flex-col items-center space-y-2">
                           <div className="relative">
                             <CircleMd
-                              content={
-                                <img
-                                  src={zulaikha}
-                                  alt="Smile Woman"
-                                  className="w-full"
-                                />
-                              }
+                              content={<Profile color="white" size={60} />}
                             />
                             <div className="absolute -bottom-2 -right-2">
                               <CircleButton content={<Edit color="white" />} />

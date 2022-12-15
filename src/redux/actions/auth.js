@@ -91,7 +91,6 @@ export const forgotPassword = (email) => {
 export const updatePassword = (param) => {
   return async (dispatch) => {
     dispatch({ type: 'SET_LOADING', payload: true })
-    console.log(param.token)
     const formData = new URLSearchParams()
     formData.append('password', param.password)
     try {

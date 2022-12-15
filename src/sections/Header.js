@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Sling as Hamburger } from 'hamburger-react'
 import { Link } from 'react-router-dom'
 import {
@@ -22,6 +22,10 @@ const Header = (props) => {
     props.authLogout()
     history.push('/')
   }
+
+  useEffect(() => {
+    console.log(props.auth)
+  }, [])
 
   const resLogout = () => {
     logout()
@@ -52,7 +56,12 @@ const Header = (props) => {
               <Link to="/about">Tentang Kami</Link>
               <Link to="/stock">Stok Darah</Link>
               <Link to="#">Pelayanan</Link>
-              {(props.auth.userId === 1 || props.auth.userId === 2) && (
+              {(props.auth.userId === 1 ||
+                props.auth.userId === 2 ||
+                props.auth.userId === 186 ||
+                props.auth.userId === 187 ||
+                props.auth.userId === 188 ||
+                props.auth.userId === 189) && (
                 <Link to="/data" onClick={() => setIsOpen(false)}>
                   Data
                 </Link>
@@ -110,7 +119,12 @@ const Header = (props) => {
                   Pelayan
                 </Link>
 
-                {(props.auth.userId === 1 || props.auth.userId === 2) && (
+                {(props.auth.userId === 1 ||
+                  props.auth.userId === 2 ||
+                  props.auth.userId === 186 ||
+                  props.auth.userId === 187 ||
+                  props.auth.userId === 188 ||
+                  props.auth.userId === 189) && (
                   <Link to="/data" onClick={() => setIsOpen(false)}>
                     Data
                   </Link>
